@@ -1,0 +1,244 @@
+{% extends 'shop/accounts/dashboard/base_dashboard.html' %}
+{% load static %}
+{% block title %}My Account - Orders{% endblock title %}
+
+{% block dashboard_content %}
+<div class="orders-wrapper">
+    <div class="section-header">
+        <h2>My Orders</h2>
+    </div>
+
+    {% if orders %}
+    <div class="orders-table-wrapper">
+        <table class="orders-table">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Date</th>
+                    <th>Items</th>
+                    <th>Status</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td class="order-id">#{{ order.order_number }}</td>
+                    <td>{{ order.created_at|date:"M d, Y" }}</td>
+                    <td>
+                        <div class="product-list">
+                            {% for item in order.orderproduct_set.all %}
+                                <div class="product-item">
+                                    {{ item.product.name }}
+                                    {% if not forloop.last %}<span class="product-separator">, </span>{% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </td>
+                    <td>
+                        <span class="status-badge {{ order.status|lower }}">
+                            <i class="fas"></i>
+                            {% if order.status == 'Out_For_Delivery' %}
+                                Out For Delivery
+                            {% else %}
+                                {{ order.status }}
+                            {% endif %}
+                        </span>
+                    </td>
+                    <td class="total">GH₵{{ order.order_total }}</td>
+                    <td>
+                        <a href="{% url 'accounts:order_detail' order.order_number %}" class="action-btn">
+                            View Details
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <img src="{% static 'images/no-orders.svg' %}" alt="No Orders">
+        <h3>No Orders Yet</h3>
+        <p>Start exploring our collection and make your first purchase!</p>
+        <a href="{% url 'shop:shop' %}" class="shop-now-btn">Browse Products</a>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+    .orders-wrapper {
+        padding: 2rem;
+        background: white;
+        border-radius: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .section-header {
+        margin-bottom: 2rem;
+    }
+
+    .section-header h2 {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: #1f2937;
+    }
+
+    .orders-table-wrapper {
+        overflow-x: auto;
+    }
+
+    .orders-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .orders-table th {
+        background: #f8fafc;
+        padding: 1rem;
+        text-align: left;
+        font-weight: 600;
+        color: #475569;
+        border-bottom: 2px solid #e2e8f0;
+    }
+
+    .orders-table td {
+        padding: 1.5rem 1rem;
+        border-bottom: 1px solid #e2e8f0;
+        vertical-align: middle;
+    }
+
+    .order-id {
+        font-weight: 600;
+        color: #1f2937;
+    }
+
+    .product-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .product-item {
+        color: #4b5563;
+    }
+
+    .product-separator {
+        color: #9ca3af;
+    }
+
+    .status-badge {
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .status-badge i {
+        font-size: 14px;
+    }
+
+    .status-badge.pending {
+        background: #e0f2fe;
+        color: #0369a1;
+    }
+
+    .status-badge.processing {
+        background: #fef3c7;
+        color: #92400e;
+    }
+
+    .status-badge.out_for_delivery {
+        background: #dbeafe;
+        color: #1d4ed8;
+    }
+
+    .status-badge.delivered {
+        background: #dcfce7;
+        color: #166534;
+    }
+
+    .status-badge.cancelled {
+        background: #fee2e2;
+        color: #991b1b;
+    }
+
+    .status-badge.pending i::before {
+        content: "\f017";  /* clock icon for pending orders */
+    }
+
+    .status-badge.processing i::before {
+        content: "\f466";  /* box */
+    }
+
+    .status-badge.out_for_delivery i::before {
+        content: "\f48b";  /* truck */
+    }
+
+    .status-badge.delivered i::before {
+        content: "\f058";  /* check-circle */
+    }
+
+    .status-badge.cancelled i::before {
+        content: "\f057";  /* times-circle */
+    }
+
+    .total {
+        font-weight: 600;
+        color: #1f2937;
+    }
+
+    .action-btn {
+        color: #4f46e5;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+    }
+
+    .action-btn:hover {
+        color: #4338ca;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+    }
+
+    .empty-state img {
+        width: 200px;
+        margin-bottom: 2rem;
+    }
+
+    .empty-state h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 1rem;
+    }
+
+    .empty-state p {
+        color: #6b7280;
+        margin-bottom: 2rem;
+    }
+
+    .shop-now-btn {
+        display: inline-block;
+        background: #4f46e5;
+        color: white;
+        padding: 0.75rem 2rem;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        font-weight: 500;
+        transition: background-color 0.2s;
+    }
+
+    .shop-now-btn:hover {
+        background: #4338ca;
+    }
+</style>
+{% endblock %}

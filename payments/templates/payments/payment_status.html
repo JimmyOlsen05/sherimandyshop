@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Payment Status{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Payment Status</h4>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        {% if payment.status == 'COMPLETED' %}
+                            <div class="text-success mb-3">
+                                <i class="fas fa-check-circle fa-4x"></i>
+                            </div>
+                            <h3 class="text-success">Payment Successful!</h3>
+                            <p class="lead">Your order has been confirmed.</p>
+                        {% elif payment.status == 'FAILED' %}
+                            <div class="text-danger mb-3">
+                                <i class="fas fa-times-circle fa-4x"></i>
+                            </div>
+                            <h3 class="text-danger">Payment Failed</h3>
+                            <p class="lead">Something went wrong with your payment.</p>
+                        {% else %}
+                            <div class="text-primary mb-3">
+                                <i class="fas fa-spinner fa-spin fa-4x"></i>
+                            </div>
+                            <h3>Payment Processing</h3>
+                            <p class="lead">Please authorize the payment on your phone.</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Payment Details</h5>
+                            <dl class="row mb-0">
+                                <dt class="col-sm-4">Reference:</dt>
+                                <dd class="col-sm-8">{{ payment.reference }}</dd>
+
+                                <dt class="col-sm-4">Amount:</dt>
+                                <dd class="col-sm-8">GHS {{ payment.amount }}</dd>
+
+                                <dt class="col-sm-4">Network:</dt>
+                                <dd class="col-sm-8">{{ payment.get_network_display }}</dd>
+
+                                <dt class="col-sm-4">Phone Number:</dt>
+                                <dd class="col-sm-8">{{ payment.phone_number }}</dd>
+
+                                <dt class="col-sm-4">Status:</dt>
+                                <dd class="col-sm-8">
+                                    <span class="badge {% if payment.status == 'COMPLETED' %}bg-success
+                                                     {% elif payment.status == 'FAILED' %}bg-danger
+                                                     {% else %}bg-warning{% endif %}">
+                                        {{ payment.get_status_display }}
+                                    </span>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        {% if payment.status == 'PENDING' or payment.status == 'PROCESSING' %}
+                            <button class="btn btn-primary" id="checkStatus">
+                                Check Payment Status
+                            </button>
+                        {% endif %}
+                        
+                        <a href="{% url 'orders:order_detail' payment.order.id %}" class="btn btn-outline-secondary">
+                            View Order Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+{% if payment.status == 'PENDING' or payment.status == 'PROCESSING' %}
+<script>
+document.getElementById('checkStatus').addEventListener('click', function() {
+    window.location.href = "{% url 'payments:verify_payment' payment.id %}";
+});
+
+// Auto-refresh the page every 10 seconds if payment is pending
+setTimeout(function() {
+    window.location.reload();
+}, 10000);
+</script>
+{% endif %}
+{% endblock %}
+{% endblock %}

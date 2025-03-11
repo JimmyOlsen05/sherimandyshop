@@ -1,0 +1,45 @@
+Website Requirements Form
+1. General Information
+•	Client Name: _____COMFORT DICKSON____
+•	Company/Brand Name: _______SHERIMANDY_________
+•	Email: __COLLINSJOEFIAVE@GMAIL.COM_____________
+•	Phone: _____0555078258_____________________
+•	Business Industry: _____SHOP_____________________
+
+
+
+The business is a PPE shop (Safety boots, helmet, googles, Road signs, etc) where Mining Companies, Other companies and individuals buy from  
+
+The website should be able to display the products online, where companies or individuals can view my products online and order, so that I can do delivery for them if they wants or would come and pick it themselves.
+
+
+
+4. Website Features & Functionality
+•	What pages should your website include?
+☐ Home
+☐ About Us
+☐ Services
+☐ Contact Us
+☐ Blog/News
+☐ Portfolio/Gallery
+
+☐ E-commerce (Shop)
+
+
+
+
+•	Will you need user accounts or a login system?
+☐ Yes
+☐ No
+YES
+
+
+
+•	Do you require an online payment system?
+☐ Yes (Preferred provider: ____YES, MOMO (0555078258) and BANK ACCOUNT____________)
+
+comfort@Sherimandy.com
+
+
+I WANT MY WHATSAPP TO BE LINKED TO THE SITE SO THAT PEOPLE CAN JUST CLICK ON IT ON THE SITE TO START CHATTING ME ON WHATSAPP
+

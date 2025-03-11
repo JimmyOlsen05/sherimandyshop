@@ -1,0 +1,75 @@
+{% extends 'shop/accounts/dashboard/base_dashboard.html' %}
+{% load static %}
+{% block title %}My Account - Edit Profile{% endblock title %}
+
+{% block dashboard_content %}
+<div style="max-width: 900px;">
+    <div style="margin-bottom: 2.5rem;">
+        <h2 style="color: #1f2937; font-size: 2.5rem; margin-bottom: 0.75rem; font-weight: 700;">Edit Profile</h2>
+        <p style="color: #6b7280; font-size: 1.5rem;">Update your personal information and address</p>
+    </div>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div style="background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);">
+            <div style="display: grid; gap: 2rem;">
+                <!-- Personal Information -->
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;">
+                    <div>
+                        <label for="first_name" style="display: block; color: #374151; font-size: 1.5rem; font-weight: 600; margin-bottom: 0.75rem;">First Name</label>
+                        <input type="text" name="first_name" value="{{ user.first_name }}" style="width: 100%; padding: 1rem; border: 2px solid #d1d5db; border-radius: 8px; font-size: 1.25rem;">
+                    </div>
+                    <div>
+                        <label for="last_name" style="display: block; color: #374151; font-size: 1.5rem; font-weight: 600; margin-bottom: 0.75rem;">Last Name</label>
+                        <input type="text" name="last_name" value="{{ user.last_name }}" style="width: 100%; padding: 1rem; border: 2px solid #d1d5db; border-radius: 8px; font-size: 1.25rem;">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="email" style="display: block; color: #374151; font-size: 1.5rem; font-weight: 600; margin-bottom: 0.75rem;">Email Address</label>
+                    <input type="email" name="email" value="{{ user.email }}" style="width: 100%; padding: 1rem; border: 2px solid #d1d5db; border-radius: 8px; font-size: 1.25rem;" readonly>
+                </div>
+
+                <div>
+                    <label for="phone_number" style="display: block; color: #374151; font-size: 1.5rem; font-weight: 600; margin-bottom: 0.75rem;">Phone Number</label>
+                    <input type="tel" name="phone_number" value="{{ userprofile.phone_number }}" style="width: 100%; padding: 1rem; border: 2px solid #d1d5db; border-radius: 8px; font-size: 1.25rem;">
+                </div>
+
+                <!-- Address Information -->
+                <div>
+                    <label for="address" style="display: block; color: #374151; font-size: 1.5rem; font-weight: 600; margin-bottom: 0.75rem;">Street Address</label>
+                    <textarea name="address" rows="3" style="width: 100%; padding: 1rem; border: 2px solid #d1d5db; border-radius: 8px; font-size: 1.25rem;">{{ userprofile.address }}</textarea>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;">
+                    <div>
+                        <label for="city" style="display: block; color: #374151; font-size: 1.5rem; font-weight: 600; margin-bottom: 0.75rem;">City</label>
+                        <input type="text" name="city" value="{{ userprofile.city }}" style="width: 100%; padding: 1rem; border: 2px solid #d1d5db; border-radius: 8px; font-size: 1.25rem;">
+                    </div>
+                    <div>
+                        <label for="state" style="display: block; color: #374151; font-size: 1.5rem; font-weight: 600; margin-bottom: 0.75rem;">Region</label>
+                        <input type="text" name="state" value="{{ userprofile.state }}" style="width: 100%; padding: 1rem; border: 2px solid #d1d5db; border-radius: 8px; font-size: 1.25rem;">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="country" style="display: block; color: #374151; font-size: 1.5rem; font-weight: 600; margin-bottom: 0.75rem;">Country</label>
+                    <input type="text" name="country" value="{{ userprofile.country }}" style="width: 100%; padding: 1rem; border: 2px solid #d1d5db; border-radius: 8px; font-size: 1.25rem;">
+                </div>
+            </div>
+
+            <div style="margin-top: 2.5rem;">
+                <button type="submit" style="background: #4f46e5; color: white; padding: 1.25rem; border: none; border-radius: 8px; font-size: 1.5rem; font-weight: 600; cursor: pointer; width: 100%;">Save Changes</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<style>
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+</style>
+{% endblock %}

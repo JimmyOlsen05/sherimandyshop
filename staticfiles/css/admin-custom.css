@@ -1,0 +1,118 @@
+/* Custom styles for Django admin */
+
+/* Form field improvements */
+.form-row {
+    padding: 10px 0;
+}
+
+/* Fieldset styling */
+.module h2, .module caption {
+    background: #2c3e50;
+    color: #ecf0f1;
+    padding: 8px;
+    font-size: 14px;
+}
+
+/* List view improvements */
+#changelist-form .results {
+    overflow-x: auto;
+}
+
+/* Image preview styling */
+.field-product_image img,
+.field-display_image img,
+.field-image_preview img {
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+/* Product gallery inline */
+.inline-group {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+.inline-group .form-row {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Filter styling */
+#changelist-filter h2 {
+    background: #34495e;
+    color: #ecf0f1;
+    padding: 10px;
+    margin: 0;
+    font-size: 14px;
+}
+
+#changelist-filter h3 {
+    font-size: 13px;
+    margin: 10px 0;
+}
+
+#changelist-filter ul {
+    margin: 5px 0;
+    padding: 0;
+    list-style: none;
+}
+
+#changelist-filter li {
+    padding: 3px 15px;
+}
+
+/* Action buttons */
+.submit-row {
+    background: #f8f9fa;
+    padding: 10px;
+    margin: 15px 0;
+    border-radius: 4px;
+}
+
+.button, input[type=submit], input[type=button], .submit-row input {
+    background: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 15px;
+    cursor: pointer;
+}
+
+.button:hover, input[type=submit]:hover, input[type=button]:hover, .submit-row input:hover {
+    background: #2980b9;
+}
+
+/* Form field improvements */
+.vTextField, .vLargeTextField, select {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Help text styling */
+.help {
+    color: #666;
+    font-size: 12px;
+    margin: 5px 0;
+}
+
+/* Error message styling */
+.errornote {
+    background: #e74c3c;
+    color: #fff;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+/* Success message styling */
+.messagelist .success {
+    background: #2ecc71;
+    color: #fff;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+}

@@ -1,0 +1,56 @@
+{% extends '../../../base.html' %}
+{% load static %}
+
+{% block title %}Payment Successful{% endblock title %}
+
+{% block content %}
+<div style="background: #1C1427; min-height: 100vh; padding: 40px 0;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div style="background: #40394A; border-radius: 12px; padding: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.2); text-align: center;">
+                    <div style="margin-bottom: 30px;">
+                        <i class="fa fa-check-circle" style="font-size: 4rem; color: #38BDF8;"></i>
+                    </div>
+                    
+                    <h2 style="color: #F8FAFC; margin-bottom: 20px;">Payment Successful!</h2>
+                    <p style="color: #94A3B8; margin-bottom: 30px;">Your order has been successfully processed.</p>
+
+                    <div style="background: #2D2B3A; border-radius: 8px; padding: 20px; margin-bottom: 30px;">
+                        <h4 style="color: #38BDF8; margin-bottom: 20px;">Order Details</h4>
+                        <div style="color: #94A3B8; text-align: left;">
+                            <p>Order Number: <span style="color: #F8FAFC;">{{ order.order_number }}</span></p>
+                            <p>Order Date: <span style="color: #F8FAFC;">{{ order.created_at|date:"F d, Y" }}</span></p>
+                            <p>Total Amount: <span style="color: #F8FAFC;">₵ {{ order.order_total }}</span></p>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 30px;">
+                        <h4 style="color: #38BDF8; margin-bottom: 20px;">Purchased Items</h4>
+                        <div style="background: #2D2B3A; border-radius: 8px; padding: 20px;">
+                            {% for item in ordered_products %}
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #4B5563;">
+                                <div style="display: flex; align-items: center; gap: 15px;">
+                                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px;">
+                                    <div style="text-align: left;">
+                                        <h5 style="color: #F8FAFC; margin-bottom: 5px;">{{ item.product.name }}</h5>
+                                        <p style="color: #94A3B8; margin: 0;">Quantity: {{ item.quantity }}</p>
+                                    </div>
+                                </div>
+                                <div style="color: #F8FAFC;">₵ {{ item.product_price }}</div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 30px;">
+                        <a href="{% url 'shop:shop' %}" class="btn" style="background: #38BDF8; color: #fff; padding: 12px 30px; border-radius: 6px; text-decoration: none; transition: all 0.3s;" onmouseover="this.style.background='#0EA5E9'" onmouseout="this.style.background='#38BDF8'">
+                            Continue Shopping
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

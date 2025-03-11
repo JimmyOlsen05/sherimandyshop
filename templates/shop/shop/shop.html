@@ -1,0 +1,223 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Shop{% endblock %}
+{% block content %}
+<!-- header section end -->
+        <!-- pages-title-start -->
+		<div style="background:#2c3e50; margin-top: -40px; padding: 80px 0 40px;" class="pages-title section-padding">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="pages-title-text text-center">
+							{% if category_slug != None %}
+							<h2 style="color:#ecf0f1; text-transform: capitalize; font-weight:600; letter-spacing:1px; margin: 0; font-size: 2.25rem;">{{category_slug}}</h2>
+							{% else %}
+							<h2 style="color:#ecf0f1; text-transform: capitalize; font-weight:600; letter-spacing:1px; margin: 0; font-size: 2.25rem;">All Products</h2>
+							{% endif %}
+							<ul class="text-left breadcrumb" style="background:transparent; margin: 15px 0 0;">
+								{% if category_slug != None %}
+								<li style="color:#ecf0f1; font-size: 1.1rem;">{{category_slug}}</li>
+								{% endif %}
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+		<!-- pages-title-end -->
+		<!-- product-grid-view content section start -->
+		<section style="background:#f5f6fa" class="pages products-page section-padding-bottom">
+			<div class="container">
+				<div class="row"><br>
+					<div class="col-xs-12 col-sm-4 col-md-3">
+						<div class="sidebar left-sidebar">
+							<div style="background:#fff;border-radius:10px;box-shadow:0 2px 15px rgba(0,0,0,0.1)" class="s-side-text">
+								<div class="sidebar-title clearfix text-center">
+									<h3 style="color:#2c3e50;padding:15px;font-weight:600">Categories</h3>
+								</div>
+								<div class="sidebar-title clearfix">
+									<h4 class="floatleft"><a style="font-weight:500;color:#3498db;transition:all 0.3s" class="category-link" href="{% url 'shop:shop' %}">All</a></h4>
+								</div>
+                                {% for category in categories %}
+                                <div class="sidebar-title clearfix">
+									<h4 class="floatleft"><a style="font-weight:500;color:#2c3e50;transition:all 0.3s" class="category-link" href="{{ category.get_category_slug_url }}">{{category.name}}</a></h4>
+								</div>
+                                {% endfor %}
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-8 col-md-9">
+						<div class="right-products">
+							<div class="row">
+								<div class="col-xs-12">
+									<div style="background:#fff;border-radius:10px;box-shadow:0 2px 15px rgba(0,0,0,0.1);padding:15px" class="section-title clearfix">
+										<ul>
+											<li>
+												<ul class="nav-view">
+													<li class="active"><a data-toggle="tab" href="#grid"> <i style="color:#3498db" class="mdi mdi-view-module"></i> </a></li>
+													<li><a data-toggle="tab" href="#list"> <i style="color:#3498db" class="mdi mdi-view-list"></i> </a></li>
+												</ul>
+											</li>
+											<li style="color:#2c3e50;font-size:16px" class="sort-by floatright">
+												{{products_count}} Results
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="tab-content grid-content">
+									<div class="tab-pane fade in active text-center" id="grid">
+                                        {% for product in products %}
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div style="background:#fff;border-radius:15px;box-shadow:0 2px 15px rgba(0,0,0,0.1);margin-bottom:30px;transition:all 0.3s" class="single-product hover-effect">
+												<div class="product-img">
+													{% if product.discount != 0.00 %}
+													<div class="pro-type sale-badge">
+														<span style="background:#e74c3c;color:#fff;padding:5px 15px;border-radius:20px">Sale</span>
+													</div>
+													{% endif %}
+													{% if product.new %}
+													<div class="pro-type">
+														<span style="background:#27ae60;color:#fff;padding:5px 15px;border-radius:20px">New</span>
+													</div>
+													{% endif %}
+													{% if not product.is_available or product.stock <= 0 %}
+													<div class="pro-type">
+														<span style="background:#95a5a6;color:#fff;padding:5px 15px;border-radius:20px">Out of Stock</span>
+													</div>
+													{% endif %}
+													<a href="{{product.get_prodcut_details_url}}">
+                                                        <img style="width:100%;height:350px;border-radius:15px 15px 0 0;object-fit:cover" src="{{product.image.url}}" alt="{{product.name}}" />
+                                                    </a>
+													<div class="actions-btn">
+														{% if product.is_available and product.stock > 0 %}
+														<a style="background:#3498db;color:#fff;border-radius:50%;width:40px;height:40px;line-height:40px;margin:5px;transition:all 0.3s" href="{% url 'cart:add_cart' product.id %}"><i class="mdi mdi-cart"></i></a>
+														{% endif %}
+														<a style="background:#3498db;color:#fff;border-radius:50%;width:40px;height:40px;line-height:40px;margin:5px;transition:all 0.3s" href="{{product.get_prodcut_details_url}}"><i class="mdi mdi-eye"></i></a>
+														{% if user.is_authenticated %}
+														<a style="background:#3498db;color:#fff;border-radius:50%;width:40px;height:40px;line-height:40px;margin:5px;transition:all 0.3s" href="{% url 'shop:add_to_wishlist' product.id %}" class="wishlist-btn">
+															<i class="{% if product.id in user_wishlist %}fas{% else %}far{% endif %} fa-heart"></i>
+														</a>
+														{% endif %}
+													</div>
+												</div>
+												<div class="product-dsc" style="padding:15px">
+													<p><a style="color:#2c3e50;font-weight:500;font-size:16px;transition:all 0.3s" href="{{product.get_prodcut_details_url}}">{{product.name}}</a></p>
+													<div class="price-box">
+														<div class="price mb-1">
+															<span class="price h5 text-dark">GH₵ {{product.price|floatformat:2}}</span>
+														</div>
+														{% if product.discount != 0.00 %}
+														<span style="color:#95a5a6;text-decoration:line-through;margin-right:10px">GH₵ {{product.price|floatformat:2}}</span>
+														<span style="color:#3498db;font-weight:600;font-size:18px">GH₵ {{product.discount|floatformat:2}}</span>
+														{% endif %}
+													</div>
+													{% if product.is_available and product.stock > 0 %}
+													<span style="color:#27ae60;font-size:14px">In Stock ({{product.stock}} items)</span>
+													{% else %}
+													<span style="color:#e74c3c;font-size:14px">Out of Stock</span>
+													{% endif %}
+													<div style="font-size:16px;margin-top:10px" class="rating-star">
+														<span style="color:#f1c40f">
+														<i class="fa fa-star{% if product.averageRating < 0.5 %}-o{% elif product.averageRating >= 0.5 and product.averageRating < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+														<i class="fa fa-star{% if product.averageRating < 1.5 %}-o{% elif product.averageRating >= 1.5 and product.averageRating < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+														<i class="fa fa-star{% if product.averageRating < 2.5 %}-o{% elif product.averageRating >= 2.5 and product.averageRating < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+														<i class="fa fa-star{% if product.averageRating < 3.5 %}-o{% elif product.averageRating >= 3.5 and product.averageRating < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+														<i class="fa fa-star{% if product.averageRating < 4.5 %}-o{% elif product.averageRating >= 4.5 and product.averageRating < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+														</span>
+														<span style="color:#7f8c8d;font-size:14px">({{product.countReview}} reviews)</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										{% endfor %}
+									</div>
+									<div class="tab-pane fade in" id="list">
+                                        {% for product in products %}
+										<div class="col-xs-12">
+											<div class="single-list-view">
+												<div style="width:100%; height:350px" class="row">
+													<div class="col-xs-12 col-md-4">
+														<div class="list-img">
+															<div class="product-img">
+															{% if product.discount != 0.00 %}
+															<div class="pro-type sale-badge">
+																<span style="background:#e74c3c;color:#fff;padding:5px 15px;border-radius:20px">Sale</span>
+															</div>
+															{% endif %}
+																<a href="{{product.get_prodcut_details_url}}"><img style="width:100%; height:350px; border-radius:20px 0 0 20px;object-fit:cover" src="{{product.image.url}}" alt="{{product.name}}" /></a>
+															</div>
+														</div>
+													</div>
+													<div class="col-xs-12 col-md-8">
+														<div style="height:350px; border-radius:0 20px 20px 0;"  class="list-text">
+															
+															<div style="font-size:16px" class="rating-star floatright">
+																<span style="color:#f1c40f">
+																<i class="fa fa-star{% if product.averageRating < 0.5 %}-o{% elif product.averageRating >= 0.5 and product.averageRating < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+																<i class="fa fa-star{% if product.averageRating < 1.5 %}-o{% elif product.averageRating >= 1.5 and product.averageRating < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+																<i class="fa fa-star{% if product.averageRating < 2.5 %}-o{% elif product.averageRating >= 2.5 and product.averageRating < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+																<i class="fa fa-star{% if product.averageRating < 3.5 %}-o{% elif product.averageRating >= 3.5 and product.averageRating < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+																<i class="fa fa-star{% if product.averageRating < 4.5 %}-o{% elif product.averageRating >= 4.5 and product.averageRating < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+																</span>
+																<span style="color:#7f8c8d;font-size:14px">({{product.countReview}} reviews)</span>
+															</div>
+															<h3 style="color:#2c3e50">{{product.name}}</h3>
+															<h5 style="color:#3498db">{% if product.discount != 0.00 %}<del>GH₵ {{product.price|floatformat:2}}</del>{% endif %} GH₵ {{product.price|floatformat:2}}</h5>
+															<p>{{product.description}}.</p>
+															<div class="list-btn">
+
+																<a href="{{product.get_prodcut_details_url}}" class="btn btn-warning" style="background:none; color:#f4cca4">View Details <i class="mdi mdi-eye"></i></a>
+																{% if product.is_available and product.stock > 0 %}
+																<a href="{% url 'cart:add_cart' product.id %}" class="btn " style="color:#1c1427;background:#f4cca4">add to cart <i class="mdi mdi-cart-outline"></i></a>
+																{% endif %}
+																
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											
+										</div>
+                                        {% endfor %}
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div  class="col-sm-12">
+									<div style="background:#fff;border-radius:10px;box-shadow:0 2px 15px rgba(0,0,0,0.1);padding:15px" class="pagnation-ul">
+									{% if products.has_other_pages %}
+										<ul class="clearfix">
+											{% if products.has_previous %}
+											<li><a href="?page={{products.previous_page_number}}"><i style="color:#3498db" class="mdi mdi-arrow-left-bold"></i></a></li>
+											{% else %}
+											<li><a href="#"><i class="mdi mdi-arrow-left-bold"></i></a></li>
+											{% endif %}
+											
+											{% for x in products.paginator.page_range %}
+												{% if products.number == x %}
+												<li ><a href="#">{{x}}</a></li>
+												{% else %}
+												<li><a  style="color:#3498db" href="?page={{x}}">{{x}}</a></li>
+												{% endif %}
+											{% endfor %}
+											
+											{% if products.has_next %}
+											<li ><a href="?page={{products.next_page_number}}"><i style="color:#3498db" class="mdi mdi-arrow-right-bold"></i></a></li>
+											{% else %}
+											<li><a  href="#"><i class="mdi mdi-arrow-right-bold"></i></a></li>
+											{% endif %}
+										</ul>
+									{% endif %}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	
+{% endblock content %}

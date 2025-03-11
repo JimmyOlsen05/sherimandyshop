@@ -1,0 +1,85 @@
+{% extends '../../base.html' %}
+{% load static %}
+
+{% block title %}Payment Method{% endblock title %}
+
+{% block content %}
+<div style="background: linear-gradient(135deg, #1a1c2c 0%, #222b45 100%); min-height: 100vh; padding: 60px 0;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center mb-5">
+                <h2 style="color: #fff; font-size: 2.5rem; font-weight: 600; margin-bottom: 1rem;">Choose Your Payment Method</h2>
+                <p style="color: #94a3b8; font-size: 1.1rem;">Select your preferred payment option to complete your purchase</p>
+            </div>
+        </div>
+        
+        <div class="row justify-content-center" style="gap: 30px;">
+            <!-- Mobile Money Payment Option -->
+            <div class="col-md-5">
+                <div style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border-radius: 20px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; height: 100%;" 
+                     onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 20px 30px rgba(0, 0, 0, 0.2)'" 
+                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                    <a href="{% url 'orders:checkout' %}" style="text-decoration: none;">
+                        <div style="position: relative; overflow: hidden;">
+                            <img src="{% static 'img/momoghana.jpg' %}" alt="Mobile Money" 
+                                 style="width: 100%; height: 250px; object-fit: cover;" />
+                            <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);"></div>
+                        </div>
+                        <div style="padding: 30px;">
+                            <h3 style="color: #38bdf8; font-size: 1.8rem; margin-bottom: 1rem;">Mobile Money Payment</h3>
+                            <p style="color: #94a3b8; font-size: 1rem; line-height: 1.6;">
+                                Pay securely using your mobile money wallet. Supports MTN, Vodafone, and AirtelTigo.
+                            </p>
+                            <div style="margin-top: 20px;">
+                                <span style="display: inline-block; padding: 12px 25px; background: #38bdf8; color: #fff; border-radius: 30px; font-weight: 500; transition: background 0.3s;"
+                                      onmouseover="this.style.background='#0ea5e9'" 
+                                      onmouseout="this.style.background='#38bdf8'">
+                                    Pay with MoMo
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Cash on Delivery Option -->
+            <div class="col-md-5">
+                <div style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border-radius: 20px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; height: 100%;" 
+                     onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 20px 30px rgba(0, 0, 0, 0.2)'" 
+                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                    <a href="{% url 'orders:checkout' %}" style="text-decoration: none;">
+                        <div style="position: relative; overflow: hidden;">
+                            <img src="{% static 'img/cred2.jpg' %}" alt="Cash on Delivery" 
+                                 style="width: 100%; height: 250px; object-fit: cover;" />
+                            <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);"></div>
+                        </div>
+                        <div style="padding: 30px;">
+                            <h3 style="color: #38bdf8; font-size: 1.8rem; margin-bottom: 1rem;">Cash on Delivery</h3>
+                            <p style="color: #94a3b8; font-size: 1rem; line-height: 1.6;">
+                                Pay with cash when your order is delivered to your doorstep.
+                            </p>
+                            <div style="margin-top: 20px;">
+                                <span style="display: inline-block; padding: 12px 25px; background: #38bdf8; color: #fff; border-radius: 30px; font-weight: 500; transition: background 0.3s;"
+                                      onmouseover="this.style.background='#0ea5e9'" 
+                                      onmouseout="this.style.background='#38bdf8'">
+                                    Pay on Delivery
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security Badge Section -->
+        <div class="row justify-content-center mt-5">
+            <div class="col-12 text-center">
+                <div style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border-radius: 15px; padding: 20px; display: inline-block;">
+                    <i class="fas fa-shield-alt" style="color: #38bdf8; font-size: 2rem; margin-right: 10px;"></i>
+                    <span style="color: #94a3b8; font-size: 1rem;">Secure Payment Gateway</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

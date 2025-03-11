@@ -1,0 +1,152 @@
+{% extends '../../../base.html' %}
+{% load static %}
+{% block title %}Checkout{% endblock title %}
+{% block content %}
+<div class="container-fluid" style="background: #0f172a; padding: 50px 0;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 style="color: #ffd700; font-weight: bold; margin-bottom: 20px; font-size: 2.5rem;">Checkout</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include "includes/alerts.html" %}
+
+<section style="background:#0f172a; padding: 40px 0;" class="pages checkout">
+    <div class="container">
+        <div class="row">
+            <form action="{% url 'orders:checkout' %}" method="POST" class="checkout-form">
+                {% csrf_token %}
+                <div class="col-md-7">
+                    <div class="billing-details" style="background: #1e293b; border-radius: 15px; padding: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                        <h3 style="color:#e2a355; font-size: 1.8rem; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 2px solid #334155;">Billing Details</h3>
+                        <div class="row g-4">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" style="color: #fff; margin-bottom: 8px;">First Name</label>
+                                <input type="text" name="first_name" class="form-control" required style="background: #0f172a; border: 1px solid #334155; color: #fff; padding: 12px; border-radius: 8px; height: 50px;">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" style="color: #fff; margin-bottom: 8px;">Last Name</label>
+                                <input type="text" name="last_name" class="form-control" required style="background: #0f172a; border: 1px solid #334155; color: #fff; padding: 12px; border-radius: 8px; height: 50px;">
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label class="form-label" style="color: #fff; margin-bottom: 8px;">Email</label>
+                                <input type="email" name="email" class="form-control" required style="background: #0f172a; border: 1px solid #334155; color: #fff; padding: 12px; border-radius: 8px; height: 50px;">
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label class="form-label" style="color: #fff; margin-bottom: 8px;">Phone Number</label>
+                                <input type="tel" name="phone" class="form-control" required style="background: #0f172a; border: 1px solid #334155; color: #fff; padding: 12px; border-radius: 8px; height: 50px;">
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label class="form-label" style="color: #fff; margin-bottom: 8px;">Address</label>
+                                <input type="text" name="address" class="form-control" required style="background: #0f172a; border: 1px solid #334155; color: #fff; padding: 12px; border-radius: 8px; height: 50px;">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" style="color: #fff; margin-bottom: 8px;">City</label>
+                                <input type="text" name="city" class="form-control" required style="background: #0f172a; border: 1px solid #334155; color: #fff; padding: 12px; border-radius: 8px; height: 50px;">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" style="color: #fff; margin-bottom: 8px;">Region</label>
+                                <input type="text" name="state" class="form-control" required style="background: #0f172a; border: 1px solid #334155; color: #fff; padding: 12px; border-radius: 8px; height: 50px;">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" style="color: #fff; margin-bottom: 8px;">Country</label>
+                                <input type="text" name="country" class="form-control" required style="background: #0f172a; border: 1px solid #334155; color: #fff; padding: 12px; border-radius: 8px; height: 50px;">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" style="color: #fff; margin-bottom: 8px;">Delivery Location</label>
+                                <select name="delivery_location" id="delivery_location" class="form-control" required style="background: #0f172a; border: 1px solid #334155; color: #fff; padding: 12px; border-radius: 8px; height: 50px;">
+                                    <option value="">Select Delivery Location</option>
+                                    {% for location in delivery_locations %}
+                                    <option value="{{ location.id }}" data-distance="{{ location.distance_km }}">
+                                        {{ location.name }} ({{ location.distance_km }}km from Tarkwa)
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label" style="color: #fff; margin-bottom: 8px;">Order Notes (optional)</label>
+                                <textarea name="order_note" class="form-control" rows="4" style="background: #0f172a; border: 1px solid #334155; color: #fff; padding: 12px; border-radius: 8px; resize: vertical;"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-5">
+                    <div class="order-summary" style="background: #1e293b; border-radius: 15px; padding: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                        <h3 style="color:#fff; font-size: 2rem; margin-bottom: 25px; font-weight: bold; padding-bottom: 15px; border-bottom: 2px solid #334155;">Order Summary</h3>
+                        <div class="order-details">
+                            <table class="table" style="color: #fff;">
+                                <tbody>
+                                    {% for cart_item in cart_items %}
+                                    <tr style="background: #0f172a;">
+                                        <td style="border-color: #334155; color: #ffd700; font-size: 16px; padding: 15px;">{{cart_item.product.name}} x {{cart_item.quantity}}</td>
+                                        <td style="border-color: #334155; text-align: right; color: #ffd700; font-size: 16px; padding: 15px;">GH₵ {{cart_item.sub_total}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    <tr style="border-top: 2px solid #334155; background: #0f172a;">
+                                        <td style="border-color: #334155; color: #ffd700; font-size: 16px; padding: 15px;">Subtotal</td>
+                                        <td style="border-color: #334155; text-align: right; color: #ffd700; font-size: 16px; padding: 15px;">GH₵ {{total_price}}</td>
+                                    </tr>
+                                    <tr style="background: #0f172a;">
+                                        <td style="border-color: #334155; color: #ffd700; font-size: 16px; padding: 15px;">Tax (2%)</td>
+                                        <td style="border-color: #334155; text-align: right; color: #ffd700; font-size: 16px; padding: 15px;">GH₵ {{tax}}</td>
+                                    </tr>
+                                    <tr style="background: #0f172a;">
+                                        <td style="border-color: #334155; color: #ffd700; font-size: 16px; padding: 15px;">Delivery Fee</td>
+                                        <td style="border-color: #334155; text-align: right; color: #ffd700; font-size: 16px; padding: 15px;" id="delivery_fee">GH₵ 0.00</td>
+                                    </tr>
+                                    <tr style="background: #0f172a;">
+                                        <td style="border-color: #334155; color: #ffd700; font-size: 18px; padding: 15px; font-weight: bold;">Total</td>
+                                        <td style="border-color: #334155; text-align: right; color: #ffd700; font-size: 18px; padding: 15px; font-weight: bold;" id="grand_total">GH₵ {{grand_total}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <button type="submit" class="btn w-100" style="background: #ffd700; border: none; color: #000; padding: 15px; font-size: 18px; font-weight: bold; border-radius: 8px; margin-top: 20px; transition: all 0.3s ease;">
+                            Place Order & Pay
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const deliverySelect = document.getElementById('delivery_location');
+    const grandTotalDisplay = document.getElementById('grand_total');
+    const deliveryFeeDisplay = document.getElementById('delivery_fee');
+    const subtotal = parseFloat('{{total_price}}');
+    const tax = parseFloat('{{tax}}');
+    const initialTotal = subtotal + tax;
+    
+    deliverySelect.addEventListener('change', function() {
+        const locationId = this.value;
+        if (locationId) {
+            fetch(`/orders/get_delivery_fee/${locationId}/?total=${subtotal}`)
+                .then(response => response.json())
+                .then(data => {
+                    const fee = parseFloat(data.delivery_fee) || 0;
+                    const newTotal = initialTotal + fee;
+                    deliveryFeeDisplay.textContent = `GH₵ ${fee.toFixed(2)}`;
+                    grandTotalDisplay.textContent = `GH₵ ${newTotal.toFixed(2)}`;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    deliveryFeeDisplay.textContent = 'Error calculating fee';
+                });
+        } else {
+            deliveryFeeDisplay.textContent = 'GH₵ 0.00';
+            grandTotalDisplay.textContent = `GH₵ ${initialTotal.toFixed(2)}`;
+        }
+    });
+});
+</script>
+{% endblock %}
+{% endblock %}

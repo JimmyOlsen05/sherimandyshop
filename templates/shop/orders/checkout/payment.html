@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Payment{% endblock %}
+
+{% block content %}
+<section class="section-content padding-y bg">
+    <div class="container">
+        <div class="row">
+            <aside class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4">Payment Details</h4>
+                        <div class="payment-info">
+                            <div class="order-info mb-4">
+                                <h5>Order Summary</h5>
+                                <p class="mb-1">Order Number: {{order.order_number}}</p>
+                                <p class="mb-1">Total Amount: GH₵ {{order.order_total|floatformat:2}}</p>
+                            </div>
+
+                            <div class="payment-methods">
+                                <h5 class="mb-3">Choose Payment Method</h5>
+                                
+                                <!-- Mobile Money Payment Option -->
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <form action="{% url 'orders:paystack_momo' order.id %}" method="POST" id="momoForm">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                                            <h6 class="mb-3">Mobile Money Payment</h6>
+                                            
+                                            <div class="mb-3">
+                                                <label for="network" class="form-label">Select Network</label>
+                                                <select name="network" id="network" class="form-select" required>
+                                                    <option value="">Choose...</option>
+                                                    <option value="MTN">MTN Mobile Money</option>
+                                                    <option value="VODAFONE">Vodafone Cash</option>
+                                                    <option value="AIRTELTIGO">AirtelTigo Money</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="phone_number" class="form-label">Phone Number</label>
+                                                <input type="tel" name="phone_number" id="phone_number" class="form-control" 
+                                                    placeholder="Enter your mobile money number" required
+                                                    pattern="[0-9]{10}" maxlength="10"
+                                                    title="Please enter a valid 10-digit phone number">
+                                                <small class="text-muted">Format: 0XXXXXXXXX (10 digits)</small>
+                                            </div>
+
+                                            <button type="submit" class="btn btn-primary btn-block">
+                                                Pay GH₵ {{order.order_total|floatformat:2}} with Mobile Money
+                                            </button>
+                                        </form>
+                                        <div id="paymentStatus" class="mt-3"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <aside class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4">Order Summary</h4>
+                        <table class="table table-borderless">
+                            <tbody>
+                                {% for cart_item in cart_items %}
+                                <tr>
+                                    <td>
+                                        <figure class="itemside">
+                                            <div class="aside">
+                                                <img src="{{ cart_item.product.image.url }}" class="img-sm">
+                                            </div>
+                                            <figcaption class="info">
+                                                <p>{{ cart_item.product.product_name }}</p>
+                                                <span class="text-muted">{{ cart_item.quantity }} x GH₵ {{ cart_item.product.price }}</span>
+                                            </figcaption>
+                                        </figure>
+                                    </td>
+                                    <td>
+                                        <div class="price-wrap">
+                                            <var class="price">GH₵ {{ cart_item.sub_total }}</var>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <hr>
+                        <div class="d-flex justify-content-between">
+                            <p class="mb-2">Total:</p>
+                            <p class="mb-2 fw-bold">GH₵ {{order.order_total|floatformat:2}}</p>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+
+<script>
+document.getElementById('momoForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const form = this;
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const statusDiv = document.getElementById('paymentStatus');
+    
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...';
+    
+    statusDiv.innerHTML = '<div class="alert alert-info">Initializing payment...</div>';
+    
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    
+    fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: {
+            'X-CSRFToken': csrfToken
+        },
+        credentials: 'include'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            statusDiv.innerHTML = '<div class="alert alert-success">Payment initialized successfully. Redirecting to payment page...</div>';
+            setTimeout(() => {
+                window.location.href = data.authorization_url;
+            }, 1500);
+        } else {
+            statusDiv.innerHTML = `<div class="alert alert-danger">${data.message || 'An error occurred. Please try again.'}</div>`;
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = 'Pay Now';
+        }
+    })
+    .catch(error => {
+        statusDiv.innerHTML = '<div class="alert alert-danger">An error occurred. Please try again.</div>';
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'Pay Now';
+        console.error('Payment error:', error);
+    });
+});
+
+document.getElementById('phone_number').addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, '');
+    if (value.length > 10) {
+        value = value.slice(0, 10);
+    }
+    e.target.value = value;
+});
+
+document.getElementById('network').addEventListener('change', function(e) {
+    const networkClass = {
+        'MTN': 'bg-warning text-dark',
+        'VODAFONE': 'bg-danger text-white',
+        'AIRTELTIGO': 'bg-primary text-white'
+    };
+    
+    this.classList.remove('bg-warning', 'bg-danger', 'bg-primary', 'text-dark', 'text-white');
+    
+    if (this.value && networkClass[this.value]) {
+        this.classList.add(...networkClass[this.value].split(' '));
+    }
+});
+</script>
+{% endblock %}

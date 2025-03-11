@@ -1,0 +1,375 @@
+{% extends '../../../base.html' %}
+{% load static %}
+{% block title %}Order Details{% endblock title %}
+
+{% block content %}
+<div style="min-height: calc(100vh - 160px); background: #f0f4f8; padding: 2rem 0;">
+    <div style="max-width: 1400px; margin: 0 auto; padding: 0 1rem;">
+        <div style="display: grid; gap: 2rem; grid-template-columns: 1fr;">
+            <!-- Sidebar -->
+            <div style="background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 16px rgba(0,0,0,0.1);">
+                <div style="text-align: center; padding-bottom: 1.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid #e2e8f0;">
+                    <div style="width: 140px; height: 140px; margin: 0 auto 1rem; position: relative;">
+                        <div class="avatar-circle" style="width: 100%; height: 100%; border-radius: 50%; background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem; font-weight: 600; text-transform: uppercase; box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2); border: 3px solid rgba(255, 255, 255, 0.1);">
+                            {{ user.first_name|first|upper }}
+                        </div>
+                    </div>
+                    <h3 style="font-weight: 600; color: #1f2937; margin-bottom: 0.5rem;">{{ user.get_full_name }}</h3>
+                    <p style="color: #6b7280; font-size: 0.875rem;">{{ user.email }}</p>
+                </div>
+                
+                <nav style="display: flex; flex-direction: column; gap: 0.75rem;">
+                    <a href="{% url 'accounts:dashboard' %}" style="display: flex; align-items: center; padding: 0.875rem 1rem; color: #4b5563; text-decoration: none; border-radius: 8px; font-weight: 500; transition: all 0.3s;">
+                        <i class="fas fa-home" style="width: 24px; margin-right: 12px;"></i>
+                        Dashboard
+                    </a>
+                    <a href="{% url 'accounts:edit_profile' %}" style="display: flex; align-items: center; padding: 0.875rem 1rem; color: #4b5563; text-decoration: none; border-radius: 8px; font-weight: 500; transition: all 0.3s;">
+                        <i class="fas fa-user-edit" style="width: 24px; margin-right: 12px;"></i>
+                        Edit Profile
+                    </a>
+                    <a href="{% url 'accounts:my_orders' %}" style="display: flex; align-items: center; padding: 0.875rem 1rem; background: #4f46e5; color: white; text-decoration: none; border-radius: 8px; font-weight: 500;">
+                        <i class="fas fa-shopping-bag" style="width: 24px; margin-right: 12px;"></i>
+                        My Orders
+                    </a>
+                    <a href="{% url 'accounts:change_password' %}" style="display: flex; align-items: center; padding: 0.875rem 1rem; color: #4b5563; text-decoration: none; border-radius: 8px; font-weight: 500; transition: all 0.3s;">
+                        <i class="fas fa-lock" style="width: 24px; margin-right: 12px;"></i>
+                        Change Password
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Main Content -->
+            <div style="display: grid; gap: 2rem; grid-template-columns: 1fr;">
+                <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 16px rgba(0,0,0,0.1);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                        <div>
+                            <h2 style="color: #1f2937; font-size: 1.75rem; margin-bottom: 0.5rem; font-weight: 600;">Order #{{order.order_number}}</h2>
+                            <p style="color: #6b7280;">Placed on {{order.created_at|date:"M d, Y"}}</p>
+                        </div>
+                        <span class="status-badge {% if order.status == 'Completed' %}status-completed{% elif order.status == 'Processing' %}status-processing{% else %}status-pending{% endif %}">
+                            {{order.status}}
+                        </span>
+                    </div>
+
+                    <div style="display: flex; align-items: center; margin-bottom: 3rem;">
+                        <div style="flex: 1; display: flex; align-items: center;">
+                            <div class="progress-step">
+                                <div class="progress-icon {% if order.status == 'New' or order.status == 'Accepted' or order.status == 'Completed' %}active{% endif %}">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </div>
+                            <div class="progress-line {% if order.status == 'Completed' %}active{% endif %}"></div>
+                        </div>
+                        <div style="flex: 1; display: flex; align-items: center;">
+                            <div class="progress-step">
+                                <div class="progress-icon {% if order.status == 'Accepted' or order.status == 'Completed' %}active{% endif %}">
+                                    <i class="fas fa-box"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="progress-line {% if order.status == 'Completed' %}active{% endif %}"></div>
+                        </div>
+                        <div style="flex: 1; display: flex; align-items: center;">
+                            <div class="progress-step">
+                                <div class="progress-icon {% if order.status == 'Completed' %}active{% endif %}">
+                                    <i class="fas fa-truck"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; gap: 2rem; grid-template-columns: 2fr 1fr;">
+                        <div>
+                            <h3 style="color: #1f2937; font-size: 1.25rem; font-weight: 600; margin-bottom: 1.5rem;">Order Items</h3>
+                            <div style="display: grid; gap: 1.5rem;">
+                                {% for item in order_detail %}
+                                <div style="display: flex; gap: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #e5e7eb;">
+                                    <div style="width: 100px; height: 100px; border-radius: 8px; overflow: hidden; flex-shrink: 0;">
+                                        <img src="{{ item.product.image.url }}" alt="{{item.product.product_name}}" style="width: 100%; height: 100%; object-fit: cover;">
+                                    </div>
+                                    <div style="flex-grow: 1;">
+                                        <h4 style="color: #1f2937; font-weight: 500; margin-bottom: 0.5rem;">{{item.product.product_name}}</h4>
+                                        <p style="color: #6b7280; font-size: 0.875rem; margin-bottom: 0.25rem;">Qty: {{item.quantity}} × GH₵{{item.product_price}}</p>
+                                        {% if item.variations.all %}
+                                        <p style="color: #6b7280; font-size: 0.875rem;">
+                                            {% for variation in item.variations.all %}
+                                            {{variation.variation_category|capfirst}}: {{variation.variation_value|capfirst}}
+                                            {% if not forloop.last %}, {% endif %}
+                                            {% endfor %}
+                                        </p>
+                                        {% endif %}
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <p style="color: #1f2937; font-weight: 600;">GH₵{{item.sub_total}}</p>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <div style="margin-top: 2rem;">
+                                <h3 style="color: #1f2937; font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem;">Shipping Address</h3>
+                                <div style="background: #f8fafc; padding: 1.5rem; border-radius: 8px;">
+                                    <p style="color: #1f2937; margin-bottom: 0.5rem;">{{order.full_name}}</p>
+                                    <p style="color: #6b7280; margin-bottom: 0.5rem;">{{order.full_address}}</p>
+                                    <p style="color: #6b7280; margin-bottom: 0.5rem;">{{order.city}}, {{order.state}}</p>
+                                    <p style="color: #6b7280; margin-bottom: 0.5rem;">Phone: {{order.phone}}</p>
+                                    <p style="color: #6b7280; margin-bottom: 0;">Email: {{order.email}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div style="background: #f8fafc; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                                <h3 style="color: #1f2937; font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem;">Order Summary</h3>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem;">
+                                    <span style="color: #6b7280;">Subtotal</span>
+                                    <span style="color: #1f2937; font-weight: 500;">GH₵{{subtotal|floatformat:2}}</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem;">
+                                    <span style="color: #6b7280;">Tax</span>
+                                    <span style="color: #1f2937; font-weight: 500;">GH₵{{order.tax|floatformat:2}}</span>
+                                </div>
+                                {% if order.shipping_charge %}
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem;">
+                                    <span style="color: #6b7280;">Shipping</span>
+                                    <span style="color: #1f2937; font-weight: 500;">GH₵{{order.shipping_charge|floatformat:2}}</span>
+                                </div>
+                                {% endif %}
+                                <div style="display: flex; justify-content: space-between; padding-top: 0.75rem; border-top: 1px solid #e5e7eb;">
+                                    <span style="color: #1f2937; font-weight: 600;">Total</span>
+                                    <span style="color: #1f2937; font-weight: 600;">GH₵{{order.order_total|floatformat:2}}</span>
+                                </div>
+                            </div>
+
+                            <div class="order-status mb-4">
+                                <h4 class="mb-3">Order Status</h4>
+                                <div class="status-timeline">
+                                    <div class="status-step {% if order.status == 'New' or order.status == 'Processing' or order.status == 'Out_For_Delivery' or order.status == 'Delivered' %}active{% endif %}">
+                                        <div class="status-icon">
+                                            <i class="fas fa-shopping-cart"></i>
+                                        </div>
+                                        <div class="status-text">Order Placed</div>
+                                    </div>
+                                    <div class="status-step {% if order.status == 'Processing' or order.status == 'Out_For_Delivery' or order.status == 'Delivered' %}active{% endif %}">
+                                        <div class="status-icon">
+                                            <i class="fas fa-box"></i>
+                                        </div>
+                                        <div class="status-text">Processing</div>
+                                    </div>
+                                    <div class="status-step {% if order.status == 'Out_For_Delivery' or order.status == 'Delivered' %}active{% endif %}">
+                                        <div class="status-icon">
+                                            <i class="fas fa-truck"></i>
+                                        </div>
+                                        <div class="status-text">Out For Delivery</div>
+                                    </div>
+                                    <div class="status-step {% if order.status == 'Delivered' %}active{% endif %}">
+                                        <div class="status-icon">
+                                            <i class="fas fa-check-circle"></i>
+                                        </div>
+                                        <div class="status-text">Delivered</div>
+                                        {% if order.delivery_date %}
+                                        <div class="delivery-date">{{ order.delivery_date|date:"F d, Y" }}</div>
+                                        {% endif %}
+                                    </div>
+                                    {% if order.status == 'Cancelled' %}
+                                    <div class="status-step cancelled active">
+                                        <div class="status-icon">
+                                            <i class="fas fa-times-circle"></i>
+                                        </div>
+                                        <div class="status-text">Cancelled</div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <style>
+                                .order-status {
+                                    background: white;
+                                    padding: 20px;
+                                    border-radius: 10px;
+                                    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                                }
+                                .status-timeline {
+                                    display: flex;
+                                    justify-content: space-between;
+                                    align-items: center;
+                                    position: relative;
+                                    padding: 20px 0;
+                                }
+                                .status-timeline::before {
+                                    content: '';
+                                    position: absolute;
+                                    top: 50%;
+                                    left: 0;
+                                    right: 0;
+                                    height: 2px;
+                                    background: #e0e0e0;
+                                    z-index: 1;
+                                }
+                                .status-step {
+                                    display: flex;
+                                    flex-direction: column;
+                                    align-items: center;
+                                    position: relative;
+                                    z-index: 2;
+                                }
+                                .status-icon {
+                                    width: 40px;
+                                    height: 40px;
+                                    background: #f5f5f5;
+                                    border-radius: 50%;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    margin-bottom: 8px;
+                                    color: #9e9e9e;
+                                    border: 2px solid #e0e0e0;
+                                }
+                                .status-step.active .status-icon {
+                                    background: #4CAF50;
+                                    color: white;
+                                    border-color: #4CAF50;
+                                }
+                                .status-step.cancelled .status-icon {
+                                    background: #f44336;
+                                    color: white;
+                                    border-color: #f44336;
+                                }
+                                .status-text {
+                                    font-size: 14px;
+                                    color: #757575;
+                                    font-weight: 500;
+                                }
+                                .status-step.active .status-text {
+                                    color: #4CAF50;
+                                }
+                                .status-step.cancelled .status-text {
+                                    color: #f44336;
+                                }
+                                .delivery-date {
+                                    font-size: 12px;
+                                    color: #9e9e9e;
+                                    margin-top: 4px;
+                                }
+                            </style>
+
+                            <div style="background: #f8fafc; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                                <h3 style="color: #1f2937; font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem;">Payment Information</h3>
+                                <div style="margin-bottom: 0.75rem;">
+                                    <p style="color: #6b7280; margin-bottom: 0.25rem;">Payment Method</p>
+                                    <p style="color: #1f2937; font-weight: 500;">{{order.payment.payment_method}}</p>
+                                </div>
+                                <div style="margin-bottom: 0.75rem;">
+                                    <p style="color: #6b7280; margin-bottom: 0.25rem;">Status</p>
+                                    <span style="display: inline-block; padding: 0.25rem 0.5rem; background: #dcfce7; color: #059669; border-radius: 9999px; font-size: 0.75rem; font-weight: 500;">{{order.payment.status}}</span>
+                                </div>
+                                <div>
+                                    <p style="color: #6b7280; margin-bottom: 0.25rem;">Transaction ID</p>
+                                    <p style="color: #1f2937; font-weight: 500;">{{order.payment.payment_id}}</p>
+                                </div>
+                            </div>
+
+                            <a href="{% url 'accounts:my_orders' %}" style="display: inline-flex; align-items: center; gap: 0.5rem; width: 100%; padding: 0.875rem; justify-content: center; background: white; color: #4f46e5; border: 1px solid #4f46e5; border-radius: 8px; text-decoration: none; font-weight: 500; transition: all 0.3s;">
+                                <i class="fas fa-arrow-left"></i>
+                                Back to Orders
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+nav a {
+    transition: all 0.2s ease-in-out;
+}
+
+nav a:not(:last-child):hover {
+    background: rgba(79, 70, 229, 0.05);
+    color: #4f46e5 !important;
+}
+
+nav a:last-child:hover {
+    background: rgba(239, 68, 68, 0.05);
+    color: #dc2626 !important;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+}
+
+.status-completed {
+    background: #dcfce7;
+    color: #059669;
+}
+
+.status-processing {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.status-pending {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.progress-step {
+    position: relative;
+    z-index: 1;
+}
+
+.progress-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: all 0.3s;
+}
+
+.progress-icon.active {
+    background: #4f46e5;
+}
+
+.progress-line {
+    flex: 1;
+    height: 2px;
+    background: #e5e7eb;
+    transition: all 0.3s;
+}
+
+.progress-line.active {
+    background: #4f46e5;
+}
+
+@media (min-width: 1024px) {
+    .edit-profile-container > div {
+        grid-template-columns: 280px 1fr !important;
+    }
+}
+
+input:focus {
+    outline: none;
+    border-color: #4f46e5 !important;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+a:hover {
+    background: rgba(79, 70, 229, 0.05);
+    color: #4f46e5 !important;
+}
+
+button:hover, a:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+}
+</style>
+{% endblock %}

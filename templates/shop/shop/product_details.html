@@ -1,0 +1,370 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ single_product.name }} - Safety PPE Store{% endblock %}
+
+{% block content %}
+<!-- pages-title-start -->
+<div style="background: #2c3e50; margin-top: -40px; padding: 80px 0 40px;" class="pages-title section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="pages-title-text text-center">
+                    <h2 style="color: #ecf0f1; text-transform: capitalize; font-weight: 600; letter-spacing: 1px; margin: 0; font-size: 2.25rem;">{{ single_product.name }}</h2>
+                    <ul class="text-left breadcrumb" style="background: transparent; margin: 15px 0 0;">
+                        <li style="color: #ecf0f1; font-size: 1.1rem;">
+                            <a style="color: #ecf0f1;" href="{% url 'shop:home' %}">Home</a>
+                        </li>
+                        <li style="color: #ecf0f1; font-size: 1.1rem;">
+                            <a style="color: #ecf0f1;" href="{% url 'shop:shop' %}">Shop</a>
+                        </li>
+                        {% if single_product.category %}
+                        <li style="color: #ecf0f1; font-size: 1.1rem;">
+                            <a style="color: #ecf0f1;" href="{{ single_product.category.get_category_slug_url }}">{{ single_product.category.name }}</a>
+                        </li>
+                        {% endif %}
+                        <li style="color: #ecf0f1; font-size: 1.1rem;">{{ single_product.name }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+
+<section class="product-details section-padding" style="padding: 0 0 60px 0; background: #ffffff;">
+    <div class="container">
+        <div class="row">
+            <!-- Product Images -->
+            <div class="col-md-6">
+                <div class="product-gallery" style="background: white; padding: 30px; border-radius: 20px; box-shadow: 0 5px 25px rgba(0,0,0,0.1);">
+                    <!-- Main Product Image -->
+                    {% if single_product.image %}
+                    <div class="main-image" style="position: relative; margin-bottom: 20px;">
+                        <img src="{{ single_product.image.url }}" alt="{{ single_product.name }}" class="img-fluid" style="width: 100%; border-radius: 10px;">
+                        {% if single_product.discount != 0.00 %}
+                        <span class="sale-badge" style="position: absolute; top: 20px; right: 20px; background: #f44336; color: white; padding: 8px 15px; border-radius: 25px; font-weight: 600; font-size: 0.9rem;">SALE</span>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Additional Product Images (only if they're different from the main image) -->
+                    {% if product_gallery %}
+                    <div class="gallery-thumbnails">
+                        <div class="row g-2">
+                            {% for gallery in product_gallery %}
+                                {% if gallery.image.url != single_product.image.url %}
+                                <div class="col-3">
+                                    <img src="{{ gallery.image.url }}" alt="Gallery image" 
+                                         style="width: 100%; height: auto; border-radius: 10px; cursor: pointer; transition: transform 0.2s;" 
+                                         onmouseover="this.style.transform='scale(1.05)'" 
+                                         onmouseout="this.style.transform='scale(1)'">
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Product Info -->
+            <div class="col-md-6">
+                <div class="product-info" style="background: white; padding: 35px; border-radius: 20px; box-shadow: 0 5px 25px rgba(0,0,0,0.1);">
+                    <h2 style="color: #212121; font-size: 2.2rem; font-weight: 700; margin-bottom: 20px;">{{ single_product.name }}</h2>
+                    
+                    <!-- Price Section -->
+                    <div class="price-box mb-4" style="padding: 15px 0; border-bottom: 1px solid #e0e0e0;">
+                        {% if single_product.discount != 0.00 %}
+                        <div class="d-flex align-items-center">
+                            <span class="original-price" style="color: #757575; text-decoration: line-through; font-size: 1.4rem;">GH₵ {{ single_product.price|floatformat:2 }}</span>
+                            <span class="discount-price" style="color: #f44336; font-size: 2.2rem; font-weight: 700; margin-left: 15px">GH₵ {{ single_product.discount|floatformat:2 }}</span>
+                            <span class="discount-badge" style="background: #f44336; color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9rem; margin-left: 15px;">
+                                Save {{ single_product.get_discount_percentage|floatformat:0 }}%
+                            </span>
+                        </div>
+                        {% else %}
+                        <span class="price" style="color: #f44336; font-size: 2.2rem; font-weight: 700;">GH₵ {{ single_product.price|floatformat:2 }}</span>
+                        {% endif %}
+                    </div>
+
+                    <!-- Stock Status -->
+                    <div class="stock-status mb-4">
+                        {% if single_product.stock > 0 %}
+                        <div class="d-flex align-items-center">
+                            <span style="background: #e8f5e9; color: #2e7d32; padding: 8px 20px; border-radius: 25px; font-size: 1rem; font-weight: 600;">
+                                <i class="mdi mdi-check-circle me-2"></i>In Stock
+                            </span>
+                            <span style="margin-left: 15px; color: #424242;">{{ single_product.stock }} items available</span>
+                        </div>
+                        {% else %}
+                        <span style="background: #ffebee; color: #c62828; padding: 8px 20px; border-radius: 25px; font-size: 1rem; font-weight: 600;">
+                            <i class="mdi mdi-alert-circle me-2"></i>Out of Stock
+                        </span>
+                        {% endif %}
+                    </div>
+
+                    <!-- Product Details -->
+                    <div class="product-details mb-4">
+                        <p style="color: #424242; line-height: 1.8; font-size: 1.1rem;">{{ single_product.description }}</p>
+                        
+                        {% if single_product.features %}
+                        <div class="features-section mt-4" style="background: #f5f5f5; padding: 20px; border-radius: 15px;">
+                            <h4 style="color: #212121; margin-bottom: 15px; font-weight: 600;">Key Features</h4>
+                            <p style="color: #424242; line-height: 1.8;">{{ single_product.features }}</p>
+                        </div>
+                        {% endif %}
+
+                        <!-- Specifications -->
+                        <div class="specifications mt-4">
+                            <h4 style="color: #212121; margin-bottom: 15px; font-weight: 600;">Specifications</h4>
+                            <div class="specs-table" style="background: #f8f9fa; border-radius: 15px; overflow: hidden;">
+                                <table class="table table-hover mb-0">
+                                    <tbody>
+                                        {% if single_product.certifications %}
+                                        <tr>
+                                            <td style="width: 40%; font-weight: 600; padding: 15px 20px;">Certifications</td>
+                                            <td style="padding: 15px 20px;">{{ single_product.certifications }}</td>
+                                        </tr>
+                                        {% endif %}
+                                        {% if single_product.material %}
+                                        <tr>
+                                            <td style="width: 40%; font-weight: 600; padding: 15px 20px;">Material</td>
+                                            <td style="padding: 15px 20px;">{{ single_product.material }}</td>
+                                        </tr>
+                                        {% endif %}
+                                        {% if single_product.size_unit %}
+                                        <tr>
+                                            <td style="width: 40%; font-weight: 600; padding: 15px 20px; color: #1a237e; background: #e8eaf6;">Size</td>
+                                            <td style="padding: 15px 20px; color: #283593; background: #e8eaf6;">{{ single_product.size_unit }}</td>
+                                        </tr>
+                                        {% endif %}
+                                        {% if single_product.weight %}
+                                        <tr>
+                                            <td style="width: 40%; font-weight: 600; padding: 15px 20px;">Weight</td>
+                                            <td style="padding: 15px 20px;">{{ single_product.weight }} kg</td>
+                                        </tr>
+                                        {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="product-actions mt-5">
+                        {% if single_product.stock > 0 %}
+                        <div style="display: flex; flex-direction: row; align-items: center; gap: 15px;">
+                            <div style="width: 120px;">
+                                <input type="number" min="1" max="{{ single_product.stock }}" value="1" id="quantity"
+                                       style="width: 100%; padding: 12px; border: 2px solid #1a237e; border-radius: 10px; text-align: center; font-size: 1.1rem; color: #1a237e; background: #e8eaf6; font-weight: 600;">
+                            </div>
+                            <div style="flex: 0 0 auto;">
+                                <a href="{% url 'cart:add_cart' single_product.id %}" class="btn add-to-cart" 
+                                   style="background: #1a237e; color: white; padding: 12px 35px; border-radius: 10px; text-decoration: none; font-weight: 600;">
+                                    <i class="fas fa-shopping-cart me-2"></i>Add To Cart
+                                </a>
+                            </div>
+                            {% if user.is_authenticated %}
+                            <div style="flex: 0 0 auto;">
+                                <a href="{% url 'shop:add_to_wishlist' single_product.id %}" class="btn wishlist-btn" 
+                                   style="background: #f8f9fa; color: #1a237e; padding: 12px; border-radius: 10px; transition: all 0.3s ease;">
+                                    <i class="{% if single_product.id in user_wishlist %}fas{% else %}far{% endif %} fa-heart"></i>
+                                </a>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Reviews Section -->
+<section class="reviews-section" style="padding: 40px 0; background: #f8f9fa;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="reviews-container" style="background: white; padding: 30px; border-radius: 20px; box-shadow: 0 5px 25px rgba(0,0,0,0.1);">
+                    <div class="reviews-header d-flex justify-content-between align-items-center mb-4">
+                        <h3 style="color: #212121; font-weight: 600;">Product Reviews</h3>
+                        <div class="overall-rating">
+                            <div style="font-size: 2rem; color: #f44336; font-weight: 700;">{{ single_product.averageRating|floatformat:1 }}/5</div>
+                            <div class="stars">
+                                {% for i in '12345'|make_list %}
+                                    {% if forloop.counter <= single_product.averageRating %}
+                                        <i class="fas fa-star" style="color: #ffd700;"></i>
+                                    {% else %}
+                                        <i class="far fa-star" style="color: #ffd700;"></i>
+                                    {% endif %}
+                                {% endfor %}
+                                <span style="color: #757575; margin-left: 10px;">({{ single_product.countReview }} reviews)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if user.is_authenticated %}
+                        {% if orderproduct %}
+                        <div class="write-review mb-4" style="background: #e3f2fd; padding: 20px; border-radius: 15px;">
+                            <h4 style="color: #1976d2; margin-bottom: 15px;">Write Your Review</h4>
+                            <form action="{% url 'shop:review' single_product.id %}" method="POST">
+                                {% csrf_token %}
+                                <div class="rating-input mb-3">
+                                    <div class="stars">
+                                        {% for i in '12345'|make_list %}
+                                        <input type="radio" id="star{{ forloop.counter }}" name="rating" value="{{ forloop.counter }}" required>
+                                        <label for="star{{ forloop.counter }}" title="{{ forloop.counter }} stars">
+                                            <i class="far fa-star"></i>
+                                        </label>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <textarea name="review" rows="4" class="form-control" placeholder="Share your experience with this product..." required></textarea>
+                                </div>
+                                <button type="submit" class="btn" style="background: #1976d2; color: white; padding: 10px 25px; border-radius: 25px;">Submit Review</button>
+                            </form>
+                        </div>
+                        {% else %}
+                        <div class="alert" style="background: #fff3e0; color: #e65100; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                            You must purchase this product to write a review.
+                        </div>
+                        {% endif %}
+                    {% else %}
+                    <div class="alert" style="background: #fff3e0; color: #e65100; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                        Please <a href="{% url 'accounts:login' %}" style="color: #e65100; text-decoration: underline;">login</a> to write a review.
+                    </div>
+                    {% endif %}
+
+                    <div class="reviews-list">
+                        {% if reviews %}
+                            {% for review in reviews %}
+                            <div class="review-item" style="border-bottom: 1px solid #e0e0e0; padding: 20px 0;">
+                                <div class="review-header d-flex justify-content-between align-items-start mb-2">
+                                    <div>
+                                        <div style="font-weight: 600; color: #212121;">{{ review.user.full_name }}</div>
+                                        <div class="stars">
+                                            {% for i in '12345'|make_list %}
+                                                {% if forloop.counter <= review.rating %}
+                                                    <i class="fas fa-star" style="color: #ffd700;"></i>
+                                                {% else %}
+                                                    <i class="far fa-star" style="color: #ffd700;"></i>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div style="color: #757575; font-size: 0.9rem;">{{ review.updated_at|date:"F d, Y" }}</div>
+                                </div>
+                                <div class="review-content" style="color: #424242;">{{ review.review }}</div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="no-reviews" style="text-align: center; padding: 30px 0;">
+                                <i class="far fa-comment-alt" style="font-size: 3rem; color: #bdbdbd; margin-bottom: 15px;"></i>
+                                <p style="color: #757575; margin: 0;">No reviews yet. Be the first to review this product!</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.rating-input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rating-input .stars {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 5px;
+}
+
+.rating-input input[type="radio"] {
+    display: none;
+}
+
+.rating-input label {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #ffd700;
+    transition: all 0.2s ease;
+}
+
+.rating-input label:hover,
+.rating-input label:hover ~ label,
+.rating-input input[type="radio"]:checked ~ label {
+    color: #ffd700;
+}
+
+.rating-input label:hover i,
+.rating-input label:hover ~ label i,
+.rating-input input[type="radio"]:checked ~ label i {
+    content: "\f005";
+    font-weight: 900;
+}
+
+.rating-input label i {
+    transition: all 0.2s ease;
+}
+
+.rating-input label:hover i,
+.rating-input label:hover ~ label i,
+.rating-input input[type="radio"]:checked ~ label i {
+    transform: scale(1.2);
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const ratingInputs = document.querySelectorAll('.rating-input input[type="radio"]');
+    const starLabels = document.querySelectorAll('.rating-input label i');
+
+    ratingInputs.forEach((input, index) => {
+        input.addEventListener('change', function() {
+            starLabels.forEach((label, labelIndex) => {
+                if (labelIndex >= 4 - index) {
+                    label.classList.remove('far');
+                    label.classList.add('fas');
+                } else {
+                    label.classList.remove('fas');
+                    label.classList.add('far');
+                }
+            });
+        });
+    });
+});
+</script>
+
+<style>
+.add-to-cart:hover {
+    background: #283593 !important;
+    color: white !important;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(26, 35, 126, 0.3);
+}
+
+.wishlist-btn:hover {
+    background: var(--accent-color) !important;
+    color: white !important;
+}
+
+.quantity-selector input::-webkit-inner-spin-button,
+.quantity-selector input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.quantity-selector input {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+</style>
+{% endblock %}

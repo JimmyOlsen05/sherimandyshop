@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Mobile Money Payment{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title text-center mb-4">Mobile Money Payment</h3>
+                    
+                    {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="network" class="form-label">Select Network</label>
+                            <select name="network" id="network" class="form-select" required>
+                                <option value="">Choose your network</option>
+                                <option value="MTN">MTN Mobile Money</option>
+                                <option value="VODAFONE">Vodafone Cash</option>
+                                <option value="AIRTELTIGO">AirtelTigo Money</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="phone_number" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="phone_number" name="phone_number" 
+                                   pattern="0[0-9]{9}" placeholder="Enter your phone number (e.g., 0241234567)" 
+                                   required>
+                            <div class="form-text">Enter your phone number starting with 0 (10 digits)</div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <p class="mb-2"><strong>Amount to Pay:</strong> GH₵ {{ order.order_total|floatformat:2 }}</p>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                Pay GH₵ {{ order.order_total|floatformat:2 }}
+                            </button>
+                            <a href="{% url 'orders:payment_method' %}" class="btn btn-outline-secondary">
+                                Cancel Payment
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

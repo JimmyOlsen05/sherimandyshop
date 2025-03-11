@@ -1,0 +1,110 @@
+{% extends '../../../base.html' %}
+{% load static %}
+
+{% block content %}
+<div style="min-height: calc(100vh - 160px); background: #f0f4f8; padding-top: 100px;">
+    <div style="max-width: 1400px; margin: 0 auto; padding: 0 1rem;">
+        <div style="display: grid; grid-template-columns: 280px 1fr; gap: 1.5rem;">
+            <!-- Side Panel -->
+            <div style="background: white; padding: 2.5rem 1.5rem; border-right: 1px solid #e2e8f0; border-radius: 8px;">
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <div class="avatar-circle">
+                        {{ user.first_name|first|upper }}
+                    </div>
+                    <h3 style="color: #1f2937; font-size: 2rem; font-weight: 600; margin-bottom: 0.75rem;">{{ user.get_full_name }}</h3>
+                    <p style="color: #6b7280; font-size: 1.5rem;">{{ user.email }}</p>
+                </div>
+
+                <nav style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <a href="{% url 'accounts:dashboard' %}" class="nav-link {% if request.path == '/accounts/dashboard/' %}active{% endif %}" style="display: flex; align-items: center; padding: 1rem; color: #4b5563; text-decoration: none; font-weight: 500; border-radius: 0.5rem; transition: all 0.2s; font-size: 1.75rem;">
+                        <i class="fas fa-home" style="width: 1.5rem; margin-right: 0.75rem;"></i>
+                        Dashboard
+                    </a>
+                    <a href="{% url 'accounts:edit_profile' %}" class="nav-link {% if request.path == '/accounts/edit_profile/' %}active{% endif %}" style="display: flex; align-items: center; padding: 1rem; color: #4b5563; text-decoration: none; font-weight: 500; border-radius: 0.5rem; transition: all 0.2s; font-size: 1.75rem;">
+                        <i class="fas fa-user-edit" style="width: 1.5rem; margin-right: 0.75rem;"></i>
+                        Edit Profile
+                    </a>
+                    <a href="{% url 'accounts:my_orders' %}" class="nav-link {% if request.path == '/accounts/my_orders/' %}active{% endif %}" style="display: flex; align-items: center; padding: 1rem; color: #4b5563; text-decoration: none; font-weight: 500; border-radius: 0.5rem; transition: all 0.2s; font-size: 1.75rem;">
+                        <i class="fas fa-shopping-bag" style="width: 1.5rem; margin-right: 0.75rem;"></i>
+                        My Orders
+                    </a>
+                    <a href="{% url 'accounts:change_password' %}" class="nav-link {% if request.path == '/accounts/change_password/' %}active{% endif %}" style="display: flex; align-items: center; padding: 1rem; color: #4b5563; text-decoration: none; font-weight: 500; border-radius: 0.5rem; transition: all 0.2s; font-size: 1.75rem;">
+                        <i class="fas fa-lock" style="width: 1.5rem; margin-right: 0.75rem;"></i>
+                        Change Password
+                    </a>
+                    <div style="height: 1px; background: #e2e8f0; margin: 0.5rem 0;"></div>
+                    <a href="{% url 'accounts:logout' %}" class="nav-link" style="display: flex; align-items: center; padding: 1rem; color: #ef4444; text-decoration: none; font-weight: 500; border-radius: 0.5rem; transition: all 0.2s; font-size: 1.75rem;">
+                        <i class="fas fa-sign-out-alt" style="width: 1.5rem; margin-right: 0.75rem;"></i>
+                        Sign Out
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Main Content -->
+            <div style="padding: 2rem; background: white; border-radius: 8px;">
+                {% block dashboard_content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.avatar-circle {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 1.5rem;
+    background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 3.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2);
+    border: 3px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-link {
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-link:hover {
+    background: #f3f4f6;
+    color: #4f46e5 !important;
+}
+
+.nav-link.active {
+    background: #4f46e5;
+    color: white !important;
+}
+
+.nav-link.active i {
+    color: white;
+}
+
+.nav-link:last-child:hover {
+    background: #fef2f2;
+    color: #dc2626 !important;
+}
+
+@media (max-width: 768px) {
+    .container > div {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .side-panel {
+        border-right: none;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .avatar-circle {
+        width: 100px;
+        height: 100px;
+        font-size: 3rem;
+    }
+}
+</style>
+{% endblock %}
