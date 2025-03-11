@@ -1,0 +1,111 @@
+/* Product Details Page Styles */
+
+.product-gallery {
+    transition: all 0.3s ease;
+}
+
+.product-gallery:hover {
+    transform: translateY(-5px);
+}
+
+.gallery-thumbnails img {
+    transition: all 0.3s ease;
+    opacity: 0.7;
+}
+
+.gallery-thumbnails img:hover {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.price-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.stock-status {
+    display: inline-block;
+    font-weight: 500;
+}
+
+.product-actions .btn {
+    transition: all 0.3s ease;
+}
+
+.product-actions .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+.specifications table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.specifications td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.specifications tr:last-child td {
+    border-bottom: none;
+}
+
+.reviews-section {
+    position: relative;
+}
+
+.review-item {
+    transition: all 0.3s ease;
+}
+
+.review-item:hover {
+    background: var(--background-light);
+    transform: translateX(10px);
+    padding-left: 10px;
+}
+
+.rating-stars {
+    display: inline-block;
+    position: relative;
+}
+
+.form-control {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 10px 15px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(90, 103, 216, 0.1);
+    outline: none;
+}
+
+.btn {
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.quantity-input {
+    width: 80px;
+    text-align: center;
+    font-size: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 8px;
+}
+
+.quantity-input::-webkit-inner-spin-button,
+.quantity-input::-webkit-outer-spin-button {
+    opacity: 1;
+    height: 24px;
+}
