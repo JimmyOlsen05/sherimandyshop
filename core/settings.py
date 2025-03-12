@@ -72,10 +72,13 @@ if os.environ.get('PYTHONANYWHEREHOST', ''):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': os.environ.get('DB_NAME', 'sherimandyshop$default'),
-            'USER': os.environ.get('DB_USER', 'sherimandyshop'),
+            'NAME': 'sherimandyshop$default',
+            'USER': 'sherimandyshop',
             'PASSWORD': os.environ.get('DB_PASSWORD', ''),
-            'HOST': os.environ.get('DB_HOST', 'sherimandyshop.mysql.pythonanywhere-services.com'),
+            'HOST': 'sherimandyshop.mysql.pythonanywhere-services.com',
+            'OPTIONS': {
+                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            }
         }
     }
 else:
@@ -160,10 +163,13 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 if os.environ.get('PYTHONANYWHEREHOST', ''):
     CACHES = {
         'default': {
-            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-            'LOCATION': 'unique-snowflake',
+            'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+            'LOCATION': 'django_cache',
         }
     }
+    
+    # Use database sessions for PythonAnywhere
+    SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 else:
     CACHES = {
         'default': {
@@ -171,9 +177,11 @@ else:
             'LOCATION': os.environ.get('REDIS_URL', 'redis://127.0.0.1:6379/1'),
         }
     }
+    
+    # Use cache sessions for local development
+    SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 # Session Settings
-SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 SESSION_CACHE_ALIAS = 'default'
 SESSION_COOKIE_AGE = 1209600  # 2 weeks in seconds
 SESSION_COOKIE_HTTPONLY = True
