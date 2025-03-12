@@ -157,12 +157,20 @@ EMAIL_TIMEOUT = 60
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 # Cache settings
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-        'LOCATION': os.environ.get('REDIS_URL', 'redis://127.0.0.1:6379/1'),
+if os.environ.get('PYTHONANYWHEREHOST', ''):
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            'LOCATION': 'unique-snowflake',
+        }
     }
-}
+else:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+            'LOCATION': os.environ.get('REDIS_URL', 'redis://127.0.0.1:6379/1'),
+        }
+    }
 
 # Session Settings
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
