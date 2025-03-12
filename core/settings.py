@@ -9,7 +9,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-&!4%-vjbqun^7i
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'True'
 
-ALLOWED_HOSTS = ['yourusername.pythonanywhere.com', 'lmtsoftwares.com', 'www.lmtsoftwares.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['sherimandyshop.pythonanywhere.com', 'lmtsoftwares.com', 'www.lmtsoftwares.com', '127.0.0.1', 'localhost']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'payments',  # Add the new payments app
 
     'storages',
+    'corsheaders',
     'oauth2_provider',
     'rest_framework',  # Add rest_framework to installed apps
 ]
@@ -68,14 +69,13 @@ AUTH_USER_MODEL = 'accounts.Account'
 
 # Database Configuration
 if os.environ.get('PYTHONANYWHEREHOST', ''):
-    # Production Database (MySQL on PythonAnywhere)
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': os.environ.get('DB_NAME', 'yourusername$ppes_db'),
-            'USER': os.environ.get('DB_USER', 'yourusername'),
+            'NAME': os.environ.get('DB_NAME', 'sherimandyshop$default'),
+            'USER': os.environ.get('DB_USER', 'sherimandyshop'),
             'PASSWORD': os.environ.get('DB_PASSWORD', ''),
-            'HOST': os.environ.get('DB_HOST', 'yourusername.mysql.pythonanywhere-services.com'),
+            'HOST': os.environ.get('DB_HOST', 'sherimandyshop.mysql.pythonanywhere-services.com'),
         }
     }
 else:
