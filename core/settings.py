@@ -75,10 +75,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': os.environ.get('DB_NAME', 'sherimandyshop$default'),
         'USER': os.environ.get('DB_USER', 'sherimandyshop'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', ''),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'Yterbiumopiate#229'),  
         'HOST': os.environ.get('DB_HOST', 'sherimandyshop.mysql.pythonanywhere-services.com'),
         'PORT': '3306',
-        'OPTIONS': {'charset': 'utf8mb4'},
     }
 }
 
