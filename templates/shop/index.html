@@ -9,23 +9,27 @@ html, body {
     padding: 0;
     overflow-x: hidden;
     height: 100%;
+    background: #40394a;
 }
 
 .hero-section {
     position: relative;
     width: 100%;
-    height: 100vh;
+    height: calc(100vh - 160px);
     min-height: 600px;
     overflow: hidden;
-    margin-top: 50px;
+    margin-top: 160px;
+    padding-top: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: margin-top 0.3s ease;
+    background: #40394a;
 }
 
 body.header-hidden .hero-section {
     margin-top: 0;
+    height: 100vh;
 }
 
 .hero-slideshow {
