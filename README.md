@@ -1,91 +1,89 @@
-# Ecommerce Website (Django/javascript)
+# Sherimandyshop E-Commerce Platform
 
-![Django Ecommerce Store](https://github.com/omarreda22/Django-eCommerce-Store/blob/main/core/static/img/e_shop.PNG)
+A complete online store solution built with Django, offering secure payments and easy product management.
 
-Full-featured shopping cart with PayPal & credit/debit payments
+## Setup Guide
 
-Product rating & review system
+### System Requirements
+Python 3.9 or higher and MySQL database
 
-An actual real-world project built in a linear and progressive manner
+### Basic Setup
+Set up your workspace:
+```bash
+# Create virtual environment
+python -m venv env
+source env/bin/activate  # On Windows use: env\Scripts\activate
 
-Admin area to manage customers, products & orders
-
-Product search, carousel, pagination & more
-
-
-## View Full Video Demo On [Youtube](https://www.youtube.com/watch?v=lwWEabH0-lY)
-
-<br>
-
-
-## How to install on Windows
-1. clone this project
-2. install virtualenv
-```
-pip install virtualenv
-```
-3. create new virtual environment
-```
-py -m venv venv
-```
-4. activate the new virtual
-```
-.\venv\Scripts\activate
-```
-5. install requirements.txt
-```
+# Install packages
 pip install -r requirements.txt
 ```
-6. run local server to begin
- ```
- py manage.py runserver
- ```
- 7. go live with [localhost:8000](http://localhost:8000/)
- 
- ### To install on Unix/macOS  [see this document](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments)
- 
- 
- <br>
- 
- 
- 
- ## To add new products and access admin panel 
- 1. run on trimnal 
- ```
- py manage.py createsuperuser
- ```
- 2. create new admin user
- 2. go to [localhost:8000/admin](http://localhost:8000/admin)
 
+Add your database settings in `core/settings.py`:
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'your_database_name',
+        'USER': 'your_username',
+        'PASSWORD': 'your_password',
+        'HOST': 'localhost',
+    }
+}
+```
 
-## Some of feature in this store
+Start the application:
+```bash
+python manage.py migrate
+python manage.py collectstatic
+python manage.py runserver
+```
 
-- Full-featured shopping cart
-- Review and Rating System
-- Top products carousel
-- Product pagination
-- Product search feature
-- User profile with orders
-- Admin product management
-- Admin Order details page
-- Mark orders as a delivered option
-- Checkout process (shipping, payment method, etc... )
-- PayPal / Credit Card integration
-- Category Filter
-- Addition of variable products    
-- Post on your blog
-- Contact page
-- Professional and modern website design with matching colors
-- An unlimited number of products and categories
-- Unlimited pages 
-- Easy to manage the site
+Your store will be available at `http://127.0.0.1:8000`
 
+## Admin Guide
 
+### First-Time Setup
+Create your admin account:
+```bash
+python manage.py createsuperuser
+```
+Enter your preferred username, email, and password when prompted.
 
-### Need help? Found a bug? Message me!
+### Managing Your Store
+Access the admin panel at `/admin` using your login details.
 
+The admin panel lets you control:
+Your product catalog
+Customer orders
+User accounts
+Payment tracking
+Store content
 
+### Important Security Steps
+Set a strong admin password
+Keep your secret key private
+Use HTTPS in production
+Check access logs regularly
 
-<br>
+## PythonAnywhere Setup
 
-### Enjoy^^
+Update your database configuration:
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'sherimandyshop$default',
+        'USER': 'sherimandyshop',
+        'PASSWORD': 'your_mysql_password',
+        'HOST': 'sherimandyshop.mysql.pythonanywhere-services.com',
+    }
+}
+```
+
+Complete your setup:
+1. Configure your MySQL database
+2. Add your site to ALLOWED_HOSTS
+3. Set up your static files
+4. Reload your application
+
+Need help? Contact us at lmtsoftwares@gmail.com
