@@ -68,27 +68,18 @@ WSGI_APPLICATION = 'core.wsgi.application'
 AUTH_USER_MODEL = 'accounts.Account'
 
 # Database Configuration
-if os.environ.get('PYTHONANYWHEREHOST', ''):
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'sherimandyshop$default',
-            'USER': 'sherimandyshop',
-            'PASSWORD': os.environ.get('DB_PASSWORD', ''),
-            'HOST': 'sherimandyshop.mysql.pythonanywhere-services.com',
-            'OPTIONS': {
-                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-            }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'sherimandyshop$default',
+        'USER': 'sherimandyshop',
+        'PASSWORD': 'Yterbiumopiate#229',  # Replace this with your actual MySQL password
+        'HOST': 'sherimandyshop.mysql.pythonanywhere-services.com',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
         }
     }
-else:
-    # Development Database (SQLite)
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
