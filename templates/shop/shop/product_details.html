@@ -74,17 +74,15 @@
                     <h2 style="color: #212121; font-size: 2.2rem; font-weight: 700; margin-bottom: 20px;">{{ single_product.name }}</h2>
                     
                     <!-- Price Section -->
-                    <div class="price-box mb-4" style="padding: 15px 0; border-bottom: 1px solid #e0e0e0;">
+                    <div class="price-section">
                         {% if single_product.discount != 0.00 %}
-                        <div class="d-flex align-items-center">
-                            <span class="original-price" style="color: #757575; text-decoration: line-through; font-size: 1.4rem;">GH₵ {{ single_product.price|floatformat:2 }}</span>
-                            <span class="discount-price" style="color: #f44336; font-size: 2.2rem; font-weight: 700; margin-left: 15px">GH₵ {{ single_product.discount|floatformat:2 }}</span>
-                            <span class="discount-badge" style="background: #f44336; color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9rem; margin-left: 15px;">
-                                Save {{ single_product.get_discount_percentage|floatformat:0 }}%
-                            </span>
+                        <div class="price-info">
+                            <span class="current-price">GH₵ {{ single_product.get_discounted_price }}</span>
+                            <span class="original-price">GH₵ {{ single_product.price }}</span>
+                            <span class="discount-badge">-{{ single_product.get_discount_percentage }}% off</span>
                         </div>
                         {% else %}
-                        <span class="price" style="color: #f44336; font-size: 2.2rem; font-weight: 700;">GH₵ {{ single_product.price|floatformat:2 }}</span>
+                        <span class="current-price">GH₵ {{ single_product.price }}</span>
                         {% endif %}
                     </div>
 

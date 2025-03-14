@@ -834,6 +834,122 @@
     </style>
 
     <script src="{% static 'js/hero-slideshow.js' %}"></script>
+
+    <style>
+        .discount-tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #e74c3c;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .price-section {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin: 10px 0;
+        }
+
+        .current-price {
+            color: #2ecc71;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .original-price {
+            color: #95a5a6;
+            text-decoration: line-through;
+            font-size: 0.9rem;
+        }
+
+        .discount-badge {
+            color: #e74c3c;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .product-card {
+            position: relative;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            position: relative;
+            width: 100%;
+            padding-top: 100%;
+        }
+
+        .product-image img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 15px;
+        }
+
+        .product-name {
+            color: #2c3e50;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+            text-decoration: none;
+        }
+
+        .product-name:hover {
+            color: #3498db;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .add-to-cart, .view-details {
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .add-to-cart {
+            background: #3498db;
+            color: white;
+        }
+
+        .view-details {
+            background: #ecf0f1;
+            color: #2c3e50;
+        }
+
+        .add-to-cart:hover {
+            background: #2980b9;
+        }
+
+        .view-details:hover {
+            background: #bdc3c7;
+        }
+    </style>
 </body>
 
 </html>

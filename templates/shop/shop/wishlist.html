@@ -24,53 +24,60 @@
             {% for item in wishlist_items %}
             <div class="col-xs-12 col-sm-6 col-md-4">
                 <div style="background:#fff;border-radius:15px;box-shadow:0 2px 15px rgba(0,0,0,0.1);margin-bottom:30px;transition:all 0.3s" class="single-product hover-effect">
-                    <div class="product-img">
-                        {% if not item.product.is_available or item.product.stock <= 0 %}
-                        <div class="pro-type">
-                            <span style="background:#95a5a6;color:#fff;padding:5px 15px;border-radius:20px">Out of Stock</span>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <a href="{{item.product.get_prodcut_details_url}}">
+                                <img style="width:100%;height:350px;border-radius:15px 15px 0 0;object-fit:cover" src="{{item.product.image.url}}" alt="{{item.product.name}}" />
+                            </a>
+                            {% if item.product.discount > 0 %}
+                            <div class="discount-tag">-{{ item.product.discount }}%</div>
+                            {% endif %}
+                            {% if not item.product.is_available or item.product.stock <= 0 %}
+                            <div class="pro-type">
+                                <span style="background:#95a5a6;color:#fff;padding:5px 15px;border-radius:20px">Out of Stock</span>
+                            </div>
+                            {% endif %}
                         </div>
-                        {% endif %}
-                        <a href="{{item.product.get_prodcut_details_url}}">
-                            <img style="width:100%;height:350px;border-radius:15px 15px 0 0;object-fit:cover" src="{{item.product.image.url}}" alt="{{item.product.name}}" />
-                        </a>
-                        <div class="actions-btn">
+                        <div class="product-info">
+                            <h3 class="product-name">
+                                <a style="color:#2c3e50;font-weight:500;font-size:16px;transition:all 0.3s" href="{{item.product.get_prodcut_details_url}}">{{item.product.name}}</a>
+                            </h3>
+                            <div class="price-section">
+                                {% if item.product.discount > 0 %}
+                                <span class="current-price">GH₵{{ item.product.get_discounted_price }}</span>
+                                <span class="original-price">GH₵{{ item.product.price }}</span>
+                                {% else %}
+                                <span class="current-price">GH₵{{ item.product.price }}</span>
+                                {% endif %}
+                            </div>
+                            <div class="product-actions">
+                                {% if item.product.is_available and item.product.stock > 0 %}
+                                <a style="background:#3498db;color:#fff;border-radius:50%;width:40px;height:40px;line-height:40px;margin:5px;transition:all 0.3s" href="{% url 'cart:add_cart' item.product.id %}">
+                                    <i class="mdi mdi-cart"></i>
+                                </a>
+                                {% endif %}
+                                <a style="background:#3498db;color:#fff;border-radius:50%;width:40px;height:40px;line-height:40px;margin:5px;transition:all 0.3s" href="{{item.product.get_prodcut_details_url}}">
+                                    <i class="mdi mdi-eye"></i>
+                                </a>
+                                <a style="background:#e74c3c;color:#fff;border-radius:50%;width:40px;height:40px;line-height:40px;margin:5px;transition:all 0.3s" href="{% url 'shop:remove_from_wishlist' item.product.id %}">
+                                    <i class="mdi mdi-heart"></i>
+                                </a>
+                            </div>
                             {% if item.product.is_available and item.product.stock > 0 %}
-                            <a style="background:#3498db;color:#fff;border-radius:50%;width:40px;height:40px;line-height:40px;margin:5px;transition:all 0.3s" href="{% url 'cart:add_cart' item.product.id %}">
-                                <i class="mdi mdi-cart"></i>
-                            </a>
-                            {% endif %}
-                            <a style="background:#3498db;color:#fff;border-radius:50%;width:40px;height:40px;line-height:40px;margin:5px;transition:all 0.3s" href="{{item.product.get_prodcut_details_url}}">
-                                <i class="mdi mdi-eye"></i>
-                            </a>
-                            <a style="background:#e74c3c;color:#fff;border-radius:50%;width:40px;height:40px;line-height:40px;margin:5px;transition:all 0.3s" href="{% url 'shop:add_to_wishlist' item.product.id %}">
-                                <i class="mdi mdi-heart"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="product-dsc" style="padding:15px">
-                        <p><a style="color:#2c3e50;font-weight:500;font-size:16px;transition:all 0.3s" href="{{item.product.get_prodcut_details_url}}">{{item.product.name}}</a></p>
-                        <div class="price-box">
-                            {% if item.product.discount != 0.00 %}
-                            <span style="color:#95a5a6;text-decoration:line-through;margin-right:10px">GH₵ {{item.product.price}}</span>
-                            <span style="color:#3498db;font-weight:600;font-size:18px">GH₵ {{item.product.discount}}</span>
+                            <span style="color:#27ae60;font-size:14px">In Stock ({{item.product.stock}} items)</span>
                             {% else %}
-                            <span style="color:#3498db;font-weight:600;font-size:18px">GH₵ {{item.product.price}}</span>
+                            <span style="color:#e74c3c;font-size:14px">Out of Stock</span>
                             {% endif %}
-                        </div>
-                        {% if item.product.is_available and item.product.stock > 0 %}
-                        <span style="color:#27ae60;font-size:14px">In Stock ({{item.product.stock}} items)</span>
-                        {% else %}
-                        <span style="color:#e74c3c;font-size:14px">Out of Stock</span>
-                        {% endif %}
-                        <div style="font-size:16px;margin-top:10px" class="rating-star">
-                            <span style="color:#f1c40f">
-                                <i class="fa fa-star{% if item.product.averageRating < 0.5 %}-o{% elif item.product.averageRating >= 0.5 and item.product.averageRating < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
-                                <i class="fa fa-star{% if item.product.averageRating < 1.5 %}-o{% elif item.product.averageRating >= 1.5 and item.product.averageRating < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
-                                <i class="fa fa-star{% if item.product.averageRating < 2.5 %}-o{% elif item.product.averageRating >= 2.5 and item.product.averageRating < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
-                                <i class="fa fa-star{% if item.product.averageRating < 3.5 %}-o{% elif item.product.averageRating >= 3.5 and item.product.averageRating < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
-                                <i class="fa fa-star{% if item.product.averageRating < 4.5 %}-o{% elif item.product.averageRating >= 4.5 and item.product.averageRating < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
-                            </span>
-                            <span style="color:#7f8c8d;font-size:14px">({{item.product.countReview}} reviews)</span>
+                            <div style="font-size:16px;margin-top:10px" class="rating-star">
+                                <span style="color:#f1c40f">
+                                    <i class="fa fa-star{% if item.product.averageRating < 0.5 %}-o{% elif item.product.averageRating >= 0.5 and item.product.averageRating < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                    <i class="fa fa-star{% if item.product.averageRating < 1.5 %}-o{% elif item.product.averageRating >= 1.5 and item.product.averageRating < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                    <i class="fa fa-star{% if item.product.averageRating < 2.5 %}-o{% elif item.product.averageRating >= 2.5 and item.product.averageRating < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                    <i class="fa fa-star{% if item.product.averageRating < 3.5 %}-o{% elif item.product.averageRating >= 3.5 and item.product.averageRating < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                    <i class="fa fa-star{% if item.product.averageRating < 4.5 %}-o{% elif item.product.averageRating >= 4.5 and item.product.averageRating < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                </span>
+                                <span style="color:#7f8c8d;font-size:14px">({{item.product.countReview}} reviews)</span>
+                            </div>
                         </div>
                     </div>
                 </div>
