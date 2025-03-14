@@ -11,7 +11,7 @@
     <!-- favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/logo.jpg' %}">
 
-    <link rel="apple-touch-icon" href="apple-touch-icon.png' %}">
+    <link rel="apple-touch-icon" href="{apple-touch-icon.png' %}">
     <!-- Place favicon.ico in the root directory -->
     <!-- google fonts -->
     <link href='https://fonts.googleapis.com/css?family=Lato:400,900,700,300' rel='stylesheet' type='text/css'>
@@ -609,7 +609,7 @@
     </script>
 </head>
 
-<body style="background:#40394a; margin: 0; padding-top: 120px;">
+<body style="background:#40394a; margin: 0; padding-top: 180px;">
     <!-- Toast container for notifications -->
     <div class="toast-container" id="toastContainer"></div>
 
@@ -622,7 +622,7 @@
         {% endif %}
     </div>
 
-    <header id="siteHeader" class="header header-visible" style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); position: fixed; width: 100%; top: 0; left: 0; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.1); margin: 0; padding: 0;">
+    <header id="siteHeader" class="header header-visible" style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); position: fixed; width: 100%; top: 0; left: 0; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
         <div class="container" style="width: 100%; margin: 0; padding: 0;">
             <div class="header-content" style="margin: 0; padding: 0 20px; height: 120px; display: flex; align-items: center; justify-content: space-between;">
                 <div class="logo-cart-wrapper">
@@ -678,7 +678,7 @@
         </ul>
     </nav>
 
-    <main style="min-height: calc(100vh - 50px - 200px); width: 100%; max-width: 1400px; margin: 0 auto; padding: 2rem;">
+    <main style="min-height: calc(100vh - 180px); width: 100%; max-width: 1400px; margin: 0 auto; padding: 2rem;">
         {% block content %}
         {% endblock %}
     </main>
@@ -790,8 +790,46 @@
 
     @media (max-width: 991px) {
         body {
-            padding-top: 60px !important;
+            padding-top: 120px !important;
         }
+
+        #siteHeader {
+            min-height: 60px;
+        }
+
+        .mobile-nav {
+            top: 60px;
+        }
+
+        main {
+            min-height: calc(100vh - 120px);
+        }
+    }
+
+    /* Ensure content doesn't overlap with fixed header */
+    .hero-section {
+        margin-top: -60px;
+        padding-top: 60px;
+    }
+
+    /* Update slideshow container positioning */
+    .slideshow-container {
+        position: relative;
+        margin-top: 0;
+    }
+
+    /* Ensure proper z-indexing */
+    .header {
+        z-index: 1000;
+    }
+
+    .mobile-nav {
+        z-index: 999;
+    }
+
+    .hero-section {
+        z-index: 1;
+        position: relative;
     }
     </style>
 
