@@ -43,8 +43,7 @@ def checkout(request, total=0, total_price=0, quantity=0, cart_items=None):
             total_price += (cart_item.product.price * cart_item.quantity)
             quantity += cart_item.quantity
         
-        tax = round((2 * total_price) / 100, 2)
-        grand_total = total_price + tax
+        grand_total = total_price
 
         if request.method == 'POST':
             form = OrderForm(request.POST)
@@ -70,7 +69,6 @@ def checkout(request, total=0, total_price=0, quantity=0, cart_items=None):
                     grand_total += order.delivery_fee
                 
                 order.order_total = grand_total
-                order.tax = tax
                 order.ip = request.META.get('REMOTE_ADDR')
                 order.save()
 
@@ -148,7 +146,6 @@ def checkout(request, total=0, total_price=0, quantity=0, cart_items=None):
         'quantity': quantity,
         'cart_items': cart_items,
         'delivery_locations': delivery_locations,
-        'tax': tax,
         'grand_total': grand_total,
     }
     return render(request, 'shop/orders/checkout/checkout.html', context)

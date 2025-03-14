@@ -91,16 +91,12 @@
                                         <td style="border-color: #334155; text-align: right; color: #ffd700; font-size: 16px; padding: 15px;">GH₵ {{total_price}}</td>
                                     </tr>
                                     <tr style="background: #0f172a;">
-                                        <td style="border-color: #334155; color: #ffd700; font-size: 16px; padding: 15px;">Tax (2%)</td>
-                                        <td style="border-color: #334155; text-align: right; color: #ffd700; font-size: 16px; padding: 15px;">GH₵ {{tax}}</td>
-                                    </tr>
-                                    <tr style="background: #0f172a;">
                                         <td style="border-color: #334155; color: #ffd700; font-size: 16px; padding: 15px;">Delivery Fee</td>
                                         <td style="border-color: #334155; text-align: right; color: #ffd700; font-size: 16px; padding: 15px;" id="delivery_fee">GH₵ 0.00</td>
                                     </tr>
                                     <tr style="background: #0f172a;">
                                         <td style="border-color: #334155; color: #ffd700; font-size: 18px; padding: 15px; font-weight: bold;">Total</td>
-                                        <td style="border-color: #334155; text-align: right; color: #ffd700; font-size: 18px; padding: 15px; font-weight: bold;" id="grand_total">GH₵ {{grand_total}}</td>
+                                        <td style="border-color: #334155; text-align: right; color: #ffd700; font-size: 18px; padding: 15px; font-weight: bold;" id="grand_total">GH₵ {{total_price}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -123,23 +119,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const grandTotalDisplay = document.getElementById('grand_total');
     const deliveryFeeDisplay = document.getElementById('delivery_fee');
     const subtotal = parseFloat('{{total_price}}');
-    const tax = parseFloat('{{tax}}');
-    const initialTotal = subtotal + tax;
+    const initialTotal = subtotal;
     
     deliverySelect.addEventListener('change', function() {
         const locationId = this.value;
         if (locationId) {
-            fetch(`/orders/get_delivery_fee/${locationId}/?total=${subtotal}`)
+            fetch(`/orders/get-delivery-fee/${locationId}/`)
                 .then(response => response.json())
                 .then(data => {
-                    const fee = parseFloat(data.delivery_fee) || 0;
-                    const newTotal = initialTotal + fee;
-                    deliveryFeeDisplay.textContent = `GH₵ ${fee.toFixed(2)}`;
+                    const deliveryFee = parseFloat(data.delivery_fee);
+                    const newTotal = initialTotal + deliveryFee;
+                    deliveryFeeDisplay.textContent = `GH₵ ${deliveryFee.toFixed(2)}`;
                     grandTotalDisplay.textContent = `GH₵ ${newTotal.toFixed(2)}`;
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    deliveryFeeDisplay.textContent = 'Error calculating fee';
                 });
         } else {
             deliveryFeeDisplay.textContent = 'GH₵ 0.00';
