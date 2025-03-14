@@ -52,17 +52,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td style="vertical-align: middle; padding: 15px;">
-                                    {% if cart_item.product.discount > 0 %}
-                                    <div class="discount-info">
-                                        <span class="original-price">Original: GH₵{{ cart_item.product.price }}</span>
-                                        <span class="discount-badge">-{{ cart_item.product.discount }}% off</span>
-                                        <span class="discounted-price">Discounted: GH₵{{ cart_item.product.get_discounted_price }}</span>
-                                    </div>
-                                    {% else %}
-                                    <span class="product-price">GH₵{{ cart_item.product.price }}</span>
-                                    {% endif %}
-                                </td>
+                                <td style="vertical-align: middle; color: #F8FAFC; font-size: 1.3rem; padding: 15px;">GH₵ {{ cart_item.product.price }}</td>
                                 <td style="vertical-align: middle; padding: 15px;">
                                     <div class="quantity-controls" style="display: flex; align-items: center; gap: 10px;">
                                         <a href="{% url 'cart:remove_cart' cart_item.product.id cart_item.id %}" 
