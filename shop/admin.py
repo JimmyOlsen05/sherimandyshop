@@ -32,7 +32,7 @@ class SafetyStandardAdmin(admin.ModelAdmin):
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = [
-        'product_image', 'name', 'category', 'price', 'stock',
+        'product_image', 'name', 'category', 'price', 'discount', 'stock',
         'certifications', 'is_available', 'featured'
     ]
     list_filter = [
@@ -40,7 +40,7 @@ class ProductAdmin(admin.ModelAdmin):
         'certifications', 'safety_standards', 'size_unit'
     ]
     list_editable = [
-        'price', 'stock', 'is_available', 'featured'
+        'price', 'discount', 'stock', 'is_available', 'featured'
     ]
     prepopulated_fields = {'slug': ('name',)}
     readonly_fields = ['created', 'updated']
