@@ -40,7 +40,7 @@ def checkout(request, total=0, total_price=0, quantity=0, cart_items=None):
             cart_items = CartItem.objects.filter(cart=cart, is_active=True)
         
         for cart_item in cart_items:
-            total_price += (cart_item.product.price * cart_item.quantity)
+            total_price += cart_item.sub_total()
             quantity += cart_item.quantity
         
         grand_total = total_price
@@ -190,7 +190,7 @@ def payment_complete(request):
                         user=request.user,
                         product=item.product,
                         quantity=item.quantity,
-                        product_price=item.product.price,
+                        product_price=item.product.get_discounted_price(),
                         ordered=True
                     )
                     
@@ -274,7 +274,7 @@ def paystack_webhook(request):
                         user=order.user,
                         product=item.product,
                         quantity=item.quantity,
-                        product_price=item.product.price,
+                        product_price=item.product.get_discounted_price(),
                         ordered=True
                     )
                     

@@ -98,6 +98,11 @@ class Product(models.Model):
     def get_prodcut_details_url(self):
         return reverse('shop:product_details', args=[self.category.slug, self.slug])
     
+    def get_discounted_price(self):
+        if self.discount > 0:
+            return self.price - self.discount
+        return self.price
+    
     class Meta:
         verbose_name_plural = 'Products'
         ordering = ('-date_joined_for_format',)

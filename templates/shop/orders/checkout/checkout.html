@@ -82,13 +82,22 @@
                                 <tbody>
                                     {% for cart_item in cart_items %}
                                     <tr style="background: #0f172a;">
-                                        <td style="border-color: #334155; color: #ffd700; font-size: 16px; padding: 15px;">{{cart_item.product.name}} x {{cart_item.quantity}}</td>
-                                        <td style="border-color: #334155; text-align: right; color: #ffd700; font-size: 16px; padding: 15px;">GH₵ {{cart_item.sub_total}}</td>
+                                        <td style="border-color: #334155; color: #ffd700; font-size: 16px; padding: 15px;">
+                                            {{cart_item.product.name}} x {{cart_item.quantity}}
+                                            {% if cart_item.product.discount > 0 %}
+                                            <br>
+                                            <small style="color: #64748b;">
+                                                Original: GH₵ {{cart_item.product.price|floatformat:2}}
+                                                <span style="color: #10b981;">(-GH₵ {{cart_item.product.discount|floatformat:2}} off)</span>
+                                            </small>
+                                            {% endif %}
+                                        </td>
+                                        <td style="border-color: #334155; text-align: right; color: #ffd700; font-size: 16px; padding: 15px;">GH₵ {{cart_item.sub_total|floatformat:2}}</td>
                                     </tr>
                                     {% endfor %}
                                     <tr style="border-top: 2px solid #334155; background: #0f172a;">
                                         <td style="border-color: #334155; color: #ffd700; font-size: 16px; padding: 15px;">Subtotal</td>
-                                        <td style="border-color: #334155; text-align: right; color: #ffd700; font-size: 16px; padding: 15px;">GH₵ {{total_price}}</td>
+                                        <td style="border-color: #334155; text-align: right; color: #ffd700; font-size: 16px; padding: 15px;">GH₵ {{total_price|floatformat:2}}</td>
                                     </tr>
                                     <tr style="background: #0f172a;">
                                         <td style="border-color: #334155; color: #ffd700; font-size: 16px; padding: 15px;">Delivery Fee</td>
@@ -96,7 +105,7 @@
                                     </tr>
                                     <tr style="background: #0f172a;">
                                         <td style="border-color: #334155; color: #ffd700; font-size: 18px; padding: 15px; font-weight: bold;">Total</td>
-                                        <td style="border-color: #334155; text-align: right; color: #ffd700; font-size: 18px; padding: 15px; font-weight: bold;" id="grand_total">GH₵ {{total_price}}</td>
+                                        <td style="border-color: #334155; text-align: right; color: #ffd700; font-size: 18px; padding: 15px; font-weight: bold;" id="grand_total">GH₵ {{total_price|floatformat:2}}</td>
                                     </tr>
                                 </tbody>
                             </table>
