@@ -71,63 +71,30 @@
 									<div class="tab-pane fade in active text-center" id="grid">
                                         {% for product in products %}
 										<div class="col-xs-12 col-sm-6 col-md-4">
-											<div style="background:#fff;border-radius:15px;box-shadow:0 2px 15px rgba(0,0,0,0.1);margin-bottom:30px;transition:all 0.3s" class="single-product hover-effect">
-												<div class="product-img">
-													{% if product.discount != 0.00 %}
-													<div class="pro-type sale-badge">
-														<span style="background:#e74c3c;color:#fff;padding:5px 15px;border-radius:20px">Sale</span>
-													</div>
-													{% endif %}
-													{% if product.new %}
-													<div class="pro-type">
-														<span style="background:#27ae60;color:#fff;padding:5px 15px;border-radius:20px">New</span>
-													</div>
-													{% endif %}
-													{% if not product.is_available or product.stock <= 0 %}
-													<div class="pro-type">
-														<span style="background:#95a5a6;color:#fff;padding:5px 15px;border-radius:20px">Out of Stock</span>
-													</div>
-													{% endif %}
+											<div class="product-card">
+												<div class="product-image">
 													<a href="{{product.get_prodcut_details_url}}">
-                                                        <img style="width:100%;height:350px;border-radius:15px 15px 0 0;object-fit:cover" src="{{product.image.url}}" alt="{{product.name}}" />
-                                                    </a>
-													<div class="actions-btn">
-														{% if product.is_available and product.stock > 0 %}
-														<a style="background:#3498db;color:#fff;border-radius:50%;width:40px;height:40px;line-height:40px;margin:5px;transition:all 0.3s" href="{% url 'cart:add_cart' product.id %}"><i class="mdi mdi-cart"></i></a>
-														{% endif %}
-														<a style="background:#3498db;color:#fff;border-radius:50%;width:40px;height:40px;line-height:40px;margin:5px;transition:all 0.3s" href="{{product.get_prodcut_details_url}}"><i class="mdi mdi-eye"></i></a>
-														{% if user.is_authenticated %}
-														<a style="background:#3498db;color:#fff;border-radius:50%;width:40px;height:40px;line-height:40px;margin:5px;transition:all 0.3s" href="{% url 'shop:add_to_wishlist' product.id %}" class="wishlist-btn">
-															<i class="{% if product.id in user_wishlist %}fas{% else %}far{% endif %} fa-heart"></i>
-														</a>
-														{% endif %}
-													</div>
-												</div>
-												<div class="product-dsc" style="padding:15px">
-													<p><a style="color:#2c3e50;font-weight:500;font-size:16px;transition:all 0.3s" href="{{product.get_prodcut_details_url}}">{{product.name}}</a></p>
-													<div class="price-box">
-														<div class="price mb-1">
-															<span class="price h5 text-dark">GH₵ {{product.price|floatformat:2}}</span>
-														</div>
-														{% if product.discount != 0.00 %}
-														<span style="color:#95a5a6;text-decoration:line-through;margin-right:10px">GH₵ {{product.price|floatformat:2}}</span>
-														<span style="color:#3498db;font-weight:600;font-size:18px">GH₵ {{product.discount|floatformat:2}}</span>
-														{% endif %}
-													</div>
-													{% if product.is_available and product.stock > 0 %}
-													<span style="color:#27ae60;font-size:14px">In Stock ({{product.stock}} items)</span>
-													{% else %}
-													<span style="color:#e74c3c;font-size:14px">Out of Stock</span>
+														<img style="width:100%;height:350px;border-radius:15px 15px 0 0;object-fit:cover" src="{{product.image.url}}" alt="{{product.name}}" />
+													</a>
+													{% if product.discount != 0.00 %}
+													<div class="price-tag">GH₵{{ product.get_discounted_price }}</div>
 													{% endif %}
-													<div style="font-size:16px;margin-top:10px" class="rating-star">
-														<span style="color:#f1c40f">
-														<i class="fa fa-star{% if product.averageRating < 0.5 %}-o{% elif product.averageRating >= 0.5 and product.averageRating < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
-														<i class="fa fa-star{% if product.averageRating < 1.5 %}-o{% elif product.averageRating >= 1.5 and product.averageRating < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
-														<i class="fa fa-star{% if product.averageRating < 2.5 %}-o{% elif product.averageRating >= 2.5 and product.averageRating < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
-														<i class="fa fa-star{% if product.averageRating < 3.5 %}-o{% elif product.averageRating >= 3.5 and product.averageRating < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
-														<i class="fa fa-star{% if product.averageRating < 4.5 %}-o{% elif product.averageRating >= 4.5 and product.averageRating < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
-														</span>
-														<span style="color:#7f8c8d;font-size:14px">({{product.countReview}} reviews)</span>
+												</div>
+												<div class="product-info">
+													<h3><a href="{{product.get_prodcut_details_url}}">{{product.name}}</a></h3>
+													<div class="price-box">
+														{% if product.discount != 0.00 %}
+														<span class="old-price">GH₵{{ product.price }}</span>
+														<span class="current-price">GH₵{{ product.get_discounted_price }}</span>
+														{% else %}
+														<span class="current-price">GH₵{{ product.price }}</span>
+														{% endif %}
+													</div>
+													<div class="product-actions">
+														{% if product.is_available and product.stock > 0 %}
+														<a href="{% url 'cart:add_cart' product.id %}" class="add-cart">Add to Cart</a>
+														{% endif %}
+														<a href="{{product.get_prodcut_details_url}}" class="view">View Details</a>
 													</div>
 												</div>
 											</div>
@@ -164,7 +131,7 @@
 																</span>
 																<span style="color:#7f8c8d;font-size:14px">({{product.countReview}} reviews)</span>
 															</div>
-															<h3 style="color:#2c3e50">{{product.name}}</h3>
+															<h3><a href="{{product.get_prodcut_details_url}}">{{product.name}}</a></h3>
 															<h5 style="color:#3498db">{% if product.discount != 0.00 %}<del>GH₵ {{product.price|floatformat:2}}</del>{% endif %} GH₵ {{product.price|floatformat:2}}</h5>
 															<p>{{product.description}}.</p>
 															<div class="list-btn">
@@ -219,5 +186,106 @@
 				</div>
 			</div>
 		</section>
-	
+		<style>
+            .product-card {
+                background: #fff;
+                border-radius: 15px;
+                box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+                margin-bottom: 30px;
+                transition: transform 0.3s;
+                overflow: hidden;
+            }
+
+            .product-card:hover {
+                transform: translateY(-5px);
+            }
+
+            .product-image {
+                position: relative;
+            }
+
+            .product-image img {
+                width: 100%;
+                height: 350px;
+                object-fit: cover;
+                border-radius: 15px 15px 0 0;
+            }
+
+            .price-tag {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                background: #2ecc71;
+                color: white;
+                padding: 8px 15px;
+                border-radius: 20px;
+                font-weight: 600;
+            }
+
+            .product-info {
+                padding: 20px;
+            }
+
+            .product-info h3 {
+                margin: 0 0 15px;
+            }
+
+            .product-info h3 a {
+                color: #2c3e50;
+                font-size: 18px;
+                text-decoration: none;
+                transition: color 0.3s;
+            }
+
+            .product-info h3 a:hover {
+                color: #3498db;
+            }
+
+            .price-box {
+                margin-bottom: 15px;
+            }
+
+            .old-price {
+                color: #95a5a6;
+                text-decoration: line-through;
+                margin-right: 10px;
+            }
+
+            .current-price {
+                color: #2ecc71;
+                font-weight: 600;
+                font-size: 18px;
+            }
+
+            .product-actions {
+                display: flex;
+                gap: 10px;
+            }
+
+            .add-cart, .view {
+                padding: 8px 15px;
+                border-radius: 5px;
+                text-decoration: none;
+                font-weight: 500;
+                transition: background 0.3s;
+            }
+
+            .add-cart {
+                background: #3498db;
+                color: white;
+            }
+
+            .add-cart:hover {
+                background: #2980b9;
+            }
+
+            .view {
+                background: #ecf0f1;
+                color: #2c3e50;
+            }
+
+            .view:hover {
+                background: #bdc3c7;
+            }
+        </style>
 {% endblock content %}

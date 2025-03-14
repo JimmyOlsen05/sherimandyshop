@@ -73,18 +73,17 @@
                 <div class="product-info" style="background: white; padding: 35px; border-radius: 20px; box-shadow: 0 5px 25px rgba(0,0,0,0.1);">
                     <h2 style="color: #212121; font-size: 2.2rem; font-weight: 700; margin-bottom: 20px;">{{ single_product.name }}</h2>
                     
-                    <!-- Price Section -->
-                    <div class="price-box mb-4" style="padding: 15px 0; border-bottom: 1px solid #e0e0e0;">
-                        {% if single_product.discount != 0.00 %}
-                        <div class="d-flex align-items-center">
-                            <span class="original-price" style="color: #757575; text-decoration: line-through; font-size: 1.4rem;">GH₵ {{ single_product.price|floatformat:2 }}</span>
-                            <span class="discount-price" style="color: #f44336; font-size: 2.2rem; font-weight: 700; margin-left: 15px">GH₵ {{ single_product.discount|floatformat:2 }}</span>
-                            <span class="discount-badge" style="background: #f44336; color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9rem; margin-left: 15px;">
-                                Save {{ single_product.get_discount_percentage|floatformat:0 }}%
-                            </span>
+                    <div class="price-section">
+                        {% if single_product.discount > 0 %}
+                        <div class="price-info">
+                            <div class="current-price">GH₵{{ single_product.get_discounted_price }}</div>
+                            <div class="price-details">
+                                <span class="original-price">GH₵{{ single_product.price }}</span>
+                                <span class="discount-badge">Save {{ single_product.discount }}%</span>
+                            </div>
                         </div>
                         {% else %}
-                        <span class="price" style="color: #f44336; font-size: 2.2rem; font-weight: 700;">GH₵ {{ single_product.price|floatformat:2 }}</span>
+                        <div class="current-price">GH₵{{ single_product.price }}</div>
                         {% endif %}
                     </div>
 
@@ -319,30 +318,47 @@
 .rating-input input[type="radio"]:checked ~ label i {
     transform: scale(1.2);
 }
-</style>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const ratingInputs = document.querySelectorAll('.rating-input input[type="radio"]');
-    const starLabels = document.querySelectorAll('.rating-input label i');
+.price-section {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
 
-    ratingInputs.forEach((input, index) => {
-        input.addEventListener('change', function() {
-            starLabels.forEach((label, labelIndex) => {
-                if (labelIndex >= 4 - index) {
-                    label.classList.remove('far');
-                    label.classList.add('fas');
-                } else {
-                    label.classList.remove('fas');
-                    label.classList.add('far');
-                }
-            });
-        });
-    });
-});
-</script>
+.price-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 
-<style>
+.current-price {
+    color: #2ecc71;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.price-details {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.original-price {
+    color: #95a5a6;
+    text-decoration: line-through;
+    font-size: 1.2rem;
+}
+
+.discount-badge {
+    background: #e74c3c;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
 .add-to-cart:hover {
     background: #283593 !important;
     color: white !important;
@@ -367,4 +383,25 @@ document.addEventListener('DOMContentLoaded', function() {
     appearance: textfield;
 }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const ratingInputs = document.querySelectorAll('.rating-input input[type="radio"]');
+    const starLabels = document.querySelectorAll('.rating-input label i');
+
+    ratingInputs.forEach((input, index) => {
+        input.addEventListener('change', function() {
+            starLabels.forEach((label, labelIndex) => {
+                if (labelIndex >= 4 - index) {
+                    label.classList.remove('far');
+                    label.classList.add('fas');
+                } else {
+                    label.classList.remove('fas');
+                    label.classList.add('far');
+                }
+            });
+        });
+    });
+});
+</script>
 {% endblock %}

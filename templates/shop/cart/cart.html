@@ -52,7 +52,21 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td style="vertical-align: middle; color: #F8FAFC; font-size: 1.3rem; padding: 15px;">GH₵ {{ cart_item.product.price }}</td>
+                                <td style="vertical-align: middle; padding: 15px;">
+                                    <div class="price-info">
+                                        {% if cart_item.product.discount > 0 %}
+                                        <div class="price-details">
+                                            <span class="main-price">GH₵{{ cart_item.product.get_discounted_price }}</span>
+                                            <div class="discount-info">
+                                                <span class="original">GH₵{{ cart_item.product.price }}</span>
+                                                <span class="save-text">Save {{ cart_item.product.discount }}%</span>
+                                            </div>
+                                        </div>
+                                        {% else %}
+                                        <span class="main-price">GH₵{{ cart_item.product.price }}</span>
+                                        {% endif %}
+                                    </div>
+                                </td>
                                 <td style="vertical-align: middle; padding: 15px;">
                                     <div class="quantity-controls" style="display: flex; align-items: center; gap: 10px;">
                                         <a href="{% url 'cart:remove_cart' cart_item.product.id cart_item.id %}" 
@@ -119,6 +133,41 @@
 
 .cart-actions .btn:hover {
     opacity: 0.9;
+}
+
+.price-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.price-details {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.main-price {
+    color: #2ecc71;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.discount-info {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.original {
+    color: #95a5a6;
+    text-decoration: line-through;
+}
+
+.save-text {
+    color: #e74c3c;
+    font-weight: 500;
 }
 </style>
 {% endblock %}
