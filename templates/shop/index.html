@@ -14,7 +14,7 @@ html, body {
 .hero-section {
     position: relative;
     width: 100%;
-    height: 100vh;
+    height: calc(100vh - 120px);
     min-height: 600px;
     overflow: hidden;
     margin-top: 0;
@@ -25,6 +25,7 @@ html, body {
 }
 
 body.header-hidden .hero-section {
+    height: 100vh;
     margin-top: 0;
 }
 
