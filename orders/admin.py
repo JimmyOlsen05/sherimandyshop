@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Payment, Order, OrderProduct
+from .models import Payment, Order, OrderProduct, DeliveryLocation
 from django.utils.html import format_html
 
 
@@ -32,3 +32,12 @@ class OrderAdmin(admin.ModelAdmin):
 
 
 admin.site.register(OrderProduct)
+
+
+@admin.register(DeliveryLocation)
+class DeliveryLocationAdmin(admin.ModelAdmin):
+    list_display = ['name', 'is_tarkwa', 'base_fee', 'distance_km']
+    list_editable = ['base_fee', 'distance_km']
+    search_fields = ['name']
+    list_filter = ['is_tarkwa']
+    list_per_page = 20
