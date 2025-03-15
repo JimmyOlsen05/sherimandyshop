@@ -25,39 +25,39 @@
                         <div class="row g-4">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label" style="color: #fff; margin-bottom: 8px;">First Name</label>
-                                <input type="text" name="first_name" class="form-control checkout-input" required>
+                                <input type="text" name="first_name" class="form-control" required style="background: #0f172a; border: 1px solid #334155; color: #fff; padding: 12px; border-radius: 8px; height: 50px;">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label" style="color: #fff; margin-bottom: 8px;">Last Name</label>
-                                <input type="text" name="last_name" class="form-control checkout-input" required>
+                                <input type="text" name="last_name" class="form-control" required style="background: #0f172a; border: 1px solid #334155; color: #fff; padding: 12px; border-radius: 8px; height: 50px;">
                             </div>
                             <div class="col-12 mb-3">
                                 <label class="form-label" style="color: #fff; margin-bottom: 8px;">Email</label>
-                                <input type="email" name="email" class="form-control checkout-input" required>
+                                <input type="email" name="email" class="form-control" required style="background: #0f172a; border: 1px solid #334155; color: #fff; padding: 12px; border-radius: 8px; height: 50px;">
                             </div>
                             <div class="col-12 mb-3">
                                 <label class="form-label" style="color: #fff; margin-bottom: 8px;">Phone Number</label>
-                                <input type="tel" name="phone" class="form-control checkout-input" required>
+                                <input type="tel" name="phone" class="form-control" required style="background: #0f172a; border: 1px solid #334155; color: #fff; padding: 12px; border-radius: 8px; height: 50px;">
                             </div>
                             <div class="col-12 mb-3">
                                 <label class="form-label" style="color: #fff; margin-bottom: 8px;">Address</label>
-                                <input type="text" name="address" class="form-control checkout-input" required>
+                                <input type="text" name="address" class="form-control" required style="background: #0f172a; border: 1px solid #334155; color: #fff; padding: 12px; border-radius: 8px; height: 50px;">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label" style="color: #fff; margin-bottom: 8px;">City</label>
-                                <input type="text" name="city" class="form-control checkout-input" required>
+                                <input type="text" name="city" class="form-control" required style="background: #0f172a; border: 1px solid #334155; color: #fff; padding: 12px; border-radius: 8px; height: 50px;">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label" style="color: #fff; margin-bottom: 8px;">Region</label>
-                                <input type="text" name="state" class="form-control checkout-input" required>
+                                <input type="text" name="state" class="form-control" required style="background: #0f172a; border: 1px solid #334155; color: #fff; padding: 12px; border-radius: 8px; height: 50px;">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label" style="color: #fff; margin-bottom: 8px;">Country</label>
-                                <input type="text" name="country" class="form-control checkout-input" required>
+                                <input type="text" name="country" class="form-control" required style="background: #0f172a; border: 1px solid #334155; color: #fff; padding: 12px; border-radius: 8px; height: 50px;">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label" style="color: #fff; margin-bottom: 8px;">Delivery Location</label>
-                                <select name="delivery_location" id="delivery_location" class="form-control checkout-input" required>
+                                <select name="delivery_location" id="delivery_location" class="form-control" required style="background: #0f172a; border: 1px solid #334155; color: #fff; padding: 12px; border-radius: 8px; height: 50px;">
                                     <option value="">Select Delivery Location</option>
                                     {% for location in delivery_locations %}
                                     <option value="{{ location.id }}" data-distance="{{ location.distance_km }}">
@@ -68,7 +68,7 @@
                             </div>
                             <div class="col-12">
                                 <label class="form-label" style="color: #fff; margin-bottom: 8px;">Order Notes (optional)</label>
-                                <textarea name="order_note" class="form-control checkout-textarea" rows="4"></textarea>
+                                <textarea name="order_note" class="form-control" rows="4" style="background: #0f172a; border: 1px solid #334155; color: #fff; padding: 12px; border-radius: 8px; resize: vertical;"></textarea>
                             </div>
                         </div>
                     </div>
@@ -120,55 +120,6 @@
         </div>
     </div>
 </section>
-
-<style>
-.checkout-input {
-    width: 100%;
-    background: #0f172a;
-    border: 1px solid #334155;
-    color: #fff;
-    padding: 12px 15px;
-    border-radius: 8px;
-    height: 50px;
-    font-size: 16px;
-    transition: all 0.3s ease;
-}
-
-.checkout-input:focus {
-    border-color: #ffd700;
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
-}
-
-.checkout-textarea {
-    width: 100%;
-    background: #0f172a;
-    border: 1px solid #334155;
-    color: #fff;
-    padding: 12px 15px;
-    border-radius: 8px;
-    font-size: 16px;
-    resize: vertical;
-    min-height: 120px;
-    transition: all 0.3s ease;
-}
-
-.checkout-textarea:focus {
-    border-color: #ffd700;
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
-}
-
-@media (max-width: 768px) {
-    .checkout-input, .checkout-textarea {
-        font-size: 14px;
-    }
-    
-    .col-md-6 {
-        width: 100%;
-    }
-}
-</style>
 
 {% block scripts %}
 <script>
