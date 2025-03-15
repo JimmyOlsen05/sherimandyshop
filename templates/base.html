@@ -767,6 +767,17 @@
     const header = document.getElementById('siteHeader');
     let lastScrollY = window.scrollY;
 
+    // Mobile menu functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const mobileNav = document.querySelector('.mobile-nav');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileNav.classList.toggle('active');
+            this.classList.toggle('active');
+        });
+    });
+
     window.addEventListener('scroll', () => {
         if (window.scrollY > lastScrollY) { // scrolling down
             header.style.transform = 'translateY(-100%)';
@@ -788,6 +799,36 @@
         transition: transform 0.3s ease-in-out !important;
     }
 
+    /* Mobile menu styles */
+    .mobile-nav {
+        position: fixed;
+        top: 120px;
+        left: 0;
+        width: 100%;
+        background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 999;
+    }
+
+    .mobile-nav.active {
+        transform: translateX(0);
+    }
+
+    .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        color: #38BDF8;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 10px;
+    }
+
+    .mobile-menu-btn.active {
+        color: #caf568;
+    }
+
     @media (max-width: 991px) {
         body {
             padding-top: 120px !important;
@@ -797,39 +838,17 @@
             min-height: 60px;
         }
 
+        .mobile-menu-btn {
+            display: block;
+        }
+
+        .main-nav {
+            display: none;
+        }
+
         .mobile-nav {
-            top: 60px;
+            display: block;
         }
-
-        main {
-            min-height: calc(100vh - 120px);
-        }
-    }
-
-    /* Ensure content doesn't overlap with fixed header */
-    .hero-section {
-        margin-top: -60px;
-        padding-top: 60px;
-    }
-
-    /* Update slideshow container positioning */
-    .slideshow-container {
-        position: relative;
-        margin-top: 0;
-    }
-
-    /* Ensure proper z-indexing */
-    .header {
-        z-index: 1000;
-    }
-
-    .mobile-nav {
-        z-index: 999;
-    }
-
-    .hero-section {
-        z-index: 1;
-        position: relative;
     }
     </style>
 
