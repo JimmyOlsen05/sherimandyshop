@@ -103,39 +103,50 @@ def checkout(request, total=0, total_price=0, quantity=0, cart_items=None):
                 order.save()
 
                 # Redirect to Paystack payment
-                headers = {
-                    'Authorization': f'Bearer {settings.PAYSTACK_SECRET_KEY}',
-                    'Content-Type': 'application/json'
-                }
-                
-                payload = {
-                    'email': order.email,
-                    'amount': int(grand_total * 100),
-                    'currency': 'GHS',
-                    'callback_url': request.build_absolute_uri('/orders/payment-complete/'),
-                    'metadata': {
-                        'order_id': order.id,
-                        'order_number': order_number,
-                        'customer_name': f"{order.first_name} {order.last_name}",
-                        'customer_phone': order.phone,
-                        'delivery_location': order.delivery_location.name if order.delivery_location else 'Not specified'
+                try:
+                    headers = {
+                        'Authorization': f'Bearer {settings.PAYSTACK_SECRET_KEY}',
+                        'Content-Type': 'application/json'
                     }
-                }
+                    
+                    payload = {
+                        'email': order.email,
+                        'amount': int(grand_total * 100),  # Convert to pesewas
+                        'currency': 'GHS',
+                        'callback_url': request.build_absolute_uri(reverse('orders:payment-complete')),
+                        'reference': f"PAY-{order_number}",
+                        'metadata': {
+                            'order_id': order.id,
+                            'order_number': order_number,
+                            'customer_name': f"{order.first_name} {order.last_name}",
+                            'customer_phone': order.phone,
+                            'delivery_location': order.delivery_location.name if order.delivery_location else 'Not specified'
+                        }
+                    }
 
-                response = requests.post(
-                    'https://api.paystack.co/transaction/initialize',
-                    json=payload,
-                    headers=headers
-                )
+                    response = requests.post(
+                        'https://api.paystack.co/transaction/initialize',
+                        json=payload,
+                        headers=headers
+                    )
 
-                if response.status_code == 200:
-                    response_data = response.json()
-                    payment.payment_id = response_data['data']['reference']
-                    payment.save()
-                    return redirect(response_data['data']['authorization_url'])
-                else:
-                    messages.error(request, 'Payment initialization failed')
-                    return redirect('orders:checkout')
+                    if response.status_code == 200:
+                        response_data = response.json()
+                        if response_data.get('status'):
+                            payment.payment_id = response_data['data']['reference']
+                            payment.save()
+                            return redirect(response_data['data']['authorization_url'])
+                        else:
+                            messages.error(request, f'Payment initialization failed: {response_data.get("message", "Unknown error")}')
+                    else:
+                        response_data = response.json()
+                        messages.error(request, f'Payment service error: {response_data.get("message", "Unknown error")}')
+                except requests.RequestException as e:
+                    messages.error(request, f'Network error: Could not connect to payment service')
+                except Exception as e:
+                    messages.error(request, 'An unexpected error occurred during payment initialization')
+                
+                return redirect('orders:checkout')
 
     except ObjectDoesNotExist:
         pass
