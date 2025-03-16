@@ -136,15 +136,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
 }
 
 .user-info {
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    flex-wrap: wrap;
 }
 
 .avatar {
@@ -157,7 +154,6 @@
     justify-content: center;
     font-size: 2rem;
     font-weight: 600;
-    flex-shrink: 0;
 }
 
 .welcome-text h1 {
@@ -178,7 +174,7 @@
 
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1.5rem;
     margin-bottom: 2rem;
 }
@@ -186,7 +182,7 @@
 .stat-card {
     background: white;
     border-radius: 1rem;
-    padding: 1.5rem;
+    padding: 2rem;
     display: flex;
     align-items: center;
     gap: 1.5rem;
@@ -194,102 +190,241 @@
     transition: transform 0.2s;
 }
 
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    color: white;
+}
+
+.primary .stat-icon { background: #4f46e5; }
+.success .stat-icon { background: #10b981; }
+.warning .stat-icon { background: #f59e0b; }
+
+.stat-info h3 {
+    font-size: 1.4rem;
+    color: #6b7280;
+    margin-bottom: 0.5rem;
+}
+
+.stat-info p {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.section-header h2 {
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.view-all-btn {
+    color: #4f46e5;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
 .orders-table-wrapper {
-    overflow-x: auto;
-    margin: 0 -1rem;
-    padding: 0 1rem;
+    background: white;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .orders-table {
     width: 100%;
-    min-width: 800px;
-    border-collapse: separate;
-    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+.orders-table th {
+    background: #f8fafc;
+    padding: 1.5rem;
+    text-align: left;
+    font-weight: 500;
+    color: #6b7280;
+    font-size: 1.3rem;
+}
+
+.orders-table td {
+    padding: 1rem;
+    vertical-align: middle;
+    border-bottom: 1px solid #f1f5f9;
+    color: #1f2937;
+    font-size: 1.3rem;
+}
+
+.order-id {
+    font-weight: 600;
+    color: #4f46e5;
+}
+
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.status-badge i {
+    font-size: 14px;
+}
+
+.status-badge.new {
+    background: #e0f2fe;
+    color: #0369a1;
+}
+
+.status-badge.processing {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.status-badge.out_for_delivery {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.status-badge.delivered {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status-badge.cancelled {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.status-badge.new i::before {
+    content: "\f07a";  /* shopping cart */
+}
+
+.status-badge.processing i::before {
+    content: "\f466";  /* box */
+}
+
+.status-badge.out_for_delivery i::before {
+    content: "\f48b";  /* truck */
+}
+
+.status-badge.delivered i::before {
+    content: "\f058";  /* check-circle */
+}
+
+.status-badge.cancelled i::before {
+    content: "\f057";  /* times-circle */
 }
 
 .product-list {
-    max-width: 200px;
+    max-width: 300px;
+    font-size: 1.4rem;
+    color: #1f2937;
+}
+
+.product-item {
+    margin-bottom: 0.25rem;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    padding: 0.2rem 0;
+}
+
+.product-item:last-child {
+    margin-bottom: 0;
+}
+
+.product-separator {
+    color: #666;
+    margin: 0 0.3rem;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.empty-state img {
+    width: 200px;
+    margin-bottom: 2rem;
+}
+
+.empty-state h3 {
+    font-size: 2.2rem;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+    color: #6b7280;
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+}
+
+.shop-now-btn {
+    background: #4f46e5;
+    color: white;
+    padding: 1rem 2.5rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.4rem;
+    transition: background-color 0.2s;
+}
+
+.shop-now-btn:hover {
+    background: #4338ca;
 }
 
 @media (max-width: 768px) {
     .dashboard-wrapper {
         padding: 1rem;
     }
-    
-    .welcome-text h1 {
-        font-size: 1.8rem;
-    }
-    
-    .welcome-text p {
-        font-size: 1.1rem;
-    }
-    
-    .last-login {
-        width: 100%;
-        text-align: left;
-        margin-top: 1rem;
-        font-size: 1.1rem;
-    }
-    
-    .stat-card {
-        padding: 1.2rem;
-    }
-    
-    .stat-icon {
-        width: 50px;
-        height: 50px;
-    }
-    
-    .stat-info h3 {
-        font-size: 1.1rem;
-    }
-    
-    .section-header {
-        flex-direction: column;
-        gap: 1rem;
-        align-items: flex-start;
-    }
-    
-    .view-all-btn {
-        width: 100%;
-        text-align: center;
-    }
-    
-    .empty-state {
-        padding: 2rem 1rem;
-    }
-    
-    .empty-state img {
-        max-width: 200px;
-    }
-}
 
-@media (max-width: 480px) {
-    .user-info {
-        gap: 1rem;
-    }
-    
-    .avatar {
-        width: 50px;
-        height: 50px;
-        font-size: 1.5rem;
-    }
-    
-    .welcome-text h1 {
-        font-size: 1.5rem;
-    }
-    
-    .stat-card {
+    .welcome-section {
         flex-direction: column;
         text-align: center;
-        padding: 1rem;
+        gap: 1rem;
     }
-    
-    .stat-icon {
-        margin-bottom: 0.5rem;
+
+    .user-info {
+        flex-direction: column;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .orders-table-wrapper {
+        overflow-x: auto;
+    }
+
+    .orders-table {
+        min-width: 800px;
     }
 }
 </style>
