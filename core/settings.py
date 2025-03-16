@@ -23,7 +23,8 @@ INSTALLED_APPS = [
     'shop',
     'cart',
     'orders',
-    'payments',  # Add the new payments app
+    'payments',
+    'contact',  # Add the new contact app
 
     'storages',
     'corsheaders',
