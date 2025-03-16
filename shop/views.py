@@ -4,11 +4,13 @@ from django.db.models import Q, Count
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.mail import send_mail
+from django.conf import settings
 
 from .models import Product, Category, ReviewRating, Wishlist, ProductGallery
 from cart.views import _cart_id
 from cart.models import CartItem
-from .forms import ReviewForm
+from .forms import ReviewForm, ContactForm
 from orders.models import OrderProduct
 
 def home(request):
@@ -239,3 +241,36 @@ def view_wishlist(request):
         'wishlist_items': wishlist_items
     }
     return render(request, 'shop/shop/wishlist.html', context)
+
+def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+            
+            # Send email to admin
+            email_message = f"""
+            Name: {name}
+            Email: {email}
+            Subject: {subject}
+            Message: {message}
+            """
+            
+            try:
+                send_mail(
+                    f'Contact Form: {subject}',
+                    email_message,
+                    settings.DEFAULT_FROM_EMAIL,
+                    [settings.DEFAULT_FROM_EMAIL],
+                    fail_silently=False,
+                )
+                messages.success(request, 'Thank you for contacting us. We will get back to you soon.')
+            except Exception as e:
+                messages.error(request, 'Sorry, there was an error sending your message. Please try again later.')
+            
+            return redirect('contact')
+    
+    return render(request, 'contact.html')

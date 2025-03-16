@@ -39,3 +39,16 @@ class ReviewForm(forms.ModelForm):
         if len(review.strip()) < 10:
             raise forms.ValidationError("Review must be at least 10 characters long")
         return review
+
+
+class ContactForm(forms.Form):
+    name = forms.CharField(max_length=100)
+    email = forms.EmailField()
+    subject = forms.CharField(max_length=200)
+    message = forms.CharField(widget=forms.Textarea)
+
+    def clean_message(self):
+        message = self.cleaned_data.get('message')
+        if len(message.strip()) < 10:
+            raise forms.ValidationError("Message must be at least 10 characters long")
+        return message
