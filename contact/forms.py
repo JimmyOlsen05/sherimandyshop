@@ -24,7 +24,7 @@ class ContactForm(forms.Form):
     message = forms.CharField(
         widget=forms.Textarea(attrs={
             'class': 'form-control',
-            'rows': 5,
-            'style': 'background: #0f172a; border: 1px solid #334155; color: #fff; padding: 12px; border-radius: 8px; resize: vertical;'
+            'style': 'background: #0f172a; border: 1px solid #334155; color: #fff; padding: 12px; border-radius: 8px; height: 150px;',
+            'rows': 5
         })
     )

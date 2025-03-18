@@ -9,6 +9,7 @@
         <div class="row">
             <div class="col-12 text-center">
                 <h2 style="color: #ffd700; font-weight: bold; margin-bottom: 20px; font-size: 2.5rem;">Contact Us</h2>
+                <p style="color: #fff; max-width: 600px; margin: 0 auto;">We're here to help with your PPE needs. Reach out to us for expert advice and support.</p>
             </div>
         </div>
     </div>
@@ -21,8 +22,12 @@
         <div class="row">
             <div class="col-lg-6 mb-4">
                 <div style="background: #1e293b; border-radius: 15px; padding: 30px; height: 100%;">
-                    <h3 style="color: #e2a355; margin-bottom: 25px;">Our Information</h3>
+                    <h3 style="color: #e2a355; margin-bottom: 25px;">Company Information</h3>
                     <div style="color: #fff; margin-bottom: 20px;">
+                        <p style="display: flex; align-items: center; margin-bottom: 15px;">
+                            <i class="fas fa-building" style="color: #ffd700; width: 25px; margin-right: 10px;"></i>
+                            <span>Sheriman Dy Shop</span>
+                        </p>
                         <p style="display: flex; align-items: center; margin-bottom: 15px;">
                             <i class="fas fa-map-marker-alt" style="color: #ffd700; width: 25px; margin-right: 10px;"></i>
                             <span>Tarkwa, Ghana</span>
@@ -31,25 +36,26 @@
                             <i class="fas fa-phone" style="color: #ffd700; width: 25px; margin-right: 10px;"></i>
                             <span>+233 54 469 6163</span>
                         </p>
-                        <p style="display: flex; align-items: center;">
+                        <p style="display: flex; align-items: center; margin-bottom: 15px;">
                             <i class="fas fa-envelope" style="color: #ffd700; width: 25px; margin-right: 10px;"></i>
-                            <span>info@lmtsoftwares.com</span>
+                            <span>info@sherimandyshop.com</span>
+                        </p>
+                        <p style="display: flex; align-items: center;">
+                            <i class="fas fa-clock" style="color: #ffd700; width: 25px; margin-right: 10px;"></i>
+                            <span>Mon - Sat: 8:00 AM - 6:00 PM</span>
                         </p>
                     </div>
                     <div style="margin-top: 30px;">
                         <h4 style="color: #e2a355; margin-bottom: 15px;">Connect With Us</h4>
                         <div style="display: flex; gap: 15px;">
-                            <a href="#" style="color: #ffd700; font-size: 24px; transition: transform 0.3s;">
+                            <a href="#" style="color: #ffd700; font-size: 24px; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
                                 <i class="fab fa-facebook"></i>
                             </a>
-                            <a href="#" style="color: #ffd700; font-size: 24px; transition: transform 0.3s;">
+                            <a href="#" style="color: #ffd700; font-size: 24px; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
                                 <i class="fab fa-twitter"></i>
                             </a>
-                            <a href="#" style="color: #ffd700; font-size: 24px; transition: transform 0.3s;">
+                            <a href="#" style="color: #ffd700; font-size: 24px; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
                                 <i class="fab fa-instagram"></i>
-                            </a>
-                            <a href="#" style="color: #ffd700; font-size: 24px; transition: transform 0.3s;">
-                                <i class="fab fa-linkedin"></i>
                             </a>
                         </div>
                     </div>
@@ -57,26 +63,28 @@
             </div>
             <div class="col-lg-6">
                 <div style="background: #1e293b; border-radius: 15px; padding: 30px;">
-                    <h3 style="color: #e2a355; margin-bottom: 25px;">Send Message</h3>
+                    <h3 style="color: #e2a355; margin-bottom: 25px;">Send Us a Message</h3>
                     <form method="post">
                         {% csrf_token %}
                         <div class="mb-3">
-                            <label class="form-label" style="color: #fff;">Name</label>
+                            <label for="{{ form.name.id_for_label }}" style="color: #fff; margin-bottom: 8px;">Name</label>
                             {{ form.name }}
                         </div>
                         <div class="mb-3">
-                            <label class="form-label" style="color: #fff;">Email</label>
+                            <label for="{{ form.email.id_for_label }}" style="color: #fff; margin-bottom: 8px;">Email</label>
                             {{ form.email }}
                         </div>
                         <div class="mb-3">
-                            <label class="form-label" style="color: #fff;">Subject</label>
+                            <label for="{{ form.subject.id_for_label }}" style="color: #fff; margin-bottom: 8px;">Subject</label>
                             {{ form.subject }}
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label" style="color: #fff;">Message</label>
+                        <div class="mb-4">
+                            <label for="{{ form.message.id_for_label }}" style="color: #fff; margin-bottom: 8px;">Message</label>
                             {{ form.message }}
                         </div>
-                        <button type="submit" class="btn" style="background: #ffd700; border: none; color: #000; padding: 12px 30px; font-weight: bold; border-radius: 8px; width: 100%; transition: transform 0.3s ease;">Send Message</button>
+                        <button type="submit" style="background: #ffd700; color: #0f172a; border: none; padding: 12px 30px; border-radius: 8px; font-weight: bold; width: 100%; transition: background 0.3s;" onmouseover="this.style.background='#e2a355'" onmouseout="this.style.background='#ffd700'">
+                            Send Message
+                        </button>
                     </form>
                 </div>
             </div>
@@ -84,27 +92,20 @@
     </div>
 </section>
 
-<style>
-@media (max-width: 768px) {
-    .container {
-        padding: 0 15px;
-    }
-    
-    .col-lg-6 {
-        margin-bottom: 20px;
-    }
-    
-    form .btn {
-        padding: 10px 20px;
-    }
-}
-
-.social-links a:hover {
-    transform: translateY(-3px);
-}
-
-.btn:hover {
-    transform: translateY(-2px);
-}
-</style>
+<div class="container-fluid" style="background: #1e293b; padding: 50px 0;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31754.77095871563!2d-2.0227777!3d5.3032935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfddfa39d0baa62d%3A0x3a4c7f93d23d7a5f!2sTarkwa%2C%20Ghana!5e0!3m2!1sen!2sus!4v1234567890"
+                    width="100%" 
+                    height="400" 
+                    style="border:0; border-radius: 15px;" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
