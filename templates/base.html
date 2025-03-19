@@ -686,47 +686,143 @@
     </main>
 
     <!-- Footer with Interactive Elements -->
-    <footer style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); padding: 40px 0; margin: 0;">
-        <div class="container" style="max-width: 1400px; margin: 0 auto; padding: 0 2rem;">
-            <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-                <!-- Connect Section -->
-                <div style="flex: 1; min-width: 200px;">
-                    <div style="color: #38BDF8; font-weight: 600; font-size: 1.2rem; margin-bottom: 10px; text-align: center;">Connect with us</div>
-                    <div style="display: flex; justify-content: center; gap: 15px;">
-                        <a href="#" style="color: #38BDF8; font-size: 20px;"><i class="fab fa-facebook"></i></a>
-                        <a href="#" style="color: #38BDF8; font-size: 20px;"><i class="fab fa-twitter"></i></a>
-                        <a href="#" style="color: #38BDF8; font-size: 20px;"><i class="fab fa-instagram"></i></a>
-                        <a href="#" style="color: #38BDF8; font-size: 20px;"><i class="fab fa-linkedin"></i></a>
+    <footer class="footer" style="background: #0f172a; color: #e2e8f0; padding: 4rem 0; width: 100%; min-width: 100%; box-sizing: border-box;">
+        <div class="footer-content" style="max-width: 1400px; margin: 0 auto; padding: 0 2rem;">
+            <div style="display: flex; flex-wrap: wrap; gap: 3rem;">
+                <!-- Company Info -->
+                <div style="flex: 2; min-width: 300px;">
+                    <h3 style="color: #ffd700; font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem;">Sherimandyshop</h3>
+                    <p style="font-size: 1.2rem; line-height: 1.6; margin-bottom: 1rem;">Your trusted source for quality PPE equipment.</p>
+                    <div style="margin-top: 1.5rem;">
+                        <p style="font-size: 1.2rem; margin-bottom: 0.5rem;">
+                            <i class="fas fa-phone" style="color: #ffd700; margin-right: 0.5rem;"></i>
+                            +233 24 123 4567
+                        </p>
+                        <p style="font-size: 1.2rem; margin-bottom: 0.5rem;">
+                            <i class="fas fa-envelope" style="color: #ffd700; margin-right: 0.5rem;"></i>
+                            info@sherimandyshop.com
+                        </p>
+                        <p style="font-size: 1.2rem;">
+                            <i class="fas fa-map-marker-alt" style="color: #ffd700; margin-right: 0.5rem;"></i>
+                            Tarkwa, Ghana
+                        </p>
                     </div>
                 </div>
 
-                <!-- Contact Section -->
+                <!-- Quick Links -->
                 <div style="flex: 1; min-width: 200px;">
-                    <div style="color: #38BDF8; font-weight: 600; font-size: 1.2rem; margin-bottom: 10px; text-align: center;">Contact Info</div>
-                    <div style="text-align: center; color: #94A3B8;">
-                        <div style="margin-bottom: 5px;"><i class="fas fa-envelope" style="margin-right: 8px;"></i>info@sherimandyshop.com</div>
-                        <div><i class="fas fa-phone" style="margin-right: 8px;"></i>+234 123 456 7890</div>
-                    </div>
+                    <h3 style="color: #ffd700; font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem;">Quick Links</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 0.75rem;">
+                            <a href="{% url 'shop:shop' %}" style="color: #e2e8f0; text-decoration: none; font-size: 1.2rem; transition: color 0.2s;">Shop</a>
+                        </li>
+                        <li style="margin-bottom: 0.75rem;">
+                            <a href="{% url 'contact:contact' %}" style="color: #e2e8f0; text-decoration: none; font-size: 1.2rem; transition: color 0.2s;">Contact</a>
+                        </li>
+                        <li style="margin-bottom: 0.75rem;">
+                            <a href="{% url 'accounts:dashboard' %}" style="color: #e2e8f0; text-decoration: none; font-size: 1.2rem; transition: color 0.2s;">My Account</a>
+                        </li>
+                    </ul>
                 </div>
 
-                <!-- Copyright Section -->
+                <!-- Business Hours -->
                 <div style="flex: 1; min-width: 200px;">
-                    <div style="color: #38BDF8; font-weight: 600; font-size: 1.2rem; margin-bottom: 10px; text-align: center;">Copyright</div>
-                    <div style="text-align: center; color: #94A3B8;">
-                        &copy; 2024 SHERIMANDY Shop.<br>All rights reserved.
+                    <h3 style="color: #ffd700; font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem;">Business Hours</h3>
+                    <p style="font-size: 1.2rem; margin-bottom: 0.75rem;">Monday - Saturday</p>
+                    <p style="font-size: 1.2rem; margin-bottom: 0.75rem;">8:00 AM - 6:00 PM</p>
+                    <p style="font-size: 1.2rem;">Sunday: Closed</p>
+                </div>
+
+                <!-- Social Links -->
+                <div style="flex: 1; min-width: 200px;">
+                    <h3 style="color: #ffd700; font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem;">Follow Us</h3>
+                    <div style="display: flex; gap: 1rem;">
+                        <a href="#" style="color: #e2e8f0; font-size: 1.5rem; transition: color 0.2s;">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" style="color: #e2e8f0; font-size: 1.5rem; transition: color 0.2s;">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" style="color: #e2e8f0; font-size: 1.5rem; transition: color 0.2s;">
+                            <i class="fab fa-instagram"></i>
+                        </a>
                     </div>
                 </div>
 
                 <!-- Developer Section -->
                 <div style="flex: 1; min-width: 200px;">
-                    <div style="color: #38BDF8; font-weight: 600; font-size: 1.2rem; margin-bottom: 10px; text-align: center;">Developed by</div>
+                    <h3 style="color: #38BDF8; font-weight: 600; font-size: 1.5rem; margin-bottom: 1.5rem; text-align: center;">Developed by</h3>
                     <div style="text-align: center;">
-                        <a href="https://lmtsoftware.netlify.app" target="_blank" style="color: #caf568; font-weight: 600; text-decoration: none;">LMTsoftware</a>
+                        <a href="https://lmtsoftware.netlify.app" target="_blank" style="color: #caf568; font-weight: 600; text-decoration: none; font-size: 1.4rem;">LMTsoftware</a>
                     </div>
                 </div>
             </div>
+
+            <!-- Copyright -->
+            <div style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid #1e293b; text-align: center;">
+                <p style="color: #94a3b8; font-size: 1.2rem;">&copy; {% now 'Y' %} Sherimandyshop. All rights reserved.</p>
+            </div>
         </div>
     </footer>
+
+    <style>
+    @media (max-width: 768px) {
+        .footer {
+            padding: 4rem 1rem !important;
+        }
+
+        .footer-content > div {
+            gap: 4rem !important;
+        }
+
+        .footer h3 {
+            font-size: 1.75rem !important;
+        }
+
+        .footer p,
+        .footer a {
+            font-size: 1.4rem !important;
+        }
+
+        .footer [style*="min-width"] {
+            min-width: 100% !important;
+            margin-bottom: 3rem;
+        }
+
+        .footer .fab {
+            font-size: 2rem !important;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .footer {
+            padding: 3rem 1rem !important;
+            width: 100vw !important;
+            position: relative !important;
+            left: 50% !important;
+            right: 50% !important;
+            margin-left: -50vw !important;
+            margin-right: -50vw !important;
+        }
+
+        .footer-content > div {
+            gap: 3rem !important;
+        }
+
+        .footer [style*="min-width"] {
+            margin-bottom: 2.5rem;
+        }
+
+        .footer h3 {
+            font-size: 1.6rem !important;
+        }
+
+        .footer p,
+        .footer a {
+            font-size: 1.3rem !important;
+        }
+    }
+    </style>
 
     <!-- all js here -->
     <!-- jquery latest version -->
