@@ -90,11 +90,22 @@
     color: #dc2626 !important;
 }
 
+/* Add these styles */
+.dashboard-grid {
+    min-height: calc(100vh - 180px); /* Ensures minimum content height */
+}
+
+.dashboard-content {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 1024px) {
     .dashboard-grid {
-        grid-template-columns: 1fr !important;
-        gap: 1rem !important;
+        min-height: calc(100vh - 120px);
+        margin-bottom: 6rem; /* Add space before footer */
     }
     
     .dashboard-sidebar {
@@ -105,6 +116,7 @@
 
     .dashboard-content {
         padding: 1.5rem !important;
+        flex: 1;
     }
 
     .avatar-circle {
@@ -128,6 +140,14 @@
 }
 
 @media (max-width: 640px) {
+    .dashboard-grid {
+        margin-bottom: 8rem; /* Increase footer spacing for smaller screens */
+    }
+
+    .dashboard-content {
+        padding-bottom: 4rem !important; /* Additional bottom padding */
+    }
+
     .dashboard-sidebar {
         padding: 1rem !important;
     }
