@@ -686,140 +686,47 @@
     </main>
 
     <!-- Footer with Interactive Elements -->
-    <footer style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); padding: 40px 0; margin: 0; width: 100%;">
-        <div class="container" style="max-width: 1400px; margin: 0 auto; padding: 0 1rem;">
-            <div class="footer-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; width: 100%;">
+    <footer style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); padding: 40px 0; margin: 0;">
+        <div class="container" style="max-width: 1400px; margin: 0 auto; padding: 0 2rem;">
+            <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
                 <!-- Connect Section -->
-                <div class="footer-section">
-                    <div class="section-title">Connect with us</div>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                <div style="flex: 1; min-width: 200px;">
+                    <div style="color: #38BDF8; font-weight: 600; font-size: 1.2rem; margin-bottom: 10px; text-align: center;">Connect with us</div>
+                    <div style="display: flex; justify-content: center; gap: 15px;">
+                        <a href="#" style="color: #38BDF8; font-size: 20px;"><i class="fab fa-facebook"></i></a>
+                        <a href="#" style="color: #38BDF8; font-size: 20px;"><i class="fab fa-twitter"></i></a>
+                        <a href="#" style="color: #38BDF8; font-size: 20px;"><i class="fab fa-instagram"></i></a>
+                        <a href="#" style="color: #38BDF8; font-size: 20px;"><i class="fab fa-linkedin"></i></a>
                     </div>
                 </div>
 
                 <!-- Contact Section -->
-                <div class="footer-section">
-                    <div class="section-title">Contact Info</div>
-                    <div class="contact-info">
-                        <div><i class="fas fa-envelope"></i>info@sherimandyshop.com</div>
-                        <div><i class="fas fa-phone"></i>+234 123 456 7890</div>
+                <div style="flex: 1; min-width: 200px;">
+                    <div style="color: #38BDF8; font-weight: 600; font-size: 1.2rem; margin-bottom: 10px; text-align: center;">Contact Info</div>
+                    <div style="text-align: center; color: #94A3B8;">
+                        <div style="margin-bottom: 5px;"><i class="fas fa-envelope" style="margin-right: 8px;"></i>info@sherimandyshop.com</div>
+                        <div><i class="fas fa-phone" style="margin-right: 8px;"></i>+234 123 456 7890</div>
                     </div>
                 </div>
 
-                <!-- Quick Links -->
-                <div class="footer-section">
-                    <div class="section-title">Quick Links</div>
-                    <div class="quick-links">
-                        <a href="{% url 'shop:home' %}">Home</a>
-                        <a href="{% url 'shop:shop' %}">Shop</a>
-                        <a href="{% url 'shop:wishlist' %}">Wishlist</a>
-                        <a href="{% url 'shop:search' %}">Search</a>
+                <!-- Copyright Section -->
+                <div style="flex: 1; min-width: 200px;">
+                    <div style="color: #38BDF8; font-weight: 600; font-size: 1.2rem; margin-bottom: 10px; text-align: center;">Copyright</div>
+                    <div style="text-align: center; color: #94A3B8;">
+                        &copy; 2024 SHERIMANDY Shop.<br>All rights reserved.
                     </div>
                 </div>
-            </div>
 
-            <!-- Copyright -->
-            <div class="copyright" style="text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(148, 163, 184, 0.1);">
-                <p style="color: #94A3B8; font-size: 1.25rem;"> 2025 SHERIMANDY Shop. All rights reserved.</p>
-                <p style="color: #94A3B8; margin-top: 0.5rem; font-size: 1.25rem;">Developed by <a href="https://lmtsoftware.netlify.app" target="_blank" style="color: #caf568; text-decoration: none;">LMTsoftware</a></p>
+                <!-- Developer Section -->
+                <div style="flex: 1; min-width: 200px;">
+                    <div style="color: #38BDF8; font-weight: 600; font-size: 1.2rem; margin-bottom: 10px; text-align: center;">Developed by</div>
+                    <div style="text-align: center;">
+                        <a href="https://lmtsoftware.netlify.app" target="_blank" style="color: #caf568; font-weight: 600; text-decoration: none;">LMTsoftware</a>
+                    </div>
+                </div>
             </div>
         </div>
     </footer>
-
-    <style>
-    .footer-section {
-        text-align: center;
-        padding: 1rem;
-    }
-
-    .section-title {
-        color: #38BDF8;
-        font-weight: 600;
-        font-size: 1.5rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .social-links {
-        display: flex;
-        justify-content: center;
-        gap: 1.5rem;
-    }
-
-    .social-links a {
-        color: #38BDF8;
-        font-size: 1.75rem;
-        transition: transform 0.2s;
-    }
-
-    .social-links a:hover {
-        transform: scale(1.2);
-    }
-
-    .contact-info {
-        color: #94A3B8;
-        font-size: 1.25rem;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .contact-info div {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.75rem;
-    }
-
-    .quick-links {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .quick-links a {
-        color: #94A3B8;
-        text-decoration: none;
-        font-size: 1.25rem;
-        transition: color 0.2s;
-    }
-
-    .quick-links a:hover {
-        color: #38BDF8;
-    }
-
-    @media (max-width: 768px) {
-        .footer-grid {
-            grid-template-columns: 1fr !important;
-            width: 100% !important;
-            padding: 0 1rem !important;
-        }
-
-        .footer-section {
-            padding: 1.5rem 0;
-            width: 100%;
-        }
-
-        .section-title {
-            font-size: 1.75rem;
-        }
-
-        .social-links a {
-            font-size: 2rem;
-        }
-
-        .contact-info,
-        .quick-links a {
-            font-size: 1.5rem;
-        }
-
-        .copyright p {
-            font-size: 1.4rem !important;
-        }
-    }
-    </style>
 
     <!-- all js here -->
     <!-- jquery latest version -->
