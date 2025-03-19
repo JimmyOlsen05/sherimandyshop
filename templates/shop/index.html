@@ -1656,7 +1656,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <i class="fas fa-certificate"></i> {{ product.get_certifications_display }}
                     </div>
                     {% endif %}
-                    <div class="product-price">${{ product.price }}</div>
+                    <div class="product-price">GH₵ {{ product.price|floatformat:2 }}</div>
                     <div class="product-meta">
                         <div class="product-rating">
                             {% with ''|center:product.averageRating as range %}
