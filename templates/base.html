@@ -713,12 +713,18 @@
                 <div class="footer-section">
                     <div class="section-title">Quick Links</div>
                     <div class="quick-links">
+                        <a href="{% url 'shop:home' %}">Home</a>
                         <a href="{% url 'shop:shop' %}">Shop</a>
-                        <a href="{% url 'shop:about' %}">About Us</a>
-                        <a href="{% url 'shop:contact' %}">Contact</a>
-                        <a href="{% url 'shop:privacy_policy' %}">Privacy Policy</a>
+                        <a href="{% url 'shop:wishlist' %}">Wishlist</a>
+                        <a href="{% url 'shop:search' %}">Search</a>
                     </div>
                 </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="copyright" style="text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(148, 163, 184, 0.1);">
+                <p style="color: #94A3B8; font-size: 1.25rem;"> 2025 SHERIMANDY Shop. All rights reserved.</p>
+                <p style="color: #94A3B8; margin-top: 0.5rem; font-size: 1.25rem;">Developed by <a href="https://lmtsoftware.netlify.app" target="_blank" style="color: #caf568; text-decoration: none;">LMTsoftware</a></p>
             </div>
         </div>
     </footer>
@@ -807,6 +813,10 @@
         .contact-info,
         .quick-links a {
             font-size: 1.5rem;
+        }
+
+        .copyright p {
+            font-size: 1.4rem !important;
         }
     }
     </style>
