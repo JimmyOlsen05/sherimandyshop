@@ -70,12 +70,18 @@ class RegisterationFrom(forms.ModelForm):
 class UserForm(forms.ModelForm):
     class Meta:
         model = Account
-        fields = ('first_name', 'last_name', 'phone_number')
+        fields = ('first_name', 'last_name', 'phone_number', 'email')
 
     def __init__(self, *args, **kwargs):
         super(UserForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if Account.objects.filter(email=email).exclude(id=self.instance.id).exists():
+            raise forms.ValidationError("An account with this email already exists.")
+        return email
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
