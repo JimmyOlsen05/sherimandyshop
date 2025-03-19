@@ -106,6 +106,8 @@
     .dashboard-grid {
         min-height: calc(100vh - 120px);
         margin-bottom: 6rem; /* Add space before footer */
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
     }
     
     .dashboard-sidebar {
@@ -140,8 +142,12 @@
 }
 
 @media (max-width: 640px) {
+    div[style*="min-height: calc(100vh - 160px)"] {
+        min-height: calc(100vh - 80px) !important; /* Further adjust for mobile */
+    }
+
     .dashboard-grid {
-        margin-bottom: 8rem; /* Increase footer spacing for smaller screens */
+        margin-bottom: 8rem; /* Increase footer spacing */
     }
 
     .dashboard-content {
@@ -174,6 +180,17 @@
         font-size: 1.5rem !important;
         padding: 0.5rem !important;
     }
+}
+
+/* Add this to ensure footer stays at bottom */
+main {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+footer {
+    margin-top: auto;
 }
 </style>
 {% endblock %}
