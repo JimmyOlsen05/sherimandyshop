@@ -11,29 +11,29 @@
                     <div class="avatar-circle">
                         {{ user.first_name|first|upper }}
                     </div>
-                    <h3 style="color: #1f2937; font-size: 2rem; font-weight: 600; margin-bottom: 0.75rem;">{{ user.get_full_name }}</h3>
-                    <p style="color: #6b7280; font-size: 1.5rem;">{{ user.email }}</p>
+                    <h3 style="color: #1f2937; font-size: 2.25rem; font-weight: 600; margin-bottom: 0.75rem;">{{ user.get_full_name }}</h3>
+                    <p style="color: #6b7280; font-size: 1.75rem;">{{ user.email }}</p>
                 </div>
 
                 <nav style="display: flex; flex-direction: column; gap: 0.5rem;">
-                    <a href="{% url 'accounts:dashboard' %}" class="nav-link {% if request.path == '/accounts/dashboard/' %}active{% endif %}" style="display: flex; align-items: center; padding: 1rem; color: #4b5563; text-decoration: none; font-weight: 500; border-radius: 0.5rem; transition: all 0.2s; font-size: 1.75rem;">
+                    <a href="{% url 'accounts:dashboard' %}" class="nav-link {% if request.path == '/accounts/dashboard/' %}active{% endif %}" style="display: flex; align-items: center; padding: 1rem; color: #4b5563; text-decoration: none; font-weight: 500; border-radius: 0.5rem; transition: all 0.2s; font-size: 2rem;">
                         <i class="fas fa-home" style="width: 1.5rem; margin-right: 0.75rem;"></i>
                         Dashboard
                     </a>
-                    <a href="{% url 'accounts:edit_profile' %}" class="nav-link {% if request.path == '/accounts/edit_profile/' %}active{% endif %}" style="display: flex; align-items: center; padding: 1rem; color: #4b5563; text-decoration: none; font-weight: 500; border-radius: 0.5rem; transition: all 0.2s; font-size: 1.75rem;">
+                    <a href="{% url 'accounts:edit_profile' %}" class="nav-link {% if request.path == '/accounts/edit_profile/' %}active{% endif %}" style="display: flex; align-items: center; padding: 1rem; color: #4b5563; text-decoration: none; font-weight: 500; border-radius: 0.5rem; transition: all 0.2s; font-size: 2rem;">
                         <i class="fas fa-user-edit" style="width: 1.5rem; margin-right: 0.75rem;"></i>
                         Edit Profile
                     </a>
-                    <a href="{% url 'accounts:my_orders' %}" class="nav-link {% if request.path == '/accounts/my_orders/' %}active{% endif %}" style="display: flex; align-items: center; padding: 1rem; color: #4b5563; text-decoration: none; font-weight: 500; border-radius: 0.5rem; transition: all 0.2s; font-size: 1.75rem;">
+                    <a href="{% url 'accounts:my_orders' %}" class="nav-link {% if request.path == '/accounts/my_orders/' %}active{% endif %}" style="display: flex; align-items: center; padding: 1rem; color: #4b5563; text-decoration: none; font-weight: 500; border-radius: 0.5rem; transition: all 0.2s; font-size: 2rem;">
                         <i class="fas fa-shopping-bag" style="width: 1.5rem; margin-right: 0.75rem;"></i>
                         My Orders
                     </a>
-                    <a href="{% url 'accounts:change_password' %}" class="nav-link {% if request.path == '/accounts/change_password/' %}active{% endif %}" style="display: flex; align-items: center; padding: 1rem; color: #4b5563; text-decoration: none; font-weight: 500; border-radius: 0.5rem; transition: all 0.2s; font-size: 1.75rem;">
+                    <a href="{% url 'accounts:change_password' %}" class="nav-link {% if request.path == '/accounts/change_password/' %}active{% endif %}" style="display: flex; align-items: center; padding: 1rem; color: #4b5563; text-decoration: none; font-weight: 500; border-radius: 0.5rem; transition: all 0.2s; font-size: 2rem;">
                         <i class="fas fa-lock" style="width: 1.5rem; margin-right: 0.75rem;"></i>
                         Change Password
                     </a>
                     <div style="height: 1px; background: #e2e8f0; margin: 0.5rem 0;"></div>
-                    <a href="{% url 'accounts:logout' %}" class="nav-link" style="display: flex; align-items: center; padding: 1rem; color: #ef4444; text-decoration: none; font-weight: 500; border-radius: 0.5rem; transition: all 0.2s; font-size: 1.75rem;">
+                    <a href="{% url 'accounts:logout' %}" class="nav-link" style="display: flex; align-items: center; padding: 1rem; color: #ef4444; text-decoration: none; font-weight: 500; border-radius: 0.5rem; transition: all 0.2s; font-size: 2rem;">
                         <i class="fas fa-sign-out-alt" style="width: 1.5rem; margin-right: 0.75rem;"></i>
                         Sign Out
                     </a>
@@ -114,15 +114,15 @@
     }
 
     h3 {
-        font-size: 1.75rem !important;
+        font-size: 2rem !important;
     }
 
     p {
-        font-size: 1.25rem !important;
+        font-size: 1.5rem !important;
     }
 
     .nav-link {
-        font-size: 1.5rem !important;
+        font-size: 1.75rem !important;
         padding: 0.75rem !important;
     }
 }
@@ -143,15 +143,15 @@
     }
 
     h3 {
-        font-size: 1.5rem !important;
+        font-size: 1.75rem !important;
     }
 
     p {
-        font-size: 1.125rem !important;
+        font-size: 1.25rem !important;
     }
 
     .nav-link {
-        font-size: 1.25rem !important;
+        font-size: 1.5rem !important;
         padding: 0.5rem !important;
     }
 }
