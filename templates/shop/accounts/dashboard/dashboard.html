@@ -125,46 +125,45 @@
 
 .welcome-section {
     background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
-    border-radius: 1rem;
     padding: 2rem;
+    border-radius: 1rem;
     color: white;
     margin-bottom: 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
 .user-info {
     display: flex;
     align-items: center;
     gap: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .avatar {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
+    font-size: 2.5rem;
     font-weight: 600;
+    border: 3px solid rgba(255, 255, 255, 0.1);
 }
 
 .welcome-text h1 {
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
 }
 
 .welcome-text p {
-    font-size: 1.125rem;
+    font-size: 1.75rem;
     opacity: 0.9;
 }
 
 .last-login {
-    font-size: 1rem;
+    font-size: 1.5rem;
     opacity: 0.8;
 }
 
@@ -223,10 +222,7 @@
 }
 
 .orders-section {
-    background: white;
-    border-radius: 1rem;
-    padding: 1.5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-top: 2rem;
 }
 
 .section-header {
@@ -259,25 +255,29 @@
 .orders-table {
     width: 100%;
     border-collapse: collapse;
+    margin-bottom: 2rem;
 }
 
 .orders-table th {
+    background: #f8fafc;
+    padding: 1.25rem;
     text-align: left;
-    padding: 1rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: #6b7280;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1f2937;
     border-bottom: 1px solid #e5e7eb;
 }
 
 .orders-table td {
-    padding: 1rem;
-    font-size: 0.875rem;
+    padding: 1.25rem;
+    font-size: 1.5rem;
     color: #374151;
     border-bottom: 1px solid #e5e7eb;
+    vertical-align: middle;
 }
 
 .order-id {
+    font-size: 1.5rem;
     font-weight: 600;
     color: #111827;
 }
@@ -291,10 +291,11 @@
 .status-badge {
     display: inline-flex;
     align-items: center;
-    padding: 0.25rem 0.75rem;
+    padding: 0.5rem 1rem;
     border-radius: 9999px;
-    font-size: 0.75rem;
+    font-size: 1.4rem;
     font-weight: 500;
+    white-space: nowrap;
 }
 
 .status-badge.new {
@@ -330,12 +331,12 @@
 .view-btn {
     display: inline-flex;
     align-items: center;
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 1.5rem;
     background: #4f46e5;
     color: white;
     border-radius: 0.375rem;
     text-decoration: none;
-    font-size: 0.875rem;
+    font-size: 1.4rem;
     font-weight: 500;
     transition: background-color 0.2s;
 }
@@ -378,74 +379,80 @@
 
 /* Mobile Responsiveness */
 @media (max-width: 1024px) {
-    .welcome-section {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-        padding: 1.5rem;
-    }
-
     .welcome-text h1 {
-        font-size: 1.75rem;
+        font-size: 2.25rem;
     }
 
-    .stats-grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1rem;
+    .welcome-text p {
+        font-size: 1.5rem;
     }
 
-    .stat-card {
-        padding: 1.25rem;
+    .orders-table th,
+    .orders-table td {
+        padding: 1rem;
+        font-size: 1.4rem;
     }
 }
 
 @media (max-width: 768px) {
-    .dashboard-wrapper {
-        padding: 1rem;
+    .avatar {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
     }
 
     .welcome-text h1 {
-        font-size: 1.5rem;
+        font-size: 2rem;
     }
 
     .welcome-text p {
-        font-size: 1rem;
+        font-size: 1.4rem;
     }
 
-    .stats-grid {
-        grid-template-columns: 1fr;
+    .last-login {
+        font-size: 1.3rem;
     }
 
-    .hide-mobile {
-        display: none;
-    }
-
-    .orders-table th, 
+    .orders-table th,
     .orders-table td {
         padding: 0.75rem;
-        font-size: 0.813rem;
+        font-size: 1.3rem;
+    }
+
+    .status-badge {
+        font-size: 1.3rem;
     }
 
     .view-btn {
-        padding: 0.375rem 0.75rem;
-        font-size: 0.813rem;
+        font-size: 1.3rem;
     }
 }
 
 @media (max-width: 640px) {
-    .section-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.75rem;
+    .welcome-text h1 {
+        font-size: 1.75rem;
     }
 
-    .view-all-btn {
-        font-size: 0.875rem;
+    .welcome-text p {
+        font-size: 1.3rem;
     }
 
-    .orders-table th:not(:first-child):not(:last-child),
-    .orders-table td:not(:first-child):not(:last-child) {
-        padding: 0.5rem;
+    .orders-table th,
+    .orders-table td {
+        padding: 0.625rem;
+        font-size: 1.2rem;
+    }
+
+    .product-name {
+        font-size: 1.2rem;
+    }
+
+    .status-badge {
+        font-size: 1.2rem;
+    }
+
+    .view-btn {
+        font-size: 1.2rem;
     }
 }
 </style>
