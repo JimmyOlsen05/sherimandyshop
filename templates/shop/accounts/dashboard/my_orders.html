@@ -239,6 +239,11 @@
 }
 
 @media (max-width: 768px) {
+    .orders-wrapper {
+        min-height: calc(100vh - 60px);
+        padding-bottom: 8rem; /* Additional footer padding */
+    }
+
     .orders-table th,
     .orders-table td {
         padding: 0.75rem;
@@ -251,6 +256,10 @@
 
     .view-btn {
         font-size: 1.3rem;
+    }
+
+    .no-orders {
+        padding: 4rem 1rem; /* Increased padding for empty state */
     }
 }
 
