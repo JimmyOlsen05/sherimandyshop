@@ -2,8 +2,8 @@
 {% load static %}
 
 {% block content %}
-<div class="dashboard-container" style="min-height: calc(100vh - 160px); background: #f0f4f8; padding-top: 100px; width: 100%; box-sizing: border-box; overflow-x: hidden;">
-    <div class="dashboard-wrapper" style="max-width: 1400px; margin: 0 auto; padding: 0 1rem;">
+<div style="min-height: calc(100vh - 160px); background: #f0f4f8; padding-top: 100px;">
+    <div style="max-width: 1400px; margin: 0 auto; padding: 0 1rem;">
         <div class="dashboard-grid" style="display: grid; grid-template-columns: 280px 1fr; gap: 1.5rem;">
             <!-- Side Panel -->
             <div class="dashboard-sidebar" style="background: white; padding: 2.5rem 1.5rem; border-right: 1px solid #e2e8f0; border-radius: 8px;">
@@ -92,64 +92,67 @@
 
 /* Mobile Responsiveness */
 @media (max-width: 1024px) {
-    .dashboard-container {
-        width: 100vw;
-        padding: 80px 0 0;
-    }
-
-    .dashboard-wrapper {
-        width: 100%;
-        padding: 0;
-    }
-
     .dashboard-grid {
         grid-template-columns: 1fr !important;
         gap: 1rem !important;
-        padding: 1rem;
     }
-}
-
-@media (max-width: 768px) {
-    .dashboard-container {
-        min-width: 100vw;
-        overflow-x: hidden;
+    
+    .dashboard-sidebar {
+        border-right: none !important;
+        border-bottom: 1px solid #e2e8f0;
+        padding: 1.5rem !important;
     }
 
-    .dashboard-wrapper {
-        min-width: 100%;
-    }
-
-    .dashboard-sidebar,
     .dashboard-content {
-        width: 100%;
-        min-width: 100%;
-        border-radius: 0;
+        padding: 1.5rem !important;
+    }
+
+    .avatar-circle {
+        width: 100px;
+        height: 100px;
+        font-size: 3rem;
+    }
+
+    h3 {
+        font-size: 2rem !important;
+    }
+
+    p {
+        font-size: 1.5rem !important;
+    }
+
+    .nav-link {
+        font-size: 1.75rem !important;
+        padding: 0.75rem !important;
     }
 }
 
 @media (max-width: 640px) {
-    .dashboard-container {
-        position: relative;
-        left: 50%;
-        right: 50%;
-        margin-left: -50vw;
-        margin-right: -50vw;
-        width: 100vw;
+    .dashboard-sidebar {
+        padding: 1rem !important;
     }
 
-    .dashboard-wrapper {
-        width: 100vw;
-        box-sizing: border-box;
-    }
-
-    .dashboard-grid {
-        padding: 0;
-    }
-
-    .dashboard-sidebar,
     .dashboard-content {
-        border-radius: 0;
-        padding: 1rem;
+        padding: 1rem !important;
+    }
+
+    .avatar-circle {
+        width: 80px;
+        height: 80px;
+        font-size: 2.5rem;
+    }
+
+    h3 {
+        font-size: 1.75rem !important;
+    }
+
+    p {
+        font-size: 1.25rem !important;
+    }
+
+    .nav-link {
+        font-size: 1.5rem !important;
+        padding: 0.5rem !important;
     }
 }
 </style>
