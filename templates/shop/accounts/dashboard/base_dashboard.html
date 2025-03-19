@@ -4,9 +4,9 @@
 {% block content %}
 <div style="min-height: calc(100vh - 160px); background: #f0f4f8; padding-top: 100px;">
     <div style="max-width: 1400px; margin: 0 auto; padding: 0 1rem;">
-        <div style="display: grid; grid-template-columns: 280px 1fr; gap: 1.5rem;">
+        <div class="dashboard-grid" style="display: grid; grid-template-columns: 280px 1fr; gap: 1.5rem;">
             <!-- Side Panel -->
-            <div style="background: white; padding: 2.5rem 1.5rem; border-right: 1px solid #e2e8f0; border-radius: 8px;">
+            <div class="dashboard-sidebar" style="background: white; padding: 2.5rem 1.5rem; border-right: 1px solid #e2e8f0; border-radius: 8px;">
                 <div style="text-align: center; margin-bottom: 2rem;">
                     <div class="avatar-circle">
                         {{ user.first_name|first|upper }}
@@ -41,7 +41,7 @@
             </div>
 
             <!-- Main Content -->
-            <div style="padding: 2rem; background: white; border-radius: 8px;">
+            <div class="dashboard-content" style="padding: 2rem; background: white; border-radius: 8px;">
                 {% block dashboard_content %}{% endblock %}
             </div>
         </div>
@@ -90,20 +90,69 @@
     color: #dc2626 !important;
 }
 
-@media (max-width: 768px) {
-    .container > div {
+/* Mobile Responsiveness */
+@media (max-width: 1024px) {
+    .dashboard-grid {
         grid-template-columns: 1fr !important;
+        gap: 1rem !important;
     }
     
-    .side-panel {
-        border-right: none;
+    .dashboard-sidebar {
+        border-right: none !important;
         border-bottom: 1px solid #e2e8f0;
+        padding: 1.5rem !important;
+    }
+
+    .dashboard-content {
+        padding: 1.5rem !important;
     }
 
     .avatar-circle {
         width: 100px;
         height: 100px;
         font-size: 3rem;
+    }
+
+    h3 {
+        font-size: 1.75rem !important;
+    }
+
+    p {
+        font-size: 1.25rem !important;
+    }
+
+    .nav-link {
+        font-size: 1.5rem !important;
+        padding: 0.75rem !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .dashboard-sidebar {
+        padding: 1rem !important;
+    }
+
+    .dashboard-content {
+        padding: 1rem !important;
+    }
+
+    .avatar-circle {
+        width: 80px;
+        height: 80px;
+        font-size: 2.5rem;
+    }
+
+    h3 {
+        font-size: 1.5rem !important;
+    }
+
+    p {
+        font-size: 1.125rem !important;
+    }
+
+    .nav-link {
+        font-size: 1.25rem !important;
+        padding: 0.5rem !important;
     }
 }
 </style>

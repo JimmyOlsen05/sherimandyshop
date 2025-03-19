@@ -67,7 +67,7 @@
                     <tr>
                         <th>Order ID</th>
                         <th>Date</th>
-                        <th>Items</th>
+                        <th class="hide-mobile">Items</th>
                         <th>Status</th>
                         <th>Total</th>
                         <th>Action</th>
@@ -78,7 +78,7 @@
                     <tr>
                         <td class="order-id">#{{ order.order_number }}</td>
                         <td>{{ order.created_at|date:"M d, Y" }}</td>
-                        <td>
+                        <td class="hide-mobile">
                             <div class="product-list">
                                 {% for item in order.orderproduct_set.all %}
                                     <div class="product-item">
@@ -90,7 +90,6 @@
                         </td>
                         <td>
                             <span class="status-badge {{ order.status|lower }}">
-                                <i class="fas"></i>
                                 {% if order.status == 'Out_For_Delivery' %}
                                     Out For Delivery
                                 {% else %}
@@ -100,8 +99,8 @@
                         </td>
                         <td class="total">GH₵{{ order.order_total }}</td>
                         <td>
-                            <a href="{% url 'accounts:order_detail' order.order_number %}" class="action-btn">
-                                View Details
+                            <a href="{% url 'accounts:order_detail' order.order_number %}" class="view-btn">
+                                View
                             </a>
                         </td>
                     </tr>
@@ -110,11 +109,10 @@
             </table>
         </div>
         {% else %}
-        <div class="empty-state">
-            <img src="{% static 'images/no-orders.svg' %}" alt="No Orders">
-            <h3>No Orders Yet</h3>
-            <p>Start exploring our collection and make your first purchase!</p>
-            <a href="{% url 'shop:shop' %}" class="shop-now-btn">Browse Products</a>
+        <div class="no-orders">
+            <i class="fas fa-shopping-bag"></i>
+            <p>No orders yet</p>
+            <a href="{% url 'shop:shop' %}" class="shop-now-btn">Start Shopping</a>
         </div>
         {% endif %}
     </div>
@@ -122,9 +120,7 @@
 
 <style>
 .dashboard-wrapper {
-    padding: 2rem;
-    max-width: 1400px;
-    margin: 0 auto;
+    padding: 1.5rem;
 }
 
 .welcome-section {
@@ -145,36 +141,36 @@
 }
 
 .avatar {
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 600;
 }
 
 .welcome-text h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
 }
 
 .welcome-text p {
+    font-size: 1.125rem;
     opacity: 0.9;
-    font-size: 1.4rem;
 }
 
 .last-login {
-    font-size: 1.3rem;
+    font-size: 1rem;
     opacity: 0.8;
 }
 
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.5rem;
     margin-bottom: 2rem;
 }
@@ -182,43 +178,55 @@
 .stat-card {
     background: white;
     border-radius: 1rem;
-    padding: 2rem;
+    padding: 1.5rem;
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s;
-}
-
-.stat-card:hover {
-    transform: translateY(-5px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .stat-icon {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.8rem;
-    color: white;
+    font-size: 1.5rem;
 }
 
-.primary .stat-icon { background: #4f46e5; }
-.success .stat-icon { background: #10b981; }
-.warning .stat-icon { background: #f59e0b; }
+.primary .stat-icon {
+    background: #eef2ff;
+    color: #4f46e5;
+}
+
+.success .stat-icon {
+    background: #ecfdf5;
+    color: #059669;
+}
+
+.warning .stat-icon {
+    background: #fffbeb;
+    color: #d97706;
+}
 
 .stat-info h3 {
-    font-size: 1.4rem;
+    font-size: 1rem;
     color: #6b7280;
     margin-bottom: 0.5rem;
 }
 
 .stat-info p {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     font-weight: 600;
-    color: #1f2937;
+    color: #111827;
+}
+
+.orders-section {
+    background: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .section-header {
@@ -229,26 +237,23 @@
 }
 
 .section-header h2 {
-    font-size: 2.2rem;
+    font-size: 1.5rem;
     font-weight: 600;
-    color: #1f2937;
+    color: #111827;
 }
 
 .view-all-btn {
     color: #4f46e5;
     text-decoration: none;
     font-weight: 500;
-    font-size: 1.4rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
 }
 
 .orders-table-wrapper {
-    background: white;
-    border-radius: 1rem;
-    overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .orders-table {
@@ -257,142 +262,113 @@
 }
 
 .orders-table th {
-    background: #f8fafc;
-    padding: 1.5rem;
     text-align: left;
+    padding: 1rem;
+    font-size: 0.875rem;
     font-weight: 500;
     color: #6b7280;
-    font-size: 1.3rem;
+    border-bottom: 1px solid #e5e7eb;
 }
 
 .orders-table td {
     padding: 1rem;
-    vertical-align: middle;
-    border-bottom: 1px solid #f1f5f9;
-    color: #1f2937;
-    font-size: 1.3rem;
+    font-size: 0.875rem;
+    color: #374151;
+    border-bottom: 1px solid #e5e7eb;
 }
 
 .order-id {
     font-weight: 600;
-    color: #4f46e5;
-}
-
-.status-badge {
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: 500;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.status-badge i {
-    font-size: 14px;
-}
-
-.status-badge.new {
-    background: #e0f2fe;
-    color: #0369a1;
-}
-
-.status-badge.processing {
-    background: #fef3c7;
-    color: #92400e;
-}
-
-.status-badge.out_for_delivery {
-    background: #dbeafe;
-    color: #1d4ed8;
-}
-
-.status-badge.delivered {
-    background: #dcfce7;
-    color: #166534;
-}
-
-.status-badge.cancelled {
-    background: #fee2e2;
-    color: #991b1b;
-}
-
-.status-badge.new i::before {
-    content: "\f07a";  /* shopping cart */
-}
-
-.status-badge.processing i::before {
-    content: "\f466";  /* box */
-}
-
-.status-badge.out_for_delivery i::before {
-    content: "\f48b";  /* truck */
-}
-
-.status-badge.delivered i::before {
-    content: "\f058";  /* check-circle */
-}
-
-.status-badge.cancelled i::before {
-    content: "\f057";  /* times-circle */
+    color: #111827;
 }
 
 .product-list {
-    max-width: 300px;
-    font-size: 1.4rem;
-    color: #1f2937;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
 }
 
-.product-item {
-    margin-bottom: 0.25rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    padding: 0.2rem 0;
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
 }
 
-.product-item:last-child {
-    margin-bottom: 0;
+.status-badge.new {
+    background: #eef2ff;
+    color: #4f46e5;
 }
 
-.product-separator {
-    color: #666;
-    margin: 0 0.3rem;
+.status-badge.processing {
+    background: #fffbeb;
+    color: #d97706;
 }
 
-.empty-state {
+.status-badge.out_for_delivery {
+    background: #f0fdf4;
+    color: #059669;
+}
+
+.status-badge.delivered {
+    background: #ecfdf5;
+    color: #059669;
+}
+
+.status-badge.cancelled {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.total {
+    font-weight: 600;
+    color: #111827;
+}
+
+.view-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: #4f46e5;
+    color: white;
+    border-radius: 0.375rem;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.view-btn:hover {
+    background: #4338ca;
+}
+
+.no-orders {
     text-align: center;
-    padding: 4rem 2rem;
-    background: white;
-    border-radius: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    padding: 3rem 1rem;
 }
 
-.empty-state img {
-    width: 200px;
-    margin-bottom: 2rem;
+.no-orders i {
+    font-size: 3rem;
+    color: #9ca3af;
+    margin-bottom: 1rem;
 }
 
-.empty-state h3 {
-    font-size: 2.2rem;
-    color: #1f2937;
-    margin-bottom: 0.5rem;
-}
-
-.empty-state p {
+.no-orders p {
     color: #6b7280;
-    font-size: 1.4rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .shop-now-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
     background: #4f46e5;
     color: white;
-    padding: 1rem 2.5rem;
-    border-radius: 0.5rem;
+    border-radius: 0.375rem;
     text-decoration: none;
     font-weight: 500;
-    font-size: 1.4rem;
     transition: background-color 0.2s;
 }
 
@@ -400,31 +376,76 @@
     background: #4338ca;
 }
 
+/* Mobile Responsiveness */
+@media (max-width: 1024px) {
+    .welcome-section {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1.5rem;
+    }
+
+    .welcome-text h1 {
+        font-size: 1.75rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+
+    .stat-card {
+        padding: 1.25rem;
+    }
+}
+
 @media (max-width: 768px) {
     .dashboard-wrapper {
         padding: 1rem;
     }
 
-    .welcome-section {
-        flex-direction: column;
-        text-align: center;
-        gap: 1rem;
+    .welcome-text h1 {
+        font-size: 1.5rem;
     }
 
-    .user-info {
-        flex-direction: column;
+    .welcome-text p {
+        font-size: 1rem;
     }
 
     .stats-grid {
         grid-template-columns: 1fr;
     }
 
-    .orders-table-wrapper {
-        overflow-x: auto;
+    .hide-mobile {
+        display: none;
     }
 
-    .orders-table {
-        min-width: 800px;
+    .orders-table th, 
+    .orders-table td {
+        padding: 0.75rem;
+        font-size: 0.813rem;
+    }
+
+    .view-btn {
+        padding: 0.375rem 0.75rem;
+        font-size: 0.813rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .view-all-btn {
+        font-size: 0.875rem;
+    }
+
+    .orders-table th:not(:first-child):not(:last-child),
+    .orders-table td:not(:first-child):not(:last-child) {
+        padding: 0.5rem;
     }
 }
 </style>
