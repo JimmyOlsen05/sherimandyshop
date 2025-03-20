@@ -50,7 +50,7 @@ class Product(models.Model):
     description = models.TextField(max_length=500, blank=True)
     features = models.TextField(blank=True, help_text="Key features and specifications of the PPE")
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    discount = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    discount = models.DecimalField(max_digits=5, decimal_places=2, default=0.00, help_text="Discount percentage (e.g., 20 for 20% off)")
     image = models.ImageField(upload_to='photos/products')
     stock = models.IntegerField()
     
@@ -99,13 +99,16 @@ class Product(models.Model):
         return reverse('shop:product_details', args=[self.category.slug, self.slug])
     
     def get_discounted_price(self):
+        """Calculate the final price after applying discount percentage"""
         if self.discount > 0:
-            return self.price - (self.price * (self.discount / 100))  # Calculate discount as percentage
+            discount_amount = (self.price * self.discount) / 100
+            return self.price - discount_amount
         return self.price
-    
-    def get_discount_percentage(self):
+
+    def get_discount_amount(self):
+        """Get the amount saved from the discount"""
         if self.discount > 0:
-            return int(self.discount)  # Return discount percentage
+            return (self.price * self.discount) / 100
         return 0
 
     class Meta:
