@@ -1,12 +1,12 @@
-{% extends '../../../base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block content %}
-<div style="min-height: calc(100vh - 160px); background: #f0f4f8; padding-top: 100px;">
-    <div style="max-width: 1400px; margin: 0 auto; padding: 0 1rem;">
-        <div class="dashboard-grid" style="display: grid; grid-template-columns: 280px 1fr; gap: 1.5rem;">
+<div class="dashboard-container">
+    <div class="dashboard-wrapper">
+        <div class="dashboard-grid">
             <!-- Side Panel -->
-            <div class="dashboard-sidebar" style="background: white; padding: 2.5rem 1.5rem; border-right: 1px solid #e2e8f0; border-radius: 8px;">
+            <div class="dashboard-sidebar">
                 <div style="text-align: center; margin-bottom: 2rem;">
                     <div class="avatar-circle">
                         {{ user.first_name|first|upper }}
@@ -41,7 +41,7 @@
             </div>
 
             <!-- Main Content -->
-            <div class="dashboard-content" style="padding: 2rem; background: white; border-radius: 8px;">
+            <div class="dashboard-content">
                 {% block dashboard_content %}{% endblock %}
             </div>
         </div>
@@ -49,148 +49,90 @@
 </div>
 
 <style>
-.avatar-circle {
-    width: 120px;
-    height: 120px;
-    margin: 0 auto 1.5rem;
-    background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
-    border-radius: 50%;
+/* Base Layout */
+.dashboard-container {
+    min-height: 100vh;
+    background: #f0f4f8;
+    padding-top: 80px;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 3.5rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2);
-    border: 3px solid rgba(255, 255, 255, 0.1);
+    flex-direction: column;
 }
 
-.nav-link {
-    position: relative;
-    overflow: hidden;
+.dashboard-wrapper {
+    flex: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    width: 100%;
 }
 
-.nav-link:hover {
-    background: #f3f4f6;
-    color: #4f46e5 !important;
-}
-
-.nav-link.active {
-    background: #4f46e5;
-    color: white !important;
-}
-
-.nav-link.active i {
-    color: white;
-}
-
-.nav-link:last-child:hover {
-    background: #fef2f2;
-    color: #dc2626 !important;
-}
-
-/* Add these styles */
 .dashboard-grid {
-    min-height: calc(100vh - 180px); /* Ensures minimum content height */
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 2rem;
+    margin-bottom: 6rem;
+}
+
+/* Components */
+.dashboard-sidebar {
+    background: white;
+    padding: 2.5rem 1.5rem;
+    border-right: 1px solid #e2e8f0;
+    border-radius: 8px;
+    height: fit-content;
 }
 
 .dashboard-content {
-    display: flex;
-    flex-direction: column;
-    min-height: 100%;
+    background: white;
+    padding: 2.5rem;
+    border-radius: 8px;
+    min-height: 500px;
 }
 
-/* Mobile Responsiveness */
+/* Mobile Styles */
 @media (max-width: 1024px) {
-    .dashboard-grid {
-        min-height: calc(100vh - 120px);
-        margin-bottom: 6rem; /* Add space before footer */
-        grid-template-columns: 1fr !important;
-        gap: 1rem !important;
+    .dashboard-container {
+        padding-top: 60px;
     }
-    
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-bottom: 8rem;
+    }
+
     .dashboard-sidebar {
-        border-right: none !important;
+        border-right: none;
         border-bottom: 1px solid #e2e8f0;
-        padding: 1.5rem !important;
+        padding: 2rem;
     }
 
     .dashboard-content {
-        padding: 1.5rem !important;
-        flex: 1;
-    }
-
-    .avatar-circle {
-        width: 100px;
-        height: 100px;
-        font-size: 3rem;
-    }
-
-    h3 {
-        font-size: 2rem !important;
-    }
-
-    p {
-        font-size: 1.5rem !important;
-    }
-
-    .nav-link {
-        font-size: 1.75rem !important;
-        padding: 0.75rem !important;
+        padding: 2rem;
     }
 }
 
 @media (max-width: 640px) {
-    div[style*="min-height: calc(100vh - 160px)"] {
-        min-height: calc(100vh - 80px) !important; /* Further adjust for mobile */
+    .dashboard-container {
+        padding-top: 40px;
+    }
+
+    .dashboard-wrapper {
+        padding: 0 1rem;
     }
 
     .dashboard-grid {
-        margin-bottom: 8rem; /* Increase footer spacing */
-    }
-
-    .dashboard-content {
-        padding-bottom: 4rem !important; /* Additional bottom padding */
+        gap: 1rem;
+        margin-bottom: 10rem;
     }
 
     .dashboard-sidebar {
-        padding: 1rem !important;
+        padding: 1.5rem;
     }
 
     .dashboard-content {
-        padding: 1rem !important;
+        padding: 1.5rem;
     }
-
-    .avatar-circle {
-        width: 80px;
-        height: 80px;
-        font-size: 2.5rem;
-    }
-
-    h3 {
-        font-size: 1.75rem !important;
-    }
-
-    p {
-        font-size: 1.25rem !important;
-    }
-
-    .nav-link {
-        font-size: 1.5rem !important;
-        padding: 0.5rem !important;
-    }
-}
-
-/* Add this to ensure footer stays at bottom */
-main {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-footer {
-    margin-top: auto;
 }
 </style>
 {% endblock %}

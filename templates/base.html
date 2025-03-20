@@ -685,48 +685,143 @@
         {% endblock %}
     </main>
 
-    <!-- Footer with Interactive Elements -->
-    <footer style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); padding: 40px 0; margin: 0;">
-        <div class="container" style="max-width: 1400px; margin: 0 auto; padding: 0 2rem;">
-            <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-                <!-- Connect Section -->
-                <div style="flex: 1; min-width: 200px;">
-                    <div style="color: #38BDF8; font-weight: 600; font-size: 1.2rem; margin-bottom: 10px; text-align: center;">Connect with us</div>
-                    <div style="display: flex; justify-content: center; gap: 15px;">
-                        <a href="#" style="color: #38BDF8; font-size: 20px;"><i class="fab fa-facebook"></i></a>
-                        <a href="#" style="color: #38BDF8; font-size: 20px;"><i class="fab fa-twitter"></i></a>
-                        <a href="#" style="color: #38BDF8; font-size: 20px;"><i class="fab fa-instagram"></i></a>
-                        <a href="#" style="color: #38BDF8; font-size: 20px;"><i class="fab fa-linkedin"></i></a>
+    <!-- Footer -->
+    <footer style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #e2e8f0; padding: 8rem 0; width: 100vw; margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); position: relative;">
+        <div style="max-width: 1400px; margin: 0 auto; padding: 0 2rem;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 5rem;">
+                <!-- Company Info -->
+                <div>
+                    <h3 style="color: #ffd700; font-size: 2rem; margin-bottom: 2.5rem;">About Us</h3>
+                    <div style="font-size: 1.5rem; line-height: 1.7;">
+                        <p style="margin-bottom: 2rem;">Your trusted source for quality PPE equipment.</p>
+                        <p style="margin-bottom: 1.5rem;">
+                            <i class="fas fa-phone" style="color: #e2a355; width: 24px;"></i> +233 24 123 4567
+                        </p>
+                        <p style="margin-bottom: 1.5rem;">
+                            <i class="fas fa-envelope" style="color: #e2a355; width: 24px;"></i> info@sherimandyshop.com
+                        </p>
+                        <p>
+                            <i class="fas fa-map-marker-alt" style="color: #e2a355; width: 24px;"></i> Tarkwa, Ghana
+                        </p>
                     </div>
                 </div>
 
-                <!-- Contact Section -->
-                <div style="flex: 1; min-width: 200px;">
-                    <div style="color: #38BDF8; font-weight: 600; font-size: 1.2rem; margin-bottom: 10px; text-align: center;">Contact Info</div>
-                    <div style="text-align: center; color: #94A3B8;">
-                        <div style="margin-bottom: 5px;"><i class="fas fa-envelope" style="margin-right: 8px;"></i>info@sherimandyshop.com</div>
-                        <div><i class="fas fa-phone" style="margin-right: 8px;"></i>+234 123 456 7890</div>
+                <!-- Business Hours -->
+                <div>
+                    <h3 style="color: #ffd700; font-size: 2rem; margin-bottom: 2.5rem;">Business Hours</h3>
+                    <div style="font-size: 1.5rem; line-height: 1.7;">
+                        <p style="margin-bottom: 1.5rem;">Monday - Saturday</p>
+                        <p style="margin-bottom: 1.5rem;">8:00 AM - 6:00 PM</p>
+                        <p>Sunday: Closed</p>
                     </div>
                 </div>
 
-                <!-- Copyright Section -->
-                <div style="flex: 1; min-width: 200px;">
-                    <div style="color: #38BDF8; font-weight: 600; font-size: 1.2rem; margin-bottom: 10px; text-align: center;">Copyright</div>
-                    <div style="text-align: center; color: #94A3B8;">
-                        &copy; 2024 SHERIMANDY Shop.<br>All rights reserved.
+                <!-- Quick Links -->
+                <div>
+                    <h3 style="color: #ffd700; font-size: 2rem; margin-bottom: 2.5rem;">Quick Links</h3>
+                    <div style="font-size: 1.5rem; line-height: 1.7;">
+                        <p style="margin-bottom: 1.5rem;">
+                            <a href="{% url 'shop:shop' %}" style="color: #e2e8f0; text-decoration: none; transition: color 0.2s;">Shop</a>
+                        </p>
+                        <p style="margin-bottom: 1.5rem;">
+                            <a href="{% url 'contact:contact' %}" style="color: #e2e8f0; text-decoration: none; transition: color 0.2s;">Contact</a>
+                        </p>
+                        <p>
+                            <a href="{% url 'accounts:dashboard' %}" style="color: #e2e8f0; text-decoration: none; transition: color 0.2s;">My Account</a>
+                        </p>
                     </div>
                 </div>
 
-                <!-- Developer Section -->
-                <div style="flex: 1; min-width: 200px;">
-                    <div style="color: #38BDF8; font-weight: 600; font-size: 1.2rem; margin-bottom: 10px; text-align: center;">Developed by</div>
-                    <div style="text-align: center;">
-                        <a href="https://lmtsoftware.netlify.app" target="_blank" style="color: #caf568; font-weight: 600; text-decoration: none;">LMTsoftware</a>
+                <!-- Connect -->
+                <div>
+                    <h3 style="color: #ffd700; font-size: 2rem; margin-bottom: 2.5rem;">Connect With Us</h3>
+                    <div style="display: flex; gap: 2.5rem; font-size: 2.5rem;">
+                        <a href="#" style="color: #e2e8f0; transition: color 0.2s;">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" style="color: #e2e8f0; transition: color 0.2s;">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" style="color: #e2e8f0; transition: color 0.2s;">
+                            <i class="fab fa-instagram"></i>
+                        </a>
                     </div>
                 </div>
             </div>
+
+            <!-- Credits -->
+            <div style="margin-top: 6rem; padding-top: 4rem; border-top: 1px solid #1e293b; text-align: center;">
+                <div style="margin-bottom: 2rem;">
+                    <span style="color: #38BDF8; font-size: 1.6rem;">Developed by </span>
+                    <a href="https://lmtsoftware.netlify.app" target="_blank" style="color: #e2a355; text-decoration: none; font-size: 1.6rem;">LMTsoftware</a>
+                </div>
+                <p style="color: #94a3b8; font-size: 1.5rem;">&copy; {% now 'Y' %} Sherimandyshop. All rights reserved.</p>
+            </div>
         </div>
     </footer>
+
+    <style>
+    footer a:hover {
+        color: #ffd700 !important;
+    }
+
+    @media (max-width: 768px) {
+        footer {
+            padding: 10rem 2rem !important;
+        }
+
+        footer div[style*="grid-template-columns"] {
+            gap: 7rem !important;
+        }
+
+        footer h3 {
+            font-size: 2.2rem !important;
+            margin-bottom: 3rem !important;
+        }
+
+        footer div[style*="font-size"] {
+            font-size: 1.7rem !important;
+        }
+
+        footer div[style*="margin-top"] {
+            margin-top: 7rem !important;
+            padding-top: 5rem !important;
+        }
+
+        footer [class*="fa-"] {
+            font-size: 3rem !important;
+        }
+    }
+
+    @media (max-width: 640px) {
+        footer {
+            padding: 8rem 1.5rem !important;
+        }
+
+        footer div[style*="grid-template-columns"] {
+            grid-template-columns: 1fr !important;
+            gap: 6rem !important;
+        }
+
+        footer h3 {
+            font-size: 2rem !important;
+            margin-bottom: 2.5rem !important;
+        }
+
+        footer div[style*="font-size"] {
+            font-size: 1.6rem !important;
+        }
+
+        footer div[style*="margin-top"] {
+            margin-top: 6rem !important;
+            padding-top: 4rem !important;
+        }
+
+        footer [class*="fa-"] {
+            font-size: 2.5rem !important;
+        }
+    }
+    </style>
 
     <!-- all js here -->
     <!-- jquery latest version -->
