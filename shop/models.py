@@ -101,14 +101,13 @@ class Product(models.Model):
     def get_discounted_price(self):
         """Calculate the final price after applying discount percentage"""
         if self.discount > 0:
-            discount_amount = (self.price * self.discount) / 100
-            return self.price - discount_amount
+            return round(self.price * (1 - self.discount / 100), 2)
         return self.price
 
     def get_discount_amount(self):
         """Get the amount saved from the discount"""
         if self.discount > 0:
-            return (self.price * self.discount) / 100
+            return round(self.price * (self.discount / 100), 2)
         return 0
 
     class Meta:
