@@ -78,13 +78,11 @@
                         {% if single_product.discount != 0.00 %}
                         <div class="d-flex align-items-center">
                             <span class="original-price" style="color: #757575; text-decoration: line-through; font-size: 1.4rem;">GH₵ {{ single_product.price|floatformat:2 }}</span>
-                            <span class="discount-price" style="color: #f44336; font-size: 2.2rem; font-weight: 700; margin-left: 15px">GH₵ {{ single_product.discount|floatformat:2 }}</span>
-                            <span class="discount-badge" style="background: #f44336; color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9rem; margin-left: 15px;">
-                                Save {{ single_product.get_discount_percentage|floatformat:0 }}%
-                            </span>
+                            <span class="discount-price" style="color: #3498db; font-size: 2.2rem; font-weight: 700; margin-left: 15px">GH₵ {{ single_product.get_discounted_price|floatformat:2 }}</span>
+                            <span class="discount-badge" style="background: #e74c3c; color: white; padding: 4px 12px; border-radius: 15px; font-size: 1rem; margin-left: 15px">-{{ single_product.discount|floatformat:0 }}%</span>
                         </div>
                         {% else %}
-                        <span class="price" style="color: #f44336; font-size: 2.2rem; font-weight: 700;">GH₵ {{ single_product.price|floatformat:2 }}</span>
+                        <span class="regular-price" style="color: #3498db; font-size: 2.2rem; font-weight: 700;">GH₵ {{ single_product.price|floatformat:2 }}</span>
                         {% endif %}
                     </div>
 

@@ -104,6 +104,7 @@
 														{% if product.discount != 0.00 %}
 														<span style="color:#95a5a6;text-decoration:line-through;margin-right:10px">GH₵ {{product.price|floatformat:2}}</span>
 														<span style="color:#3498db;font-weight:600;font-size:18px">GH₵ {{product.get_discounted_price|floatformat:2}}</span>
+														<span style="color:#e74c3c;font-weight:500;font-size:14px;margin-left:8px">-{{product.discount|floatformat:0}}%</span>
 														{% else %}
 														<span style="color:#3498db;font-weight:600;font-size:18px">GH₵ {{product.price|floatformat:2}}</span>
 														{% endif %}
@@ -159,7 +160,7 @@
 															</div>
 															<h3 style="color:#2c3e50">{{product.name}}</h3>
 															{% if product.discount != 0.00 %}
-															<h5 style="color:#3498db"><del style="color:#95a5a6">GH₵ {{product.price|floatformat:2}}</del> GH₵ {{product.get_discounted_price|floatformat:2}}</h5>
+															<h5 style="color:#3498db"><del style="color:#95a5a6">GH₵ {{product.price|floatformat:2}}</del> GH₵ {{product.get_discounted_price|floatformat:2}} <span style="color:#e74c3c;font-weight:500;font-size:14px;margin-left:8px">-{{product.discount|floatformat:0}}%</span></h5>
 															{% else %}
 															<h5 style="color:#3498db">GH₵ {{product.price|floatformat:2}}</h5>
 															{% endif %}
