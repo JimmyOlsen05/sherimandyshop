@@ -38,7 +38,13 @@
                                 </div>
                                 {% endif %}
                                 <div class="price" style="color: #F8FAFC; font-size: 1.1rem; margin-top: 5px;">
-                                    GH₵ {{ cart_item.product.price }}
+                                    {% if cart_item.product.discount > 0 %}
+                                        <span style="text-decoration: line-through; color: #94A3B8;">GH₵ {{ cart_item.product.price }}</span>
+                                        <span style="color: #38BDF8; margin-left: 8px;">GH₵ {{ cart_item.product.get_discounted_price }}</span>
+                                        <span style="color: #EF4444; font-size: 0.9rem; margin-left: 8px;">-{{ cart_item.product.discount|floatformat:0 }}%</span>
+                                    {% else %}
+                                        GH₵ {{ cart_item.product.price }}
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -53,7 +59,7 @@
                             </div>
                             
                             <div class="subtotal" style="color: #F8FAFC; font-size: 1.1rem;">
-                                Total: GH₵ {{ cart_item.sub_total }}
+                                Total: GH₵ {% if cart_item.product.discount > 0 %}{{ cart_item.product.get_discounted_price|multiply:cart_item.quantity }}{% else %}{{ cart_item.sub_total }}{% endif %}
                             </div>
                             
                             <a href="{% url 'cart:remove_cart_item' cart_item.product.id cart_item.id %}" 
@@ -70,6 +76,9 @@
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <span style="color: #38BDF8; font-weight: 600; font-size: 1.3rem;">Total:</span>
                         <span style="color: #F8FAFC; font-weight: 600; font-size: 1.3rem;">GH₵ {{ total }}</span>
+                        {% if savings > 0 %}
+                        <span style="color: #EF4444; font-size: 1rem;">You save: GH₵ {{ savings }}</span>
+                        {% endif %}
                     </div>
                 </div>
 
