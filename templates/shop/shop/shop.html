@@ -102,16 +102,12 @@
 													<p><a style="color:#2c3e50;font-weight:500;font-size:16px;transition:all 0.3s" href="{{product.get_prodcut_details_url}}">{{product.name}}</a></p>
 													<div class="price-box">
 														<div class="price mb-1">
-															{% if product.discount_percentage > 0 %}
-																{% with discounted_price=product.get_discounted_price %}
-																	<span style="color:#95a5a6;text-decoration:line-through;margin-right:10px">GH₵ {{product.price|floatformat:2}}</span>
-																	<span style="color:#3498db;font-weight:600;font-size:18px">GH₵ {{discounted_price|floatformat:2}}</span>
-																	<span style="background:#e74c3c;color:#fff;padding:2px 8px;border-radius:12px;font-size:12px;margin-left:8px">-{{product.discount_percentage}}%</span>
-																{% endwith %}
-															{% else %}
-																<span class="price h5 text-dark">GH₵ {{product.price|floatformat:2}}</span>
-															{% endif %}
+															<span class="price h5 text-dark">GH₵ {{product.price|floatformat:2}}</span>
 														</div>
+														{% if product.discount != 0.00 %}
+														<span style="color:#95a5a6;text-decoration:line-through;margin-right:10px">GH₵ {{product.price|floatformat:2}}</span>
+														<span style="color:#3498db;font-weight:600;font-size:18px">GH₵ {{product.discount|floatformat:2}}</span>
+														{% endif %}
 													</div>
 													{% if product.is_available and product.stock > 0 %}
 													<span style="color:#27ae60;font-size:14px">In Stock ({{product.stock}} items)</span>
