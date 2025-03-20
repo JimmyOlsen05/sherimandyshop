@@ -101,12 +101,11 @@
 												<div class="product-dsc" style="padding:15px">
 													<p><a style="color:#2c3e50;font-weight:500;font-size:16px;transition:all 0.3s" href="{{product.get_prodcut_details_url}}">{{product.name}}</a></p>
 													<div class="price-box">
-														<div class="price mb-1">
-															<span class="price h5 text-dark">GH₵ {{product.price|floatformat:2}}</span>
-														</div>
 														{% if product.discount != 0.00 %}
 														<span style="color:#95a5a6;text-decoration:line-through;margin-right:10px">GH₵ {{product.price|floatformat:2}}</span>
-														<span style="color:#3498db;font-weight:600;font-size:18px">GH₵ {{product.discount|floatformat:2}}</span>
+														<span style="color:#3498db;font-weight:600;font-size:18px">GH₵ {{product.get_discounted_price|floatformat:2}}</span>
+														{% else %}
+														<span style="color:#3498db;font-weight:600;font-size:18px">GH₵ {{product.price|floatformat:2}}</span>
 														{% endif %}
 													</div>
 													{% if product.is_available and product.stock > 0 %}
@@ -148,8 +147,7 @@
 													</div>
 													<div class="col-xs-12 col-md-8">
 														<div style="height:350px; border-radius:0 20px 20px 0;"  class="list-text">
-															
-															<div style="font-size:16px" class="rating-star floatright">
+															<div class="rating-star floatright">
 																<span style="color:#f1c40f">
 																<i class="fa fa-star{% if product.averageRating < 0.5 %}-o{% elif product.averageRating >= 0.5 and product.averageRating < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
 																<i class="fa fa-star{% if product.averageRating < 1.5 %}-o{% elif product.averageRating >= 1.5 and product.averageRating < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
@@ -160,7 +158,11 @@
 																<span style="color:#7f8c8d;font-size:14px">({{product.countReview}} reviews)</span>
 															</div>
 															<h3 style="color:#2c3e50">{{product.name}}</h3>
-															<h5 style="color:#3498db">{% if product.discount != 0.00 %}<del>GH₵ {{product.price|floatformat:2}}</del>{% endif %} GH₵ {{product.price|floatformat:2}}</h5>
+															{% if product.discount != 0.00 %}
+															<h5 style="color:#3498db"><del style="color:#95a5a6">GH₵ {{product.price|floatformat:2}}</del> GH₵ {{product.get_discounted_price|floatformat:2}}</h5>
+															{% else %}
+															<h5 style="color:#3498db">GH₵ {{product.price|floatformat:2}}</h5>
+															{% endif %}
 															<p>{{product.description}}.</p>
 															<div class="list-btn">
 
