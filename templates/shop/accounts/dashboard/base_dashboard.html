@@ -2,8 +2,8 @@
 {% load static %}
 
 {% block content %}
-<div style="min-height: calc(100vh - 160px); background: #f0f4f8; padding-top: 100px;">
-    <div style="max-width: 1400px; margin: 0 auto; padding: 0 1rem;">
+<div style="min-height: calc(100vh - 160px); background: #f0f4f8; padding-top: 100px; display: flex; flex-direction: column;">
+    <div style="max-width: 1400px; margin: 0 auto; padding: 0 1rem; flex-grow: 1;">
         <div class="dashboard-grid" style="display: grid; grid-template-columns: 280px 1fr; gap: 1.5rem;">
             <!-- Side Panel -->
             <div class="dashboard-sidebar" style="background: white; padding: 2.5rem 1.5rem; border-right: 1px solid #e2e8f0; border-radius: 8px;">
@@ -90,22 +90,9 @@
     color: #dc2626 !important;
 }
 
-/* Add these styles */
-.dashboard-grid {
-    min-height: calc(100vh - 180px); /* Ensures minimum content height */
-}
-
-.dashboard-content {
-    display: flex;
-    flex-direction: column;
-    min-height: 100%;
-}
-
 /* Mobile Responsiveness */
 @media (max-width: 1024px) {
     .dashboard-grid {
-        min-height: calc(100vh - 120px);
-        margin-bottom: 6rem; /* Add space before footer */
         grid-template-columns: 1fr !important;
         gap: 1rem !important;
     }
@@ -143,19 +130,7 @@
 
 @media (max-width: 640px) {
     div[style*="min-height: calc(100vh - 160px)"] {
-        min-height: calc(100vh - 80px) !important; /* Further adjust for mobile */
-    }
-
-    .dashboard-grid {
-        margin-bottom: 8rem; /* Increase footer spacing */
-    }
-
-    .dashboard-content {
-        padding-bottom: 4rem !important; /* Additional bottom padding */
-    }
-
-    .dashboard-sidebar {
-        padding: 1rem !important;
+        padding-top: 80px !important;
     }
 
     .dashboard-content {
