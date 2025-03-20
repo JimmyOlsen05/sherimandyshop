@@ -75,16 +75,16 @@
                     
                     <!-- Price Section -->
                     <div class="price-box mb-4" style="padding: 15px 0; border-bottom: 1px solid #e0e0e0;">
-                        {% if single_product.discount != 0.00 %}
+                        {% if single_product.discount != 0 %}
                         <div class="d-flex align-items-center">
                             <span class="original-price" style="color: #757575; text-decoration: line-through; font-size: 1.4rem;">GH₵ {{ single_product.price|floatformat:2 }}</span>
-                            <span class="discount-price" style="color: #f44336; font-size: 2.2rem; font-weight: 700; margin-left: 15px">GH₵ {{ single_product.discount|floatformat:2 }}</span>
-                            <span class="discount-badge" style="background: #f44336; color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9rem; margin-left: 15px;">
-                                Save {{ single_product.get_discount_percentage|floatformat:0 }}%
-                            </span>
+                            <span class="discount-price" style="color: #f44336; font-size: 2.2rem; font-weight: 700; margin-left: 15px">GH₵ {{ single_product.get_discounted_price|floatformat:2 }}</span>
+                            <span class="discount-badge" style="background: #f44336; color: white; padding: 4px 8px; border-radius: 12px; margin-left: 10px; font-size: 0.9rem;">-{{ single_product.get_discount_percentage }}% OFF</span>
                         </div>
                         {% else %}
-                        <span class="price" style="color: #f44336; font-size: 2.2rem; font-weight: 700;">GH₵ {{ single_product.price|floatformat:2 }}</span>
+                        <div class="d-flex align-items-center">
+                            <span class="regular-price" style="color: #212121; font-size: 2.2rem; font-weight: 700;">GH₵ {{ single_product.price|floatformat:2 }}</span>
+                        </div>
                         {% endif %}
                     </div>
 

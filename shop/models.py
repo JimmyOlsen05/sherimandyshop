@@ -100,9 +100,14 @@ class Product(models.Model):
     
     def get_discounted_price(self):
         if self.discount > 0:
-            return self.price - self.discount
+            return self.price - (self.price * (self.discount / 100))  # Calculate discount as percentage
         return self.price
     
+    def get_discount_percentage(self):
+        if self.discount > 0:
+            return int(self.discount)  # Return discount percentage
+        return 0
+
     class Meta:
         verbose_name_plural = 'Products'
         ordering = ('-date_joined_for_format',)
