@@ -99,7 +99,7 @@ class Product(models.Model):
         return reverse('shop:product_details', args=[self.category.slug, self.slug])
     
     def get_discounted_price(self):
-        """Calculate the final price after applying discount percentage"""
+        """Calculate the discounted price"""
         if self.discount > 0:
             discount_amount = (self.price * self.discount) / 100
             return self.price - discount_amount
