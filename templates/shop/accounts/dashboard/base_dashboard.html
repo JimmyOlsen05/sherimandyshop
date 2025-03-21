@@ -4,9 +4,14 @@
 {% block content %}
 <div style="min-height: calc(100vh - 160px); background: #f0f4f8; padding-top: 100px; display: flex; flex-direction: column;">
     <div style="max-width: 1400px; margin: 0 auto; padding: 0 1rem; flex-grow: 1;">
+        <!-- Mobile Toggle Button -->
+        <button id="sidebarToggle" class="sidebar-toggle" style="display: none; position: fixed; bottom: 20px; right: 20px; z-index: 1000; background: #4f46e5; color: white; border: none; border-radius: 50%; width: 56px; height: 56px; font-size: 24px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); cursor: pointer;">
+            <i class="fas fa-bars"></i>
+        </button>
+
         <div class="dashboard-grid" style="display: grid; grid-template-columns: 280px 1fr; gap: 1.5rem;">
             <!-- Side Panel -->
-            <div class="dashboard-sidebar" style="background: white; padding: 2.5rem 1.5rem; border-right: 1px solid #e2e8f0; border-radius: 8px;">
+            <div id="dashboardSidebar" class="dashboard-sidebar" style="background: white; padding: 2.5rem 1.5rem; border-right: 1px solid #e2e8f0; border-radius: 8px;">
                 <div style="text-align: center; margin-bottom: 2rem;">
                     <div class="avatar-circle">
                         {{ user.first_name|first|upper }}
@@ -98,38 +103,26 @@
     }
     
     .dashboard-sidebar {
-        border-right: none !important;
-        border-bottom: 1px solid #e2e8f0;
-        padding: 1.5rem !important;
+        position: fixed;
+        left: -100%;
+        top: 0;
+        bottom: 0;
+        width: 280px;
+        z-index: 1000;
+        transition: left 0.3s ease;
+        overflow-y: auto;
     }
 
-    .dashboard-content {
-        padding: 1.5rem !important;
-        flex: 1;
+    .dashboard-sidebar.active {
+        left: 0;
     }
 
-    .avatar-circle {
-        width: 100px;
-        height: 100px;
-        font-size: 3rem;
+    .sidebar-toggle {
+        display: block !important;
     }
 
-    h3 {
-        font-size: 2rem !important;
-    }
-
-    p {
-        font-size: 1.5rem !important;
-    }
-
-    .nav-link {
-        font-size: 1.75rem !important;
-        padding: 0.75rem !important;
-    }
-
-    div[style*="min-height: calc(100vh - 160px)"] {
-        min-height: calc(100vh - 120px) !important;
-        padding-bottom: 120px !important;
+    body.sidebar-open {
+        overflow: hidden;
     }
 }
 
@@ -198,4 +191,40 @@ footer {
     }
 }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebar = document.getElementById('dashboardSidebar');
+    const body = document.body;
+
+    sidebarToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('active');
+        body.classList.toggle('sidebar-open');
+        
+        // Update toggle button icon
+        const icon = this.querySelector('i');
+        if (sidebar.classList.contains('active')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+        } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
+    });
+
+    // Close sidebar when clicking outside
+    document.addEventListener('click', function(event) {
+        if (sidebar.classList.contains('active') && 
+            !sidebar.contains(event.target) && 
+            !sidebarToggle.contains(event.target)) {
+            sidebar.classList.remove('active');
+            body.classList.remove('sidebar-open');
+            const icon = sidebarToggle.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
+    });
+});
+</script>
 {% endblock %}
