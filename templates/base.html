@@ -686,75 +686,44 @@
     </main>
 
     <!-- Footer with Interactive Elements -->
-    <footer style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); width: 100%; padding: 3rem 0; margin-top: auto;">
+    <footer style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); width: 100%; padding: 1.5rem 0; margin-top: auto;">
         <div class="container" style="max-width: 1400px; margin: 0 auto; padding: 0 2rem;">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem;">
-                <!-- Connect Section -->
-                <div style="display: flex; flex-direction: column; align-items: center;">
-                    <div style="color: #38BDF8; font-weight: 600; font-size: 1.5rem; margin-bottom: 1.5rem;">Connect with us</div>
-                    <div style="display: flex; gap: 2rem;">
-                        <a href="#" style="color: #38BDF8; font-size: 1.8rem; transition: transform 0.2s;"><i class="fab fa-facebook"></i></a>
-                        <a href="#" style="color: #38BDF8; font-size: 1.8rem; transition: transform 0.2s;"><i class="fab fa-twitter"></i></a>
-                        <a href="#" style="color: #38BDF8; font-size: 1.8rem; transition: transform 0.2s;"><i class="fab fa-instagram"></i></a>
-                        <a href="#" style="color: #38BDF8; font-size: 1.8rem; transition: transform 0.2s;"><i class="fab fa-linkedin"></i></a>
-                    </div>
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem;">
+                <!-- Logo and Copyright -->
+                <div style="display: flex; align-items: center; gap: 1.5rem;">
+                    <img src="{% static 'img/logo.jpg' %}" alt="Logo" style="width: 40px; height: 40px; border-radius: 50%;">
+                    <span style="color: #94A3B8; font-size: 0.9rem;">&copy; {% now "Y" %} Sherimandy Shop. All rights reserved.</span>
                 </div>
 
-                <!-- Contact Section -->
-                <div style="display: flex; flex-direction: column; align-items: center;">
-                    <div style="color: #38BDF8; font-weight: 600; font-size: 1.5rem; margin-bottom: 1.5rem;">Contact Info</div>
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem; color: #94A3B8;">
-                        <div style="font-size: 1.2rem;"><i class="fas fa-envelope" style="margin-right: 0.8rem;"></i>info@sherimandyshop.com</div>
-                        <div style="font-size: 1.2rem;"><i class="fas fa-phone" style="margin-right: 0.8rem;"></i>+234 123 456 7890</div>
-                    </div>
+                <!-- Quick Links -->
+                <div style="display: flex; gap: 2rem; align-items: center;">
+                    <a href="{% url 'shop:home' %}" style="color: #94A3B8; text-decoration: none; font-size: 0.9rem; transition: color 0.2s;">Home</a>
+                    <a href="{% url 'shop:shop' %}" style="color: #94A3B8; text-decoration: none; font-size: 0.9rem; transition: color 0.2s;">Shop</a>
+                    <a href="{% url 'shop:about' %}" style="color: #94A3B8; text-decoration: none; font-size: 0.9rem; transition: color 0.2s;">About</a>
+                    <a href="{% url 'shop:contact' %}" style="color: #94A3B8; text-decoration: none; font-size: 0.9rem; transition: color 0.2s;">Contact</a>
                 </div>
 
-                <!-- Copyright Section -->
-                <div style="display: flex; flex-direction: column; align-items: center;">
-                    <div style="color: #38BDF8; font-weight: 600; font-size: 1.5rem; margin-bottom: 1.5rem;">Copyright</div>
-                    <div style="text-align: center; color: #94A3B8; font-size: 1.2rem; line-height: 1.6;">
-                        &copy; 2024 SHERIMANDY Shop<br>All rights reserved
-                    </div>
-                </div>
-
-                <!-- Developer Section -->
-                <div style="display: flex; flex-direction: column; align-items: center;">
-                    <div style="color: #38BDF8; font-weight: 600; font-size: 1.5rem; margin-bottom: 1.5rem;">Developed by</div>
-                    <div>
-                        <a href="https://lmtsoftware.netlify.app" target="_blank" style="color: #caf568; font-weight: 600; text-decoration: none; font-size: 1.2rem;">LMTsoftware</a>
-                    </div>
+                <!-- Social Links -->
+                <div style="display: flex; gap: 1.5rem;">
+                    <a href="#" style="color: #38BDF8; font-size: 1.2rem; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"><i class="fab fa-facebook"></i></a>
+                    <a href="#" style="color: #38BDF8; font-size: 1.2rem; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"><i class="fab fa-twitter"></i></a>
+                    <a href="#" style="color: #38BDF8; font-size: 1.2rem; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
         </div>
     </footer>
 
     <style>
-    @media (max-width: 1024px) {
-        footer {
-            padding: 2.5rem 0;
+    @media (max-width: 768px) {
+        footer .container > div {
+            justify-content: center;
+            text-align: center;
         }
         
-        footer .container > div {
-            gap: 2rem;
+        footer .container > div > div {
+            width: 100%;
+            justify-content: center;
         }
-    }
-
-    @media (max-width: 640px) {
-        footer {
-            padding: 2rem 0;
-        }
-        
-        footer .container > div {
-            gap: 1.5rem;
-        }
-    }
-
-    footer a[style*="transition"] {
-        display: inline-block;
-    }
-
-    footer a[style*="transition"]:hover {
-        transform: translateY(-3px);
     }
     </style>
 
