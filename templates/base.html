@@ -688,26 +688,34 @@
     <!-- Footer with Interactive Elements -->
     <footer style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); width: 100%; padding: 1.5rem 0; margin-top: auto;">
         <div class="container" style="max-width: 1400px; margin: 0 auto; padding: 0 2rem;">
-            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem;">
-                <!-- Logo and Copyright -->
-                <div style="display: flex; align-items: center; gap: 1.5rem;">
-                    <img src="{% static 'img/logo.jpg' %}" alt="Logo" style="width: 40px; height: 40px; border-radius: 50%;">
-                    <span style="color: #94A3B8; font-size: 0.9rem;">&copy; {% now "Y" %} Sherimandy Shop. All rights reserved.</span>
+            <!-- Top Row -->
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-bottom: 1rem;">
+                <!-- Contact Info -->
+                <div style="display: flex; align-items: center; gap: 1.5rem; color: #94A3B8;">
+                    <i class="fas fa-envelope" style="color: #38BDF8; font-size: 1.2rem;"></i>
+                    <span style="font-size: 0.9rem;">info@sherimandyshop.com</span>
+                    <i class="fas fa-phone" style="color: #38BDF8; font-size: 1.2rem; margin-left: 1rem;"></i>
+                    <span style="font-size: 0.9rem;">+234 123 456 7890</span>
                 </div>
-
-                <!-- Quick Links -->
-                <div style="display: flex; gap: 2rem; align-items: center;">
-                    <a href="{% url 'shop:home' %}" style="color: #94A3B8; text-decoration: none; font-size: 0.9rem; transition: color 0.2s;">Home</a>
-                    <a href="{% url 'shop:shop' %}" style="color: #94A3B8; text-decoration: none; font-size: 0.9rem; transition: color 0.2s;">Shop</a>
-                    <a href="{% url 'shop:about' %}" style="color: #94A3B8; text-decoration: none; font-size: 0.9rem; transition: color 0.2s;">About</a>
-                    <a href="{% url 'shop:contact' %}" style="color: #94A3B8; text-decoration: none; font-size: 0.9rem; transition: color 0.2s;">Contact</a>
-                </div>
-
                 <!-- Social Links -->
-                <div style="display: flex; gap: 1.5rem;">
-                    <a href="#" style="color: #38BDF8; font-size: 1.2rem; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"><i class="fab fa-facebook"></i></a>
-                    <a href="#" style="color: #38BDF8; font-size: 1.2rem; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"><i class="fab fa-twitter"></i></a>
-                    <a href="#" style="color: #38BDF8; font-size: 1.2rem; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"><i class="fab fa-instagram"></i></a>
+                <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+                    <a href="#" style="color: #38BDF8; font-size: 1.2rem; transition: transform 0.2s;"><i class="fab fa-facebook"></i></a>
+                    <a href="#" style="color: #38BDF8; font-size: 1.2rem; transition: transform 0.2s;"><i class="fab fa-twitter"></i></a>
+                    <a href="#" style="color: #38BDF8; font-size: 1.2rem; transition: transform 0.2s;"><i class="fab fa-instagram"></i></a>
+                    <a href="#" style="color: #38BDF8; font-size: 1.2rem; transition: transform 0.2s;"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            
+            <!-- Bottom Row with Border -->
+            <div style="border-top: 1px solid #2d3748; padding-top: 1rem; display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; align-items: center;">
+                <!-- Copyright -->
+                <div style="color: #94A3B8; font-size: 0.9rem;">
+                    &copy; {% now "Y" %} SHERIMANDY Shop. All rights reserved
+                </div>
+                <!-- Developer Credit -->
+                <div style="display: flex; justify-content: flex-end; align-items: center; gap: 0.5rem;">
+                    <span style="color: #94A3B8; font-size: 0.9rem;">Developed by</span>
+                    <a href="https://lmtsoftware.netlify.app" target="_blank" style="color: #caf568; font-weight: 600; text-decoration: none; font-size: 0.9rem;">LMTsoftware</a>
                 </div>
             </div>
         </div>
@@ -716,14 +724,23 @@
     <style>
     @media (max-width: 768px) {
         footer .container > div {
-            justify-content: center;
+            grid-template-columns: 1fr !important;
+            gap: 1rem !important;
             text-align: center;
         }
-        
+
         footer .container > div > div {
-            width: 100%;
-            justify-content: center;
+            justify-content: center !important;
+            flex-wrap: wrap;
         }
+
+        footer .container .fas {
+            margin: 0 0.5rem !important;
+        }
+    }
+
+    footer a[style*="transition"]:hover {
+        transform: scale(1.2);
     }
     </style>
 
