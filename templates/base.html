@@ -686,61 +686,75 @@
     </main>
 
     <!-- Footer with Interactive Elements -->
-    <footer style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); width: 100%; padding: 1.5rem 0; margin-top: auto;">
+    <footer style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); width: 100%; padding: 3rem 0; margin-top: auto;">
         <div class="container" style="max-width: 1400px; margin: 0 auto; padding: 0 2rem;">
-            <!-- Top Row -->
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-bottom: 1rem;">
-                <!-- Contact Info -->
-                <div style="display: flex; align-items: center; gap: 1.5rem; color: #94A3B8;">
-                    <i class="fas fa-envelope" style="color: #38BDF8; font-size: 1.2rem;"></i>
-                    <span style="font-size: 0.9rem;">info@sherimandyshop.com</span>
-                    <i class="fas fa-phone" style="color: #38BDF8; font-size: 1.2rem; margin-left: 1rem;"></i>
-                    <span style="font-size: 0.9rem;">+234 123 456 7890</span>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem;">
+                <!-- Connect Section -->
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                    <div style="color: #38BDF8; font-weight: 600; font-size: 1.5rem; margin-bottom: 1.5rem;">Connect with us</div>
+                    <div style="display: flex; gap: 2rem;">
+                        <a href="#" style="color: #38BDF8; font-size: 1.8rem; transition: transform 0.2s;"><i class="fab fa-facebook"></i></a>
+                        <a href="#" style="color: #38BDF8; font-size: 1.8rem; transition: transform 0.2s;"><i class="fab fa-twitter"></i></a>
+                        <a href="#" style="color: #38BDF8; font-size: 1.8rem; transition: transform 0.2s;"><i class="fab fa-instagram"></i></a>
+                        <a href="#" style="color: #38BDF8; font-size: 1.8rem; transition: transform 0.2s;"><i class="fab fa-linkedin"></i></a>
+                    </div>
                 </div>
-                <!-- Social Links -->
-                <div style="display: flex; justify-content: flex-end; gap: 1rem;">
-                    <a href="#" style="color: #38BDF8; font-size: 1.2rem; transition: transform 0.2s;"><i class="fab fa-facebook"></i></a>
-                    <a href="#" style="color: #38BDF8; font-size: 1.2rem; transition: transform 0.2s;"><i class="fab fa-twitter"></i></a>
-                    <a href="#" style="color: #38BDF8; font-size: 1.2rem; transition: transform 0.2s;"><i class="fab fa-instagram"></i></a>
-                    <a href="#" style="color: #38BDF8; font-size: 1.2rem; transition: transform 0.2s;"><i class="fab fa-linkedin"></i></a>
+
+                <!-- Contact Section -->
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                    <div style="color: #38BDF8; font-weight: 600; font-size: 1.5rem; margin-bottom: 1.5rem;">Contact Info</div>
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem; color: #94A3B8;">
+                        <div style="font-size: 1.2rem;"><i class="fas fa-envelope" style="margin-right: 0.8rem;"></i>info@sherimandyshop.com</div>
+                        <div style="font-size: 1.2rem;"><i class="fas fa-phone" style="margin-right: 0.8rem;"></i>+234 123 456 7890</div>
+                    </div>
                 </div>
-            </div>
-            
-            <!-- Bottom Row with Border -->
-            <div style="border-top: 1px solid #2d3748; padding-top: 1rem; display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; align-items: center;">
-                <!-- Copyright -->
-                <div style="color: #94A3B8; font-size: 0.9rem;">
-                    &copy; {% now "Y" %} SHERIMANDY Shop. All rights reserved
+
+                <!-- Copyright Section -->
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                    <div style="color: #38BDF8; font-weight: 600; font-size: 1.5rem; margin-bottom: 1.5rem;">Copyright</div>
+                    <div style="text-align: center; color: #94A3B8; font-size: 1.2rem; line-height: 1.6;">
+                        &copy; 2024 SHERIMANDY Shop<br>All rights reserved
+                    </div>
                 </div>
-                <!-- Developer Credit -->
-                <div style="display: flex; justify-content: flex-end; align-items: center; gap: 0.5rem;">
-                    <span style="color: #94A3B8; font-size: 0.9rem;">Developed by</span>
-                    <a href="https://lmtsoftware.netlify.app" target="_blank" style="color: #caf568; font-weight: 600; text-decoration: none; font-size: 0.9rem;">LMTsoftware</a>
+
+                <!-- Developer Section -->
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                    <div style="color: #38BDF8; font-weight: 600; font-size: 1.5rem; margin-bottom: 1.5rem;">Developed by</div>
+                    <div>
+                        <a href="https://lmtsoftware.netlify.app" target="_blank" style="color: #caf568; font-weight: 600; text-decoration: none; font-size: 1.2rem;">LMTsoftware</a>
+                    </div>
                 </div>
             </div>
         </div>
     </footer>
 
     <style>
-    @media (max-width: 768px) {
+    @media (max-width: 1024px) {
+        footer {
+            padding: 2.5rem 0;
+        }
+        
         footer .container > div {
-            grid-template-columns: 1fr !important;
-            gap: 1rem !important;
-            text-align: center;
-        }
-
-        footer .container > div > div {
-            justify-content: center !important;
-            flex-wrap: wrap;
-        }
-
-        footer .container .fas {
-            margin: 0 0.5rem !important;
+            gap: 2rem;
         }
     }
 
+    @media (max-width: 640px) {
+        footer {
+            padding: 2rem 0;
+        }
+        
+        footer .container > div {
+            gap: 1.5rem;
+        }
+    }
+
+    footer a[style*="transition"] {
+        display: inline-block;
+    }
+
     footer a[style*="transition"]:hover {
-        transform: scale(1.2);
+        transform: translateY(-3px);
     }
     </style>
 
