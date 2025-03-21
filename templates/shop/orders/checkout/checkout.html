@@ -88,7 +88,7 @@
                                             <br>
                                             <small style="color: #64748b;">
                                                 Original: GH₵ {{cart_item.product.price|floatformat:2}}
-                                                <span style="color: #10b981;">(-GH₵ {{cart_item.product.discount|floatformat:2}} off)</span>
+                                                <span style="color: #10b981;">(-{{cart_item.product.discount|floatformat:0}}% OFF)</span>
                                             </small>
                                             {% endif %}
                                         </td>
