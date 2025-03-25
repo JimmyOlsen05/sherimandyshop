@@ -68,43 +68,45 @@
 <style>
 .edit-profile {
     max-width: 900px;
+    margin: 0 auto;
+    background-color: #1e293b;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 3rem;
 }
 
 .page-header {
-    margin-bottom: 2.5rem;
+    text-align: center;
+    margin-bottom: 3rem;
 }
 
 .page-header h2 {
-    color: #1f2937;
-    font-size: 2rem;
+    color: #ffd700;
+    font-size: 2.5rem;
     margin-bottom: 0.75rem;
     font-weight: 700;
 }
 
 .page-header p {
-    color: #6b7280;
-    font-size: 1.125rem;
+    color: #e2a355;
+    font-size: 1.4rem;
 }
 
 .form-container {
-    background: white;
-    padding: 2.5rem;
-    border-radius: 12px;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .form-grid {
     display: grid;
-    gap: 2rem;
+    gap: 2.5rem;
 }
 
-.form-row {
+.form-row.two-cols {
     display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 2rem;
-}
-
-.two-cols {
-    grid-template-columns: repeat(2, 1fr);
 }
 
 .form-group {
@@ -114,106 +116,55 @@
 }
 
 .form-group label {
-    color: #374151;
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: 1.75rem;
+    color: #ffd700;
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
-    padding: 0.75rem;
-    border: 2px solid #d1d5db;
+    padding: 1rem;
+    font-size: 1.5rem;
+    background-color: #0f172a;
+    border: 2px solid #e2a355;
     border-radius: 8px;
-    font-size: 1rem;
-    transition: all 0.2s;
+    color: white;
 }
 
-.form-group input:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: #4f46e5;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
 }
 
 .form-actions {
-    margin-top: 2.5rem;
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
 }
 
 .form-actions button {
-    width: 100%;
-    background: #4f46e5;
-    color: white;
-    padding: 1rem;
+    font-size: 1.75rem;
+    padding: 1rem 3rem;
+    background-color: #ffd700;
+    color: #1e293b;
     border: none;
     border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s;
+    font-weight: 600;
+    transition: all 0.3s ease;
 }
 
 .form-actions button:hover {
-    background: #4338ca;
+    background-color: #e2a355;
 }
 
-/* Mobile Responsiveness */
 @media (max-width: 768px) {
-    .page-header h2 {
-        font-size: 1.75rem;
-    }
-
-    .page-header p {
-        font-size: 1rem;
-    }
-
-    .form-container {
-        padding: 1.5rem;
-    }
-
-    .form-grid {
-        gap: 1.5rem;
-    }
-
-    .two-cols {
+    .form-row.two-cols {
         grid-template-columns: 1fr;
     }
-
-    .form-row {
-        gap: 1.5rem;
-    }
-
-    .form-group label {
-        font-size: 0.875rem;
-    }
-
-    .form-group input,
-    .form-group textarea {
-        padding: 0.625rem;
-        font-size: 0.875rem;
-    }
-
-    .form-actions button {
-        padding: 0.875rem;
-        font-size: 0.875rem;
-    }
-}
-
-@media (max-width: 640px) {
-    .page-header h2 {
-        font-size: 1.5rem;
-    }
-
-    .form-container {
-        padding: 1rem;
-    }
-
-    .form-grid {
-        gap: 1rem;
-    }
-
-    .form-row {
-        gap: 1rem;
+    
+    .edit-profile {
+        padding: 2rem;
     }
 }
 </style>
