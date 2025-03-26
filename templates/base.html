@@ -688,7 +688,7 @@
     <!-- Footer with Interactive Elements -->
     <footer style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); width: 100%; padding: 3rem 0; margin-top: auto;">
         <div class="container" style="max-width: 1400px; margin: 0 auto; padding: 0 2rem;">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem;">
+            <div class="footer-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem;">
                 <!-- Connect Section -->
                 <div style="display: flex; flex-direction: column; align-items: center;">
                     <div style="color: #38BDF8; font-weight: 600; font-size: 1.5rem; margin-bottom: 1.5rem;">Connect with us</div>
@@ -739,22 +739,34 @@
         }
     }
 
-    @media (max-width: 640px) {
+    @media (max-width: 767px) {
         footer {
             padding: 2rem 0;
         }
         
-        footer .container > div {
-            gap: 1.5rem;
+        .footer-grid {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
+            gap: 2rem 1rem !important;
+        }
+        
+        .footer-grid > div {
+            margin: 0 !important;
+        }
+        
+        .footer-grid > div:nth-child(n+3) {
+            margin-top: 1rem !important;
         }
     }
 
-    footer a[style*="transition"] {
-        display: inline-block;
-    }
-
-    footer a[style*="transition"]:hover {
-        transform: translateY(-3px);
+    @media (max-width: 480px) {
+        .footer-grid {
+            gap: 1.5rem 1rem !important;
+        }
+        
+        footer .container {
+            padding: 0 1rem;
+        }
     }
     </style>
 
