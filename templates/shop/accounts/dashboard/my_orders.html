@@ -9,24 +9,24 @@
     </div>
 
     {% if orders %}
-    <div class="orders-table-wrapper">
-        <table class="orders-table">
+    <div class="table-responsive" style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+        <table class="orders-table" style="min-width: 800px;">
             <thead>
-                <tr>
-                    <th>Order ID</th>
-                    <th>Date</th>
-                    <th class="hide-mobile">Items</th>
-                    <th>Status</th>
-                    <th>Total</th>
-                    <th>Action</th>
+                <tr style="background-color: #f8f9fa;">
+                    <th style="padding: 1rem; white-space: nowrap;">Order ID</th>
+                    <th style="padding: 1rem; white-space: nowrap;">Date</th>
+                    <th style="padding: 1rem; white-space: nowrap;">Items</th>
+                    <th style="padding: 1rem; white-space: nowrap;">Status</th>
+                    <th style="padding: 1rem; white-space: nowrap;">Total</th>
+                    <th style="padding: 1rem; white-space: nowrap;">Action</th>
                 </tr>
             </thead>
             <tbody>
                 {% for order in orders %}
                 <tr>
-                    <td class="order-id">#{{ order.order_number }}</td>
-                    <td>{{ order.created_at|date:"M d, Y" }}</td>
-                    <td class="hide-mobile">
+                    <td style="padding: 1rem; white-space: nowrap;">#{{ order.order_number }}</td>
+                    <td style="padding: 1rem; white-space: nowrap;">{{ order.created_at|date:"M d, Y" }}</td>
+                    <td style="padding: 1rem;">
                         <div class="product-list">
                             {% for item in order.orderproduct_set.all %}
                                 <div class="product-item">
@@ -36,7 +36,7 @@
                             {% endfor %}
                         </div>
                     </td>
-                    <td>
+                    <td style="padding: 1rem; white-space: nowrap;">
                         <span class="status-badge {{ order.status|lower }}">
                             {% if order.status == 'Out_For_Delivery' %}
                                 Out For Delivery
@@ -45,8 +45,8 @@
                             {% endif %}
                         </span>
                     </td>
-                    <td class="total">GH₵{{ order.order_total }}</td>
-                    <td>
+                    <td style="padding: 1rem; white-space: nowrap;">GH₵{{ order.order_total }}</td>
+                    <td style="padding: 1rem; white-space: nowrap;">
                         <a href="{% url 'accounts:order_detail' order.order_number %}" class="view-btn">
                             View
                         </a>
@@ -231,48 +231,89 @@
 
 /* Mobile Responsiveness */
 @media (max-width: 767px) {
-    .orders-wrapper {
-        padding: 1rem;
+    .table-responsive {
+        margin: 0 -1rem;  /* Negative margin to extend to edges */
+        padding: 0 1rem;  /* Add padding back to maintain spacing */
+        position: relative;
     }
-
-    .orders-table-wrapper {
-        overflow-x: auto;
-        width: 100%;
-        margin: 0 -1rem;
-        padding: 0 1rem;
+    
+    .table-responsive::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 30px;
+        background: linear-gradient(to right, transparent, rgba(255,255,255,0.9));
+        pointer-events: none;
+        z-index: 1;
     }
 
     .orders-table {
-        min-width: 800px;
-        width: 100%;
+        margin-bottom: 0;
     }
 
+    .orders-table td, .orders-table th {
+        vertical-align: middle;
+        font-size: 0.9rem;
+    }
+
+    .status-badge {
+        font-size: 0.75rem;
+        padding: 0.35em 0.65em;
+    }
+
+    .view-btn {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 1024px) {
     .orders-table th,
     .orders-table td {
-        white-space: nowrap;
+        padding: 1rem;
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .orders-table th,
+    .orders-table td {
         padding: 0.75rem;
+        font-size: 1.3rem;
     }
 
-    /* Make sure all cells have proper spacing */
-    .orders-table td.order-id,
-    .orders-table td.total {
-        white-space: nowrap;
+    .status-badge {
+        font-size: 1.3rem;
     }
 
-    /* Keep the Items column visible */
-    .hide-mobile {
-        display: table-cell !important;
+    .view-btn {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .orders-table th,
+    .orders-table td {
+        padding: 0.625rem;
+        font-size: 1.2rem;
     }
 
-    /* Add visual indicator for scrolling */
-    .orders-table-wrapper::after {
-        content: '← Scroll to see more →';
-        display: block;
-        text-align: center;
-        padding: 0.5rem;
-        color: #4f46e5;
-        font-size: 0.85rem;
-        margin-top: 0.5rem;
+    .order-id {
+        font-size: 1.2rem;
+    }
+
+    .product-list {
+        font-size: 1.2rem;
+    }
+
+    .status-badge {
+        font-size: 1.2rem;
+    }
+
+    .view-btn {
+        font-size: 1.2rem;
     }
 }
 </style>
