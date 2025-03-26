@@ -4,8 +4,8 @@
 {% block body_class %}dashboard-page{% endblock %}
 
 {% block content %}
-<div style="min-height: calc(100vh - 160px); background: #f0f4f8; padding-top: 100px; display: flex; flex-direction: column;">
-    <div style="max-width: 1400px; margin: 0 auto; padding: 0 1rem; flex-grow: 1;">
+<div class="dashboard-container" style="background: #f0f4f8; padding-top: 100px; display: flex; flex-direction: column; min-height: calc(100vh - 180px); width: 100%;">
+    <div style="max-width: 1400px; margin: 0 auto; padding: 0 1rem; width: 100%; flex: 1;">
         <!-- Mobile Toggle Button -->
         <button id="sidebarToggle" class="sidebar-toggle" style="display: none; position: fixed; bottom: 20px; right: 20px; z-index: 1000; background: #4f46e5; color: white; border: none; border-radius: 50%; width: 56px; height: 56px; font-size: 24px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); cursor: pointer;">
             <i class="fas fa-bars"></i>
@@ -129,7 +129,7 @@
 }
 
 @media (max-width: 768px) {
-    div[style*="min-height: calc(100vh - 160px)"] {
+    div[style*="min-height: calc(100vh - 180px)"] {
         min-height: calc(100vh - 100px) !important;
         padding-bottom: 150px !important;
     }
@@ -140,7 +140,7 @@
 }
 
 @media (max-width: 640px) {
-    div[style*="min-height: calc(100vh - 160px)"] {
+    div[style*="min-height: calc(100vh - 180px)"] {
         padding-top: 80px !important;
         padding-bottom: 180px !important;
         min-height: calc(100vh - 80px) !important;
