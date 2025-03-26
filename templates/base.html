@@ -609,7 +609,7 @@
     </script>
 </head>
 
-<body style="background:#40394a; margin: 0; padding-top: 180px;">
+<body class="{% block body_class %}{% endblock %}" style="background:#40394a; margin: 0; padding-top: 180px;">
     <!-- Toast container for notifications -->
     <div class="toast-container" id="toastContainer"></div>
 
@@ -742,12 +742,21 @@
     @media (max-width: 767px) {
         footer {
             padding: 2rem 0;
+            width: 100vw !important;
+            margin-left: calc(-50vw + 50%);
+            margin-right: calc(-50vw + 50%);
+            position: relative;
+            left: 50%;
+            right: 50%;
         }
         
         .footer-grid {
             display: grid !important;
             grid-template-columns: 1fr 1fr !important;
             gap: 2rem 1rem !important;
+            width: 100%;
+            max-width: 100%;
+            padding: 0 1rem;
         }
         
         .footer-grid > div {
@@ -756,6 +765,14 @@
         
         .footer-grid > div:nth-child(n+3) {
             margin-top: 1rem !important;
+        }
+
+        body.dashboard-page footer {
+            min-width: 100vw;
+            box-sizing: border-box;
+            margin: 0;
+            left: 0;
+            right: 0;
         }
     }
 
@@ -766,6 +783,8 @@
         
         footer .container {
             padding: 0 1rem;
+            width: 100%;
+            max-width: 100%;
         }
     }
     </style>
