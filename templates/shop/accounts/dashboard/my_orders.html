@@ -230,51 +230,49 @@
 }
 
 /* Mobile Responsiveness */
-@media (max-width: 1024px) {
-    .orders-table th,
-    .orders-table td {
+@media (max-width: 767px) {
+    .orders-wrapper {
         padding: 1rem;
-        font-size: 1.4rem;
     }
-}
 
-@media (max-width: 768px) {
+    .orders-table-wrapper {
+        overflow-x: auto;
+        width: 100%;
+        margin: 0 -1rem;
+        padding: 0 1rem;
+    }
+
+    .orders-table {
+        min-width: 800px;
+        width: 100%;
+    }
+
     .orders-table th,
     .orders-table td {
+        white-space: nowrap;
         padding: 0.75rem;
-        font-size: 1.3rem;
     }
 
-    .status-badge {
-        font-size: 1.3rem;
+    /* Make sure all cells have proper spacing */
+    .orders-table td.order-id,
+    .orders-table td.total {
+        white-space: nowrap;
     }
 
-    .view-btn {
-        font-size: 1.3rem;
-    }
-}
-
-@media (max-width: 640px) {
-    .orders-table th,
-    .orders-table td {
-        padding: 0.625rem;
-        font-size: 1.2rem;
+    /* Keep the Items column visible */
+    .hide-mobile {
+        display: table-cell !important;
     }
 
-    .order-id {
-        font-size: 1.2rem;
-    }
-
-    .product-list {
-        font-size: 1.2rem;
-    }
-
-    .status-badge {
-        font-size: 1.2rem;
-    }
-
-    .view-btn {
-        font-size: 1.2rem;
+    /* Add visual indicator for scrolling */
+    .orders-table-wrapper::after {
+        content: '← Scroll to see more →';
+        display: block;
+        text-align: center;
+        padding: 0.5rem;
+        color: #4f46e5;
+        font-size: 0.85rem;
+        margin-top: 0.5rem;
     }
 }
 </style>
