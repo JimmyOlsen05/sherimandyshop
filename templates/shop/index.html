@@ -1390,6 +1390,32 @@ section {
         line-height: 1.4 !important;
     }
 }
+
+.view-collection {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    background: #FFB74D;
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.view-collection:hover {
+    background: #FFA726;
+    transform: translateY(-2px);
+}
+
+.view-collection i {
+    transition: transform 0.3s ease;
+}
+
+.view-collection:hover i {
+    transform: translateX(5px);
+}
 </style>
 
 <!-- Hero Section -->
@@ -1487,7 +1513,9 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                             <h3>Head Protection</h3>
                             <p>Professional-grade helmets and shields</p>
-                            <a href="#" class="explore-btn">View Collection <i class="fas fa-arrow-right"></i></a>
+                            <a href="{% url 'shop:shop' %}?category=head-protection" class="view-collection">
+                                View Collection <i class="fas fa-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -1503,7 +1531,9 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                             <h3>Respiratory Protection</h3>
                             <p>Advanced breathing safety equipment</p>
-                            <a href="#" class="explore-btn">View Collection <i class="fas fa-arrow-right"></i></a>
+                            <a href="{% url 'shop:shop' %}?category=respiratory-protection" class="view-collection">
+                                View Collection <i class="fas fa-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -1519,7 +1549,9 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                             <h3>Hand Protection</h3>
                             <p>Industrial-grade protective gloves</p>
-                            <a href="#" class="explore-btn">View Collection <i class="fas fa-arrow-right"></i></a>
+                            <a href="{% url 'shop:shop' %}?category=hand-protection" class="view-collection">
+                                View Collection <i class="fas fa-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -1535,7 +1567,9 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                             <h3>Eye Protection</h3>
                             <p>Safety goggles and protective eyewear</p>
-                            <a href="#" class="explore-btn">View Collection <i class="fas fa-arrow-right"></i></a>
+                            <a href="{% url 'shop:shop' %}?category=eye-protection" class="view-collection">
+                                View Collection <i class="fas fa-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -1551,7 +1585,9 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                             <h3>Foot Protection</h3>
                             <p>Safety boots and protective footwear</p>
-                            <a href="#" class="explore-btn">View Collection <i class="fas fa-arrow-right"></i></a>
+                            <a href="{% url 'shop:shop' %}?category=foot-protection" class="view-collection">
+                                View Collection <i class="fas fa-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -1567,7 +1603,9 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                             <h3>Fall Protection</h3>
                             <p>Safety harnesses and fall arrest systems</p>
-                            <a href="#" class="explore-btn">View Collection <i class="fas fa-arrow-right"></i></a>
+                            <a href="{% url 'shop:shop' %}?category=fall-protection" class="view-collection">
+                                View Collection <i class="fas fa-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
