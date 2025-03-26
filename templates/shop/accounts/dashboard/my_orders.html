@@ -66,128 +66,114 @@
 </div>
 
 <style>
+.orders-wrapper {
+    background: white;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.section-header {
+    margin-bottom: 2rem;
+}
+
+.section-header h2 {
+    color: #1E293B;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.orders-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+}
+
+.orders-table {
+    width: 100%;
+    min-width: 800px;
+    border-collapse: collapse;
+}
+
+.orders-table th {
+    background: #F1F5F9;
+    color: #475569;
+    font-weight: 600;
+    text-align: left;
+    padding: 1rem;
+    white-space: nowrap;
+}
+
+.orders-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #E2E8F0;
+    color: #475569;
+    white-space: nowrap;
+}
+
+.orders-table tr:hover {
+    background: #F8FAFC;
+}
+
+.view-btn {
+    background: #6366F1;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: background 0.2s;
+}
+
+.view-btn:hover {
+    background: #4F46E5;
+}
+
+@media (max-width: 767px) {
     .orders-wrapper {
-        background: white;
-        border-radius: 8px;
-        padding: 2rem;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        width: 100%;
-        max-width: 100%;
-        overflow: hidden;
+        padding: 1rem;
+        margin: -1rem;
+        border-radius: 0;
     }
 
     .orders-table-wrapper {
-        width: 100%;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
+        margin: 0 -1rem;
+        padding: 0 1rem;
         position: relative;
     }
 
-    .orders-table {
-        width: 100%;
-        min-width: 800px;
-        border-collapse: collapse;
-        table-layout: fixed;
-    }
-
-    /* Column widths */
-    .orders-table th:nth-child(1) { width: 120px; } /* Order ID */
-    .orders-table th:nth-child(2) { width: 100px; } /* Date */
-    .orders-table th:nth-child(3) { width: 200px; } /* Items */
-    .orders-table th:nth-child(4) { width: 100px; } /* Status */
-    .orders-table th:nth-child(5) { width: 100px; } /* Total */
-    .orders-table th:nth-child(6) { width: 100px; } /* Action */
-
-    .orders-table th {
-        background: #F1F5F9;
-        color: #475569;
-        font-weight: 600;
-        padding: 1rem;
-        text-align: left;
-        white-space: nowrap;
-    }
-
-    .orders-table td {
-        padding: 1rem;
-        border-bottom: 1px solid #E2E8F0;
-        color: #475569;
-        white-space: nowrap;
-    }
-
-    .orders-table tr:hover {
-        background: #F8FAFC;
-    }
-
-    .view-btn {
-        background: #6366F1;
-        color: white;
-        padding: 0.5rem 1rem;
-        border-radius: 6px;
-        text-decoration: none;
+    .orders-table-wrapper::after {
+        content: '← Scroll →';
+        position: absolute;
+        bottom: -25px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #64748B;
         font-size: 0.875rem;
-        transition: background 0.2s;
-        display: inline-block;
         white-space: nowrap;
+        opacity: 0.8;
     }
 
-    .view-btn:hover {
-        background: #4F46E5;
-    }
-
-    .section-header {
+    .orders-table {
         margin-bottom: 2rem;
     }
 
-    .section-header h2 {
-        color: #1E293B;
-        font-size: 1.5rem;
-        font-weight: 600;
+    .orders-table th,
+    .orders-table td {
+        padding: 0.75rem;
+        font-size: 0.875rem;
     }
 
-    @media (max-width: 767px) {
-        .orders-wrapper {
-            padding: 1rem;
-            margin: 0;
-            border-radius: 0;
-        }
-
-        .orders-table-wrapper {
-            margin: 0 -1rem;
-            padding: 0;
-            width: calc(100% + 2rem);
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .orders-table {
-            margin: 0;
-            padding: 0 1rem;
-        }
-
-        .orders-table th,
-        .orders-table td {
-            padding: 0.75rem;
-            font-size: 0.875rem;
-        }
-
-        .orders-table-wrapper::after {
-            content: '← Scroll →';
-            position: absolute;
-            bottom: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #64748B;
-            font-size: 0.875rem;
-            white-space: nowrap;
-            opacity: 0.8;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .view-btn {
-            padding: 0.375rem 0.75rem;
-            font-size: 0.75rem;
-        }
+    .view-btn {
+        padding: 0.375rem 0.75rem;
+        font-size: 0.75rem;
     }
+
+    /* Remove the hide-mobile class to show all columns */
+    .hide-mobile {
+        display: table-cell !important;
+    }
+}
 </style>
 {% endblock %}
