@@ -686,11 +686,11 @@
     </main>
 
     <!-- Footer with Interactive Elements -->
-    <footer style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); width: 100%; padding: 3rem 0; margin-top: auto; position: relative;">
-        <div class="container" style="max-width: 1400px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: center;">
-            <div class="footer-grid" style="display: flex; flex-direction: column; align-items: center; gap: 2.5rem; width: 100%; box-sizing: border-box;">
+    <footer style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); width: 100%; padding: 3rem 0; margin-top: auto;">
+        <div class="container" style="max-width: 1400px; margin: 0 auto; padding: 0 2rem;">
+            <div class="footer-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem;">
                 <!-- Connect Section -->
-                <div style="display: flex; flex-direction: column; align-items: center;">
+                <div class="footer-item" style="display: flex; flex-direction: column; align-items: center;">
                     <div style="color: #38BDF8; font-weight: 600; font-size: 1.5rem; margin-bottom: 1.5rem;">Connect with us</div>
                     <div style="display: flex; gap: 2rem;">
                         <a href="#" style="color: #38BDF8; font-size: 1.8rem; transition: transform 0.2s;"><i class="fab fa-facebook"></i></a>
@@ -701,7 +701,7 @@
                 </div>
 
                 <!-- Contact Section -->
-                <div style="display: flex; flex-direction: column; align-items: center;">
+                <div class="footer-item" style="display: flex; flex-direction: column; align-items: center;">
                     <div style="color: #38BDF8; font-weight: 600; font-size: 1.5rem; margin-bottom: 1.5rem;">Contact Info</div>
                     <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem; color: #94A3B8;">
                         <div style="font-size: 1.2rem;"><i class="fas fa-envelope" style="margin-right: 0.8rem;"></i>info@sherimandyshop.com</div>
@@ -710,7 +710,7 @@
                 </div>
 
                 <!-- Copyright Section -->
-                <div style="display: flex; flex-direction: column; align-items: center;">
+                <div class="footer-item" style="display: flex; flex-direction: column; align-items: center;">
                     <div style="color: #38BDF8; font-weight: 600; font-size: 1.5rem; margin-bottom: 1.5rem;">Copyright</div>
                     <div style="text-align: center; color: #94A3B8; font-size: 1.2rem; line-height: 1.6;">
                         &copy; 2024 SHERIMANDY Shop<br>All rights reserved
@@ -718,7 +718,7 @@
                 </div>
 
                 <!-- Developer Section -->
-                <div style="display: flex; flex-direction: column; align-items: center;">
+                <div class="footer-item" style="display: flex; flex-direction: column; align-items: center;">
                     <div style="color: #38BDF8; font-weight: 600; font-size: 1.5rem; margin-bottom: 1.5rem;">Developed by</div>
                     <div>
                         <a href="https://lmtsoftware.netlify.app" target="_blank" style="color: #caf568; font-weight: 600; text-decoration: none; font-size: 1.2rem;">LMTsoftware</a>
@@ -733,44 +733,40 @@
         footer {
             padding: 2rem 0;
             width: 100%;
-            left: 0;
-            right: 0;
-            position: relative;
         }
-
+        
         footer .container {
             width: 100%;
-            max-width: none;
-            padding: 0;
+            padding: 0 1rem;
         }
         
         .footer-grid {
-            display: flex !important;
-            flex-direction: column !important;
-            gap: 2rem 1rem !important;
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
+            grid-template-areas: 
+                "connect contact"
+                "copyright developer" !important;
+            gap: 2.5rem 1.5rem !important;
             width: 100%;
-            padding: 0 1rem;
-            box-sizing: border-box;
         }
         
-        .footer-grid > div {
-            margin: 0 !important;
+        .footer-grid .footer-item:nth-child(1) { grid-area: connect; }
+        .footer-grid .footer-item:nth-child(2) { grid-area: contact; }
+        .footer-grid .footer-item:nth-child(3) { grid-area: copyright; }
+        .footer-grid .footer-item:nth-child(4) { grid-area: developer; }
+        
+        .footer-item {
             display: flex !important;
             flex-direction: column !important;
             align-items: center !important;
-            width: 100% !important;
-        }
-
-        .footer-grid > div > div {
-            display: flex !important;
-            justify-content: center !important;
-            width: 100% !important;
+            text-align: center !important;
+            margin: 0 !important;
         }
     }
 
     @media (max-width: 480px) {
         .footer-grid {
-            gap: 1.5rem 1rem !important;
+            gap: 2rem 1rem !important;
         }
     }
     </style>
