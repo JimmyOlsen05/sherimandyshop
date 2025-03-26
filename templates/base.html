@@ -687,7 +687,7 @@
 
     <!-- Footer with Interactive Elements -->
     <footer style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); width: 100%; padding: 3rem 0; margin-top: auto;">
-        <div class="container footer-container" style="max-width: 1400px; margin: 0 auto; padding: 0 2rem;">
+        <div class="container" style="max-width: 1400px; margin: 0 auto; padding: 0 2rem;">
             <div class="footer-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem;">
                 <!-- Connect Section -->
                 <div style="display: flex; flex-direction: column; align-items: center;">
@@ -729,21 +729,25 @@
     </footer>
 
     <style>
+    @media (max-width: 1024px) {
+        footer {
+            padding: 2.5rem 0;
+        }
+        
+        footer .container > div {
+            gap: 2rem;
+        }
+    }
+
     @media (max-width: 767px) {
         footer {
             padding: 2rem 0;
-            width: 100%;
-            margin: 0;
-            left: 0;
-            right: 0;
-            background: #0F172A;
-        }
-        
-        .footer-container {
-            padding: 0 !important;
-            margin: 0 !important;
-            width: 100% !important;
-            max-width: none !important;
+            width: 100vw !important;
+            margin-left: calc(-50vw + 50%);
+            margin-right: calc(-50vw + 50%);
+            position: relative;
+            left: 50%;
+            right: 50%;
         }
         
         .footer-grid {
@@ -751,17 +755,85 @@
             grid-template-columns: 1fr 1fr !important;
             gap: 2rem 1rem !important;
             width: 100%;
-            margin: 0;
-            padding: 1rem;
+            max-width: 100%;
+            padding: 0 1rem;
         }
         
         .footer-grid > div {
             margin: 0 !important;
-            padding: 0 1rem;
         }
         
         .footer-grid > div:nth-child(n+3) {
             margin-top: 1rem !important;
+        }
+
+        body.dashboard-page footer {
+            min-width: 100vw;
+            box-sizing: border-box;
+            margin: 0;
+            left: 0;
+            right: 0;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .footer-grid {
+            gap: 1.5rem 1rem !important;
+        }
+        
+        footer .container {
+            padding: 0 1rem;
+            width: 100%;
+            max-width: 100%;
+        }
+    }
+    </style>
+
+    <style>
+    @media (max-width: 767px) {
+        .dashboard-wrapper {
+            margin-left: calc(-50vw + 50%);
+            margin-right: calc(-50vw + 50%);
+            width: 100vw;
+            overflow-x: hidden;
+        }
+
+        .dashboard-container {
+            width: 100%;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        footer {
+            padding: 2rem 0;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            margin-right: calc(-50vw + 50%);
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+        }
+
+        .dashboard-page footer {
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            margin-right: calc(-50vw + 50%);
+        }
+        
+        footer .container {
+            width: 100%;
+            max-width: 100%;
+            padding: 0 1rem;
+            margin: 0;
+        }
+        
+        .footer-grid {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
+            gap: 2rem 1rem !important;
+            width: 100%;
+        }
+        
+        .footer-grid > div {
+            margin: 0 !important;
         }
     }
 
