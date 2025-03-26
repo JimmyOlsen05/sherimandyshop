@@ -192,6 +192,46 @@ footer {
         min-height: 250px !important;
     }
 }
+
+@media (max-width: 767px) {
+    .dashboard-wrapper {
+        margin-left: calc(-50vw + 50%);
+        margin-right: calc(-50vw + 50%);
+        width: 100vw;
+        overflow-x: hidden;
+    }
+
+    .dashboard-container {
+        width: 100%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .dashboard-page footer {
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        margin-right: calc(-50vw + 50%);
+    }
+
+    .dashboard-page .footer-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        grid-template-areas: 
+            "connect contact"
+            "copyright developer" !important;
+        gap: 2.5rem 1.5rem !important;
+        width: 100%;
+        padding: 0 1rem;
+    }
+    
+    .dashboard-page .footer-item {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        margin: 0 !important;
+    }
+}
 </style>
 
 <script>

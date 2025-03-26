@@ -762,6 +762,12 @@
             text-align: center !important;
             margin: 0 !important;
         }
+
+        /* Reset any dashboard-specific styles when not in dashboard */
+        body:not(.dashboard-page) footer {
+            width: 100%;
+            margin: 0;
+        }
     }
 
     @media (max-width: 480px) {
