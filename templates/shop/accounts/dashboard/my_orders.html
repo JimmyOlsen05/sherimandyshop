@@ -9,52 +9,41 @@
     </div>
 
     {% if orders %}
-    <div class="table-responsive" style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
-        <table class="orders-table" style="min-width: 800px;">
-            <thead>
-                <tr style="background-color: #f8f9fa;">
-                    <th style="padding: 1rem; white-space: nowrap;">Order ID</th>
-                    <th style="padding: 1rem; white-space: nowrap;">Date</th>
-                    <th style="padding: 1rem; white-space: nowrap;">Items</th>
-                    <th style="padding: 1rem; white-space: nowrap;">Status</th>
-                    <th style="padding: 1rem; white-space: nowrap;">Total</th>
-                    <th style="padding: 1rem; white-space: nowrap;">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for order in orders %}
-                <tr>
-                    <td style="padding: 1rem; white-space: nowrap;">#{{ order.order_number }}</td>
-                    <td style="padding: 1rem; white-space: nowrap;">{{ order.created_at|date:"M d, Y" }}</td>
-                    <td style="padding: 1rem;">
-                        <div class="product-list">
+    <div class="orders-container">
+        <div class="table-responsive" style="width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; position: relative;">
+            <table class="orders-table" style="width: 100%; min-width: 800px; border-collapse: collapse;">
+                <thead>
+                    <tr style="background-color: #f8f9fa;">
+                        <th style="padding: 1rem; white-space: nowrap; min-width: 120px;">Order ID</th>
+                        <th style="padding: 1rem; white-space: nowrap; min-width: 100px;">Date</th>
+                        <th style="padding: 1rem; white-space: nowrap; min-width: 150px;">Items</th>
+                        <th style="padding: 1rem; white-space: nowrap; min-width: 100px;">Status</th>
+                        <th style="padding: 1rem; white-space: nowrap; min-width: 100px;">Total</th>
+                        <th style="padding: 1rem; white-space: nowrap; min-width: 80px;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td style="padding: 1rem; white-space: nowrap;">#{{ order.order_number }}</td>
+                        <td style="padding: 1rem; white-space: nowrap;">{{ order.created_at|date:"M d, Y" }}</td>
+                        <td style="padding: 1rem; min-width: 150px;">
                             {% for item in order.orderproduct_set.all %}
-                                <div class="product-item">
-                                    {{ item.product.name }}
-                                    {% if not forloop.last %}<span class="product-separator">, </span>{% endif %}
-                                </div>
+                                {{ item.product.product_name }}{% if not forloop.last %}, {% endif %}
                             {% endfor %}
-                        </div>
-                    </td>
-                    <td style="padding: 1rem; white-space: nowrap;">
-                        <span class="status-badge {{ order.status|lower }}">
-                            {% if order.status == 'Out_For_Delivery' %}
-                                Out For Delivery
-                            {% else %}
-                                {{ order.status }}
-                            {% endif %}
-                        </span>
-                    </td>
-                    <td style="padding: 1rem; white-space: nowrap;">GH₵{{ order.order_total }}</td>
-                    <td style="padding: 1rem; white-space: nowrap;">
-                        <a href="{% url 'accounts:order_detail' order.order_number %}" class="view-btn">
-                            View
-                        </a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                        </td>
+                        <td style="padding: 1rem; white-space: nowrap;">
+                            <span class="status-badge {{ order.status|lower }}">{{ order.status }}</span>
+                        </td>
+                        <td style="padding: 1rem; white-space: nowrap;">GH₵{{ order.order_total }}</td>
+                        <td style="padding: 1rem; white-space: nowrap;">
+                            <a href="{% url 'accounts:order_detail' order.order_number %}" class="view-btn">View</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
     {% else %}
     <div class="no-orders">
@@ -83,116 +72,45 @@
     color: #1f2937;
 }
 
-.orders-table-wrapper {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    margin: 0 -1.5rem;
-    padding: 0 1.5rem;
+.orders-container {
+    width: 100%;
+    margin: 0 -1rem;
+    padding: 0 1rem;
+}
+
+.table-responsive {
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 .orders-table {
+    background: #fff;
     width: 100%;
-    border-collapse: collapse;
-    white-space: nowrap;
-    
 }
 
 .orders-table th {
-    background: #f8fafc;
-    padding: 1.25rem;
-    text-align: left;
-    font-size: 1.5rem;
+    background: #f8f9fa;
     font-weight: 600;
-    color: #1f2937;
-    border-bottom: 1px solid #e5e7eb;
-}
-
-.orders-table td {
-    padding: 1.25rem;
-    font-size: 1.5rem;
-    color: #374151;
-    border-bottom: 1px solid #e5e7eb;
-    vertical-align: middle;
-}
-
-.order-id {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #111827;
-}
-
-.product-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.25rem;
-    max-width: 300px;
-    font-size: 1.5rem;
-}
-
-.product-item {
-    color: #4b5563;
-}
-
-.product-separator {
-    color: #9ca3af;
+    color: #1e293b;
 }
 
 .status-badge {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    border-radius: 9999px;
-    font-size: 1.4rem;
+    padding: 0.35em 0.65em;
+    border-radius: 4px;
+    font-size: 0.85rem;
     font-weight: 500;
-    white-space: nowrap;
-}
-
-.status-badge.new {
-    background: #eef2ff;
-    color: #4f46e5;
-}
-
-.status-badge.processing {
-    background: #fffbeb;
-    color: #d97706;
-}
-
-.status-badge.out_for_delivery {
-    background: #f0fdf4;
-    color: #059669;
-}
-
-.status-badge.delivered {
-    background: #ecfdf5;
-    color: #059669;
-}
-
-.status-badge.cancelled {
-    background: #fef2f2;
-    color: #dc2626;
-}
-
-.total {
-    font-weight: 600;
-    color: #111827;
-    white-space: nowrap;
 }
 
 .view-btn {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.75rem 1.5rem;
-    background: #4f46e5;
-    color: white;
-    border-radius: 0.375rem;
+    display: inline-block;
+    padding: 0.35rem 1rem;
+    background: #3b82f6;
+    color: #fff;
+    border-radius: 4px;
     text-decoration: none;
-    font-size: 1.4rem;
-    font-weight: 500;
-    transition: background-color 0.2s;
-}
-
-.view-btn:hover {
-    background: #4338ca;
+    font-size: 0.85rem;
+    transition: background 0.2s;
 }
 
 .no-orders {
@@ -229,11 +147,13 @@
     background: #4338ca;
 }
 
-/* Mobile Responsiveness */
 @media (max-width: 767px) {
+    .orders-container {
+        overflow: hidden;
+    }
+
     .table-responsive {
-        margin: 0 -1rem;  /* Negative margin to extend to edges */
-        padding: 0 1rem;  /* Add padding back to maintain spacing */
+        margin: 0;
         position: relative;
     }
     
@@ -243,29 +163,33 @@
         right: 0;
         top: 0;
         bottom: 0;
-        width: 30px;
+        width: 40px;
         background: linear-gradient(to right, transparent, rgba(255,255,255,0.9));
         pointer-events: none;
         z-index: 1;
     }
 
     .orders-table {
-        margin-bottom: 0;
+        margin: 0;
     }
 
-    .orders-table td, .orders-table th {
-        vertical-align: middle;
+    .orders-table td, 
+    .orders-table th {
         font-size: 0.9rem;
     }
 
-    .status-badge {
-        font-size: 0.75rem;
-        padding: 0.35em 0.65em;
+    /* Hide scrollbar but keep functionality */
+    .table-responsive::-webkit-scrollbar {
+        height: 4px;
     }
 
-    .view-btn {
-        padding: 0.25rem 0.5rem;
-        font-size: 0.75rem;
+    .table-responsive::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    .table-responsive::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 4px;
     }
 }
 
