@@ -1448,7 +1448,7 @@ section {
                 </div>
                 <div class="hero-buttons">
                     <a href="{% url 'shop:shop' %}" class="btn btn-shop">Shop Now</a>
-                    <a href="#featured-products" class="btn btn-outline">Featured Products</a>
+                    <a href="#featured" class="btn btn-featured">Featured Products</a>
                 </div>
                 <div class="hero-trust">
                     <div class="trust-item">
@@ -1667,7 +1667,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <!-- Featured Products Section -->
-<section id="featured-products" class="featured-products">
+<section class="featured-products">
     <div class="container">
         <div class="section-header">
             <h2 class="section-title">Featured Safety Equipment</h2>
@@ -1790,29 +1790,6 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     </div>
 </section>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Get all links that point to #featured-products
-    const featuredLinks = document.querySelectorAll('a[href="#featured-products"]');
-    
-    featuredLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const featuredSection = document.getElementById('featured-products');
-            const headerOffset = 100; // Adjust this value based on your header height
-            const elementPosition = featuredSection.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-            
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-            });
-        });
-    });
-});
-</script>
 {% endblock content %}
 
 {% block extra_js %}
