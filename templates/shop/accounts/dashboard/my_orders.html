@@ -277,5 +277,88 @@
         font-size: 1.2rem;
     }
 }
+
+@media (max-width: 767px) {
+    .orders-wrapper {
+        padding: 1rem;
+    }
+
+    .orders-table-wrapper {
+        margin: 0 -1rem;
+        padding: 0;
+        position: relative;
+    }
+
+    .orders-table {
+        min-width: 650px;
+        margin-bottom: 1rem;
+    }
+
+    .orders-table th,
+    .orders-table td {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+    }
+
+    /* Show horizontal scroll indicator */
+    .orders-table-wrapper::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(to right, 
+            rgba(79, 70, 229, 0.2) 0%,
+            rgba(79, 70, 229, 0.4) 50%,
+            rgba(79, 70, 229, 0.2) 100%);
+        border-radius: 2px;
+        opacity: 0.8;
+        pointer-events: none;
+    }
+
+    /* Custom scrollbar styling */
+    .orders-table-wrapper::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    .orders-table-wrapper::-webkit-scrollbar-track {
+        background: rgba(79, 70, 229, 0.1);
+        border-radius: 2px;
+    }
+
+    .orders-table-wrapper::-webkit-scrollbar-thumb {
+        background: rgba(79, 70, 229, 0.4);
+        border-radius: 2px;
+    }
+
+    /* Show swipe hint on first load */
+    .orders-table-wrapper::before {
+        content: '← Swipe to view more →';
+        position: absolute;
+        top: -2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #4f46e5;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 1rem;
+        font-size: 0.8rem;
+        opacity: 0.9;
+        white-space: nowrap;
+        animation: fadeOut 3s forwards;
+        pointer-events: none;
+    }
+
+    @keyframes fadeOut {
+        0%, 50% { opacity: 0.9; }
+        100% { opacity: 0; }
+    }
+
+    /* Hide the Items column on mobile but keep it scrollable */
+    .hide-mobile {
+        display: table-cell !important;
+    }
+}
 </style>
 {% endblock %}
