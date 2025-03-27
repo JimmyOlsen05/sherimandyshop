@@ -144,9 +144,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'luiskamensah@gmail.com'  # Removed www. prefix
-EMAIL_HOST_PASSWORD = 'dweh hxsn btsp bhbi'  # Your Gmail app password
-DEFAULT_FROM_EMAIL = 'SHERIMANDY SHOP <luiskamensah@gmail.com>'
+EMAIL_HOST_USER = 'www.luiskamensah@gmail.com'
+EMAIL_HOST_PASSWORD = 'asot mpiy zymj ipgc'  
+DEFAULT_FROM_EMAIL = 'SHERIMANDY SHOP <www.luiskamensah@gmail.com>'
 
 # Email verification settings
 ACCOUNT_EMAIL_REQUIRED = True
