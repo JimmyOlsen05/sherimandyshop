@@ -65,19 +65,24 @@ class Account(AbstractBaseUser):
     objects = AccountManger()
     
     def send_verification_email(self, request):
-        current_site = get_current_site(request)
-        mail_subject = 'Activate your account'
-        message = render_to_string('accounts/account_verification_email.html', {
-            'user': self,
-            'domain': current_site.domain,
-            'uid': urlsafe_base64_encode(force_bytes(self.pk)),
-            'token': default_token_generator.make_token(self),
-            'protocol': 'https' if request.is_secure() else 'http'
-        })
-        to_email = self.email
-        email = EmailMessage(mail_subject, message, from_email=settings.DEFAULT_FROM_EMAIL, to=[to_email])
-        email.content_subtype = "html"
-        email.send()
+        try:
+            current_site = get_current_site(request)
+            mail_subject = 'Activate your account'
+            message = render_to_string('accounts/account_verification_email.html', {
+                'user': self,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(self.pk)),
+                'token': default_token_generator.make_token(self),
+                'protocol': 'https' if request.is_secure() else 'http'
+            })
+            to_email = self.email
+            email = EmailMessage(mail_subject, message, from_email=settings.DEFAULT_FROM_EMAIL, to=[to_email])
+            email.content_subtype = "html"
+            email.send(fail_silently=False)
+            return True
+        except Exception as e:
+            print(f"Failed to send verification email: {str(e)}")
+            raise e
 
     def __str__(self):
         return self.email

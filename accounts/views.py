@@ -52,10 +52,16 @@ def register(request):
                 user.phone_number = phone_number
                 user.save()
                 
-                # Send verification email
-                user.send_verification_email(request)
+                try:
+                    # Send verification email
+                    user.send_verification_email(request)
+                    messages.success(request, 'Registration successful! Please check your email to activate your account.')
+                except Exception as e:
+                    # If email fails, still create account but inform user
+                    user.is_active = True  # Activate account directly if email fails
+                    user.save()
+                    messages.warning(request, 'Account created but we could not send the verification email. Please contact support if you need to verify your email.')
                 
-                messages.success(request, 'Registration successful! Please check your email to activate your account.')
                 return redirect('accounts:login')
             except Exception as e:
                 messages.error(request, f'Error creating account: {str(e)}')
