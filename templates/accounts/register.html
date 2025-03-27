@@ -1,0 +1,256 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - SHERIMANDY SHOP</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0f172a;
+            --accent-color: #1e293b;
+            --gold-color: #ffd700;
+            --gold-hover: #e2a355;
+            --background-color: #f8fafc;
+            --text-color: #1f2937;
+        }
+
+        body {
+            background-color: var(--background-color);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 2rem 0;
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .card-body {
+            padding: 2.5rem;
+        }
+
+        .brand-name {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        h3 {
+            color: var(--text-color);
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-control {
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            border: 1px solid #e5e7eb;
+            margin-bottom: 1rem;
+        }
+
+        .form-control:focus {
+            border-color: var(--gold-color);
+            box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
+        }
+
+        .btn-primary {
+            background-color: var(--gold-color);
+            border: none;
+            color: var(--primary-color);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--gold-hover);
+        }
+
+        .password-requirements {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .password-requirements.visible {
+            display: block;
+        }
+
+        .requirement {
+            margin-bottom: 0.25rem;
+        }
+
+        .requirement i {
+            margin-right: 0.5rem;
+        }
+
+        .requirement.valid {
+            color: var(--success-color);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #6b7280;
+        }
+
+        .login-link a {
+            color: var(--gold-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-link a:hover {
+            color: var(--gold-hover);
+        }
+
+        .error-message {
+            color: #dc2626;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="brand-name">SHERIMANDY SHOP</div>
+                        <h3>Create Account</h3>
+                        
+                        {% if messages %}
+                            {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">
+                                {{ message }}
+                            </div>
+                            {% endfor %}
+                        {% endif %}
+
+                        <form action="{% url 'accounts:register' %}" method="POST">
+                            {% csrf_token %}
+                            
+                            <div class="mb-3">
+                                {{ forms.first_name }}
+                                {% if forms.first_name.errors %}
+                                    <div class="error-message">{{ forms.first_name.errors|join:", " }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ forms.last_name }}
+                                {% if forms.last_name.errors %}
+                                    <div class="error-message">{{ forms.last_name.errors|join:", " }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ forms.phone_number }}
+                                {% if forms.phone_number.errors %}
+                                    <div class="error-message">{{ forms.phone_number.errors|join:", " }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ forms.email }}
+                                {% if forms.email.errors %}
+                                    <div class="error-message">{{ forms.email.errors|join:", " }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ forms.password }}
+                                {% if forms.password.errors %}
+                                    <div class="error-message">{{ forms.password.errors|join:", " }}</div>
+                                {% endif %}
+                                <div class="password-requirements" id="passwordRequirements">
+                                    <div class="requirement" data-requirement="length">
+                                        <i class="fas fa-circle"></i> At least 8 characters
+                                    </div>
+                                    <div class="requirement" data-requirement="uppercase">
+                                        <i class="fas fa-circle"></i> At least one uppercase letter
+                                    </div>
+                                    <div class="requirement" data-requirement="lowercase">
+                                        <i class="fas fa-circle"></i> At least one lowercase letter
+                                    </div>
+                                    <div class="requirement" data-requirement="number">
+                                        <i class="fas fa-circle"></i> At least one number
+                                    </div>
+                                    <div class="requirement" data-requirement="special">
+                                        <i class="fas fa-circle"></i> At least one special character
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                {{ forms.repeat_password }}
+                                {% if forms.repeat_password.errors %}
+                                    <div class="error-message">{{ forms.repeat_password.errors|join:", " }}</div>
+                                {% endif %}
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Create Account</button>
+                        </form>
+
+                        <div class="login-link">
+                            Already have an account? <a href="{% url 'accounts:login' %}">Login</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const password = document.getElementById('id_password');
+            const passwordRequirements = document.getElementById('passwordRequirements');
+            const requirements = {
+                length: /.{8,}/,
+                uppercase: /[A-Z]/,
+                lowercase: /[a-z]/,
+                number: /[0-9]/,
+                special: /[!@#$%^&*(),.?":{}|<>]/
+            };
+
+            function validatePassword() {
+                const value = password.value;
+                for (const [requirement, regex] of Object.entries(requirements)) {
+                    const element = passwordRequirements.querySelector(`[data-requirement="${requirement}"]`);
+                    if (regex.test(value)) {
+                        element.classList.add('valid');
+                        element.querySelector('i').className = 'fas fa-check-circle';
+                    } else {
+                        element.classList.remove('valid');
+                        element.querySelector('i').className = 'fas fa-circle';
+                    }
+                }
+            }
+
+            password.addEventListener('focus', function() {
+                passwordRequirements.classList.add('visible');
+            });
+
+            password.addEventListener('blur', function() {
+                passwordRequirements.classList.remove('visible');
+            });
+
+            password.addEventListener('input', validatePassword);
+        });
+    </script>
+</body>
+</html>

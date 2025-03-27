@@ -62,10 +62,11 @@ def register(request):
                 return redirect('register')
     else:
         form = RegisterationFrom()
+    
     context = {
-        'form': form,
+        'forms': form,
     }
-    return render(request, 'shop/accounts/register.html', context)
+    return render(request, 'accounts/register.html', context)
 
 def activate(request, uidb64, token):
     try:
