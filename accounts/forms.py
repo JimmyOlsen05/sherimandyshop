@@ -39,6 +39,11 @@ class RegisterationFrom(forms.ModelForm):
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
+        # Remove any trailing ">" characters
+        email = email.rstrip('>')
+        # Remove "www." prefix if present
+        if email.startswith('www.'):
+            email = email[4:]
         if Account.objects.filter(email=email).exists():
             raise forms.ValidationError("An account with this email already exists.")
         return email
@@ -79,6 +84,11 @@ class UserForm(forms.ModelForm):
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
+        # Remove any trailing ">" characters
+        email = email.rstrip('>')
+        # Remove "www." prefix if present
+        if email.startswith('www.'):
+            email = email[4:]
         if Account.objects.filter(email=email).exclude(id=self.instance.id).exists():
             raise forms.ValidationError("An account with this email already exists.")
         return email
