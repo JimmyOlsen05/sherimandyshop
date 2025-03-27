@@ -140,20 +140,13 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'
 
 # Email Configuration
-if DEBUG:
-    # Use console backend for development
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-else:
-    # Use SMTP for production
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_HOST = 'smtp.gmail.com'
-    EMAIL_PORT = 587
-    EMAIL_USE_TLS = True
-    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'www.luiskamensah@gmail.com')
-    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')  # Set this in production
-    DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER', 'www.luiskamensah@gmail.com')
-    EMAIL_USE_SSL = False
-    EMAIL_TIMEOUT = 60
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'www.luiskamensah@gmail.com'  # Replace with your Gmail address
+EMAIL_HOST_PASSWORD = 'dweh hxsn btsp bhbi'  # Replace with your Gmail app password
+DEFAULT_FROM_EMAIL = 'www.luiskamensah@gmail.com>'
 
 # Email verification settings
 ACCOUNT_EMAIL_REQUIRED = True

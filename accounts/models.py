@@ -7,6 +7,7 @@ from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
+from django.contrib.sites.shortcuts import get_current_site
 
 class AccountManger(BaseUserManager):
     def create_user(self, first_name, last_name, username, email, password=None):
@@ -78,23 +79,33 @@ class Account(AbstractBaseUser):
         return True
 
     def send_verification_email(self, request):
-        current_site = request.get_host()
-        mail_subject = 'Activate Your Account'
-        uid = urlsafe_base64_encode(force_bytes(self.pk))
-        token = default_token_generator.make_token(self)
-        
-        message = render_to_string('shop/accounts/account_verification_email.html', {
-            'user': self,
-            'domain': current_site,
-            'uid': uid,
-            'token': token,
-            'protocol': 'https' if request.is_secure() else 'http'
-        })
-        
-        to_email = self.email
-        email = EmailMessage(mail_subject, message, from_email=settings.DEFAULT_FROM_EMAIL, to=[to_email])
-        email.content_subtype = 'html'
-        email.send()
+        try:
+            current_site = get_current_site(request)
+            mail_subject = 'Activate Your SHERIMANDY SHOP Account'
+            uid = urlsafe_base64_encode(force_bytes(self.pk))
+            token = default_token_generator.make_token(self)
+            
+            message = render_to_string('shop/accounts/account_verification_email.html', {
+                'user': self,
+                'domain': current_site.domain,
+                'uid': uid,
+                'token': token,
+                'protocol': 'https' if request.is_secure() else 'http'
+            })
+            
+            email = EmailMessage(
+                mail_subject,
+                message,
+                settings.DEFAULT_FROM_EMAIL,
+                [self.email],
+            )
+            email.content_subtype = 'html'
+            email.send(fail_silently=False)
+            
+        except Exception as e:
+            # Log the error for debugging
+            print(f"Email sending failed: {str(e)}")
+            raise e
 
 class UserProfile(models.Model):
     user = models.OneToOneField(Account, on_delete=models.CASCADE)
