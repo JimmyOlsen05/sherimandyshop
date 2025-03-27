@@ -99,13 +99,12 @@ class Account(AbstractBaseUser):
                 settings.DEFAULT_FROM_EMAIL,
                 [self.email],
             )
-            email.content_subtype = 'html'
+            email.content_subtype = "html"  # Set content type to HTML
             email.send(fail_silently=False)
-            
+            return True
         except Exception as e:
-            # Log the error for debugging
-            print(f"Email sending failed: {str(e)}")
-            raise e
+            print(f"Failed to send verification email: {str(e)}")  # Log the error
+            return False
 
 class UserProfile(models.Model):
     user = models.OneToOneField(Account, on_delete=models.CASCADE)

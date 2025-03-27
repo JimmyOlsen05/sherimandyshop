@@ -58,9 +58,10 @@ def register(request):
                 profile.save()
 
                 # Send verification email
-                user.send_verification_email(request)
-
-                messages.success(request, 'Registration successful! Please check your email to activate your account.')
+                if user.send_verification_email(request):
+                    messages.success(request, 'Registration successful! Please check your email to activate your account.')
+                else:
+                    messages.warning(request, 'Registration successful but we could not send the verification email. Please contact support.')
                 return redirect(f"{reverse('accounts:register')}?command=verification")
                 
             except Exception as e:
