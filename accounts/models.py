@@ -72,6 +72,7 @@ class Account(AbstractBaseUser):
             'domain': current_site.domain,
             'uid': urlsafe_base64_encode(force_bytes(self.pk)),
             'token': default_token_generator.make_token(self),
+            'protocol': 'https' if request.is_secure() else 'http'
         })
         to_email = self.email
         email = EmailMessage(mail_subject, message, from_email=settings.DEFAULT_FROM_EMAIL, to=[to_email])
