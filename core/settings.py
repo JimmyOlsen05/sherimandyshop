@@ -146,7 +146,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'recyclips21@gmail.com'  # Replace with your Gmail address
 EMAIL_HOST_PASSWORD = 'dweh hxsn btsp bhbi'  # Replace with your Gmail app password
-DEFAULT_FROM_EMAIL = 'recyclips21@gmail.com>'
+DEFAULT_FROM_EMAIL = 'recyclips21@gmail.com'
 
 # Email verification settings
 ACCOUNT_EMAIL_REQUIRED = True
