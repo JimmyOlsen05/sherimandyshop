@@ -56,10 +56,10 @@ def register(request):
                 user.send_verification_email(request)
                 
                 messages.success(request, 'Registration successful! Please check your email to activate your account.')
-                return redirect('/accounts/login/?command=verification&email='+email)
+                return redirect('accounts:login')
             except Exception as e:
                 messages.error(request, f'Error creating account: {str(e)}')
-                return redirect('register')
+                return redirect('accounts:register')
     else:
         form = RegisterationFrom()
     
