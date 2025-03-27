@@ -50,61 +50,42 @@ class Account(AbstractBaseUser):
     username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(max_length=100, unique=True)
     phone_number = models.CharField(max_length=50)
-
-    # Required fields
+    
+    # required fields
+    date_joined = models.DateTimeField(auto_now_add=True)
+    last_login = models.DateTimeField(auto_now_add=True)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=False)  # Default to False for email verification
+    is_active = models.BooleanField(default=False)
     is_superadmin = models.BooleanField(default=False)
     
-    # Important: These fields are required by Django's authentication system
-    date_joined = models.DateTimeField(default=timezone.now)
-    last_login = models.DateTimeField(default=timezone.now)
-
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
-
+    
     objects = AccountManger()
+    
+    def send_verification_email(self, request):
+        current_site = get_current_site(request)
+        mail_subject = 'Activate your account'
+        message = render_to_string('accounts/account_verification_email.html', {
+            'user': self,
+            'domain': current_site.domain,
+            'uid': urlsafe_base64_encode(force_bytes(self.pk)),
+            'token': default_token_generator.make_token(self),
+        })
+        to_email = self.email
+        email = EmailMessage(mail_subject, message, from_email=settings.DEFAULT_FROM_EMAIL, to=[to_email])
+        email.content_subtype = "html"
+        email.send()
 
     def __str__(self):
         return self.email
-    
-    def full_name(self):
-        return f'{self.first_name} {self.last_name}'
 
     def has_perm(self, perm, obj=None):
         return self.is_admin
 
     def has_module_perms(self, add_label):
         return True
-
-    def send_verification_email(self, request):
-        try:
-            current_site = get_current_site(request)
-            mail_subject = 'Activate Your SHERIMANDY SHOP Account'
-            uid = urlsafe_base64_encode(force_bytes(self.pk))
-            token = default_token_generator.make_token(self)
-            
-            message = render_to_string('shop/accounts/account_verification_email.html', {
-                'user': self,
-                'domain': current_site.domain,
-                'uid': uid,
-                'token': token,
-                'protocol': 'https' if request.is_secure() else 'http'
-            })
-            
-            email = EmailMessage(
-                mail_subject,
-                message,
-                settings.DEFAULT_FROM_EMAIL,
-                [self.email],
-            )
-            email.content_subtype = "html"  # Set content type to HTML
-            email.send(fail_silently=False)
-            return True
-        except Exception as e:
-            print(f"Failed to send verification email: {str(e)}")  # Log the error
-            return False
 
 class UserProfile(models.Model):
     user = models.OneToOneField(Account, on_delete=models.CASCADE)

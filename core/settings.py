@@ -141,12 +141,16 @@ X_FRAME_OPTIONS = 'DENY'
 
 # Email Configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'in-v3.mailjet.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'www.luiskamensah@gmail.com'
-EMAIL_HOST_PASSWORD = 'asot mpiy zymj ipgc'  
+EMAIL_HOST_USER = '59e2aac14c6c7efa97e19e81fc68778f'
+EMAIL_HOST_PASSWORD = '22f4a4925948602dc639e930cf49ad10'
 DEFAULT_FROM_EMAIL = 'SHERIMANDY SHOP <www.luiskamensah@gmail.com>'
+
+# Emailjet specific settings
+EMAILJET_API_KEY = '59e2aac14c6c7efa97e19e81fc68778f'
+EMAILJET_SECRET_KEY = '22f4a4925948602dc639e930cf49ad10'
 
 # Email verification settings
 ACCOUNT_EMAIL_REQUIRED = True

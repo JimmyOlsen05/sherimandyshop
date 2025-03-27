@@ -51,29 +51,19 @@ def register(request):
                 )
                 user.phone_number = phone_number
                 user.save()
-
-                # Create a user profile
-                profile = UserProfile()
-                profile.user_id = user.id
-                profile.save()
-
-                # Send verification email
-                if user.send_verification_email(request):
-                    messages.success(request, 'Registration successful! Please check your email to activate your account.')
-                else:
-                    messages.warning(request, 'Registration successful but we could not send the verification email. Please contact support.')
-                return redirect(f"{reverse('accounts:register')}?command=verification")
                 
+                # Send verification email
+                user.send_verification_email(request)
+                
+                messages.success(request, 'Registration successful! Please check your email to activate your account.')
+                return redirect('/accounts/login/?command=verification&email='+email)
             except Exception as e:
-                messages.error(request, f'Failed to create account: {str(e)}')
-                return redirect('accounts:register')
-        else:
-            messages.error(request, 'Please correct the errors below.')
+                messages.error(request, f'Error creating account: {str(e)}')
+                return redirect('register')
     else:
         form = RegisterationFrom()
-
     context = {
-        'forms': form,
+        'form': form,
     }
     return render(request, 'shop/accounts/register.html', context)
 
@@ -87,11 +77,11 @@ def activate(request, uidb64, token):
     if user is not None and default_token_generator.check_token(user, token):
         user.is_active = True
         user.save()
-        messages.success(request, 'Your account has been activated successfully! You can now login.')
-        return redirect('accounts:login')
+        messages.success(request, 'Congratulations! Your account is activated.')
+        return redirect('login')
     else:
         messages.error(request, 'Invalid activation link')
-        return redirect('accounts:register')
+        return redirect('register')
 
 @ensure_csrf_cookie
 def login(request):
