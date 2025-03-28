@@ -142,16 +142,16 @@ X_FRAME_OPTIONS = 'DENY'
 # Email Configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'in-v3.mailjet.com'
-EMAIL_PORT = 2525  # Alternative port for better compatibility
+EMAIL_PORT = 587  # Changed to standard TLS port
 EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
-EMAIL_HOST_USER = '59e2aac14c6c7efa97e19e81fc68778f'  # Emailjet API Key
-EMAIL_HOST_PASSWORD = '22f4a4925948602dc639e930cf49ad10'  # Emailjet Secret Key
-DEFAULT_FROM_EMAIL = 'SHERIMANDY SHOP <www.luiskamensah@gmail.com>'
+EMAIL_USE_SSL = False  # Keep this False when using TLS
+EMAIL_HOST_USER = '59e2aac14c6c7efa97e19e81fc68778f'  # Mailjet API Key
+EMAIL_HOST_PASSWORD = '22f4a4925948602dc639e930cf49ad10'  # Mailjet Secret Key
+DEFAULT_FROM_EMAIL = 'SHERIMANDY SHOP <noreply@sherimandyshop.com>'  # Changed to more professional sender
 
 # Additional Email Settings for Production
-EMAIL_TIMEOUT = 30  # Timeout in seconds
-SERVER_EMAIL = 'www.luiskamensah@gmail.com'
+EMAIL_TIMEOUT = 10  # Reduced timeout for faster failure detection
+SERVER_EMAIL = 'noreply@sherimandyshop.com'
 
 # Emailjet specific settings
 EMAILJET_API_KEY = '59e2aac14c6c7efa97e19e81fc68778f'
