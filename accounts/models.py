@@ -6,8 +6,9 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
-from django.core.mail import EmailMessage
 from django.contrib.sites.shortcuts import get_current_site
+from mailjet_rest import Client
+import json
 
 class AccountManger(BaseUserManager):
     def create_user(self, first_name, last_name, username, email, password=None):
@@ -75,26 +76,49 @@ class Account(AbstractBaseUser):
                 'token': default_token_generator.make_token(self),
                 'protocol': 'https' if request.is_secure() else 'http'
             }
-            message = render_to_string('accounts/account_verification_email.html', context)
+            html_message = render_to_string('accounts/account_verification_email.html', context)
             
             # Print debug information
             print(f"Attempting to send verification email:")
             print(f"To: {self.email}")
             print(f"From: {settings.DEFAULT_FROM_EMAIL}")
             print(f"Subject: {mail_subject}")
-            print(f"SMTP Settings: {settings.EMAIL_HOST}:{settings.EMAIL_PORT}")
-            print(f"Using TLS: {settings.EMAIL_USE_TLS}")
             
-            email = EmailMessage(
-                subject=mail_subject,
-                body=message,
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                to=[self.email],
-            )
-            email.content_subtype = "html"
-            email.send(fail_silently=False)
-            print("Email sent successfully!")
-            return True
+            # Initialize Mailjet client
+            mailjet = Client(auth=(settings.EMAILJET_API_KEY, settings.EMAILJET_SECRET_KEY), version='v3.1')
+            
+            # Prepare email data
+            data = {
+                'Messages': [
+                    {
+                        "From": {
+                            "Email": "noreply@sherimandyshop.com",
+                            "Name": "SHERIMANDY SHOP"
+                        },
+                        "To": [
+                            {
+                                "Email": self.email,
+                                "Name": f"{self.first_name} {self.last_name}"
+                            }
+                        ],
+                        "Subject": mail_subject,
+                        "HTMLPart": html_message
+                    }
+                ]
+            }
+            
+            # Send email using Mailjet API
+            result = mailjet.send.create(data=data)
+            
+            if result.status_code == 200:
+                print("Email sent successfully!")
+                print(f"Mailjet Response: {json.dumps(result.json(), indent=2)}")
+                return True
+            else:
+                print(f"Failed to send email. Status code: {result.status_code}")
+                print(f"Mailjet Error: {json.dumps(result.json(), indent=2)}")
+                raise Exception(f"Mailjet API error: {result.json()}")
+                
         except Exception as e:
             print(f"Failed to send verification email:")
             print(f"Error type: {type(e).__name__}")
