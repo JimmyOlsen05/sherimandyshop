@@ -12,6 +12,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 
 from .forms import RegisterationFrom, UserForm, UserProfileForm
 from .models import Account, UserProfile
@@ -255,27 +256,56 @@ def forget_password(request):
             })
             
             try:
-                import smtplib
-                from email.mime.text import MIMEText
-                from email.mime.multipart import MIMEMultipart
-                from django.conf import settings
+                # Print debug information
+                print("="*50)
+                print("Password Reset Email Debug Information:")
+                print(f"To: {user.email}")
+                print(f"From: {settings.DEFAULT_FROM_EMAIL}")
+                print(f"Subject: {mail_subject}")
+                print(f"SMTP Host: {settings.EMAIL_HOST}")
+                print(f"SMTP Port: {settings.EMAIL_PORT}")
+                print(f"Using TLS: {settings.EMAIL_USE_TLS}")
+                print(f"Domain: {current_site.domain}")
+                print("="*50)
 
-                msg = MIMEMultipart('alternative')
-                msg['Subject'] = mail_subject
-                msg['From'] = settings.EMAIL_HOST_USER
-                msg['To'] = user.email
-
-                html_part = MIMEText(message, 'html')
-                msg.attach(html_part)
-
-                with smtplib.SMTP_SSL(settings.EMAIL_HOST, settings.EMAIL_PORT) as server:
-                    server.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD)
-                    server.send_message(msg)
+                email = EmailMessage(
+                    subject=mail_subject,
+                    body=message,
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    to=[user.email],
+                )
+                email.content_subtype = "html"
+                
+                # Try to establish SMTP connection first
+                from smtplib import SMTP
+                try:
+                    with SMTP(settings.EMAIL_HOST, settings.EMAIL_PORT) as server:
+                        server.ehlo()
+                        if settings.EMAIL_USE_TLS:
+                            server.starttls()
+                        server.ehlo()
+                        server.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD)
+                        print("SMTP connection test successful!")
+                except Exception as smtp_error:
+                    print(f"SMTP Connection Test Failed:")
+                    print(f"Error: {str(smtp_error)}")
+                    raise
+                
+                # If SMTP test passed, send the actual email
+                email.send(fail_silently=False)
+                print("Password reset email sent successfully!")
 
                 messages.success(request, 'Password reset link sent to your email.')
                 return redirect('accounts:login')
             except Exception as e:
-                messages.error(request, f'Failed to send password reset email. Please try again later.')
+                print("="*50)
+                print("Password Reset Email Failed:")
+                print(f"Error Type: {type(e).__name__}")
+                print(f"Error Message: {str(e)}")
+                import traceback
+                print(f"Full Traceback:\n{traceback.format_exc()}")
+                print("="*50)
+                messages.error(request, 'Failed to send password reset email. Please try again later.')
                 return redirect('accounts:forget_password')
         except Account.DoesNotExist:
             messages.error(request, 'No account found with this email.')
