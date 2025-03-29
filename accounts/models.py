@@ -78,10 +78,12 @@ class Account(AbstractBaseUser):
             message = render_to_string('accounts/account_verification_email.html', context)
             
             # Print debug information
-            print(f"Sending email to: {self.email}")
-            print(f"From email: {settings.DEFAULT_FROM_EMAIL}")
+            print(f"Attempting to send verification email:")
+            print(f"To: {self.email}")
+            print(f"From: {settings.DEFAULT_FROM_EMAIL}")
+            print(f"Subject: {mail_subject}")
             print(f"SMTP Settings: {settings.EMAIL_HOST}:{settings.EMAIL_PORT}")
-            print(f"Using SSL: {settings.EMAIL_USE_SSL}, Using TLS: {settings.EMAIL_USE_TLS}")
+            print(f"Using TLS: {settings.EMAIL_USE_TLS}")
             
             email = EmailMessage(
                 subject=mail_subject,
@@ -91,12 +93,14 @@ class Account(AbstractBaseUser):
             )
             email.content_subtype = "html"
             email.send(fail_silently=False)
+            print("Email sent successfully!")
             return True
         except Exception as e:
-            print(f"Failed to send verification email: {str(e)}")
+            print(f"Failed to send verification email:")
             print(f"Error type: {type(e).__name__}")
+            print(f"Error message: {str(e)}")
             import traceback
-            print(f"Traceback: {traceback.format_exc()}")
+            print(f"Traceback:\n{traceback.format_exc()}")
             raise e
 
     def __str__(self):

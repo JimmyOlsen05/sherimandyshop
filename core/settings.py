@@ -141,21 +141,14 @@ X_FRAME_OPTIONS = 'DENY'
 
 # Email Configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'in-v3.mailjet.com'
-EMAIL_PORT = 2525  # Alternative port for better compatibility
+EMAIL_HOST = 'smtp.gmail.com'  # Using Gmail SMTP which is more reliable
+EMAIL_PORT = 587  # Standard TLS port
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-EMAIL_HOST_USER = '59e2aac14c6c7efa97e19e81fc68778f'  # Emailjet API Key
-EMAIL_HOST_PASSWORD = '22f4a4925948602dc639e930cf49ad10'  # Emailjet Secret Key
-DEFAULT_FROM_EMAIL = 'SHERIMANDY SHOP <www.luiskamensah@gmail.com>'
-
-# Additional Email Settings for Production
-EMAIL_TIMEOUT = 30  # Timeout in seconds
-SERVER_EMAIL = 'www.luiskamensah@gmail.com'
-
-# Emailjet specific settings
-EMAILJET_API_KEY = '59e2aac14c6c7efa97e19e81fc68778f'
-EMAILJET_SECRET_KEY = '22f4a4925948602dc639e930cf49ad10'
+EMAIL_HOST_USER = 'lmtsoftwares.com'  # Your Gmail address
+EMAIL_HOST_PASSWORD = "lotl fpyj rgqa pkzh"  # Gmail App Password (more secure than account password)
+DEFAULT_FROM_EMAIL = 'SHERIMANDY SHOP <lmtsoftwares@gmail.com>'
+SERVER_EMAIL = 'lmtsoftwares@gmail.com'
 
 # Email verification settings
 ACCOUNT_EMAIL_REQUIRED = True
