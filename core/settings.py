@@ -145,8 +145,8 @@ EMAIL_HOST = 'smtp.gmail.com'  # Using Gmail SMTP which is more reliable
 EMAIL_PORT = 587  # Standard TLS port
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-EMAIL_HOST_USER = 'lmtsoftwares.com'  # Your Gmail address
-EMAIL_HOST_PASSWORD = "lotl fpyj rgqa pkzh"  # Gmail App Password (more secure than account password)
+EMAIL_HOST_USER = 'lmtsoftwares@gmail.com'  # Your Gmail address (fixed)
+EMAIL_HOST_PASSWORD = "lotl fpyj rgqa pkzh"  # Gmail App Password
 DEFAULT_FROM_EMAIL = 'SHERIMANDY SHOP <lmtsoftwares@gmail.com>'
 SERVER_EMAIL = 'lmtsoftwares@gmail.com'
 

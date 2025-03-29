@@ -78,12 +78,17 @@ class Account(AbstractBaseUser):
             message = render_to_string('accounts/account_verification_email.html', context)
             
             # Print debug information
-            print(f"Attempting to send verification email:")
+            print("="*50)
+            print("Email Sending Debug Information:")
             print(f"To: {self.email}")
             print(f"From: {settings.DEFAULT_FROM_EMAIL}")
             print(f"Subject: {mail_subject}")
-            print(f"SMTP Settings: {settings.EMAIL_HOST}:{settings.EMAIL_PORT}")
+            print(f"SMTP Host: {settings.EMAIL_HOST}")
+            print(f"SMTP Port: {settings.EMAIL_PORT}")
+            print(f"SMTP User: {settings.EMAIL_HOST_USER}")
             print(f"Using TLS: {settings.EMAIL_USE_TLS}")
+            print(f"Domain: {current_site.domain}")
+            print("="*50)
             
             email = EmailMessage(
                 subject=mail_subject,
@@ -92,15 +97,35 @@ class Account(AbstractBaseUser):
                 to=[self.email],
             )
             email.content_subtype = "html"
+            
+            # Try to establish SMTP connection first
+            from smtplib import SMTP
+            try:
+                with SMTP(settings.EMAIL_HOST, settings.EMAIL_PORT) as server:
+                    server.ehlo()
+                    if settings.EMAIL_USE_TLS:
+                        server.starttls()
+                    server.ehlo()
+                    server.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD)
+                    print("SMTP connection test successful!")
+            except Exception as smtp_error:
+                print(f"SMTP Connection Test Failed:")
+                print(f"Error: {str(smtp_error)}")
+                raise
+            
+            # If SMTP test passed, send the actual email
             email.send(fail_silently=False)
             print("Email sent successfully!")
             return True
+            
         except Exception as e:
-            print(f"Failed to send verification email:")
-            print(f"Error type: {type(e).__name__}")
-            print(f"Error message: {str(e)}")
+            print("="*50)
+            print("Email Sending Failed:")
+            print(f"Error Type: {type(e).__name__}")
+            print(f"Error Message: {str(e)}")
             import traceback
-            print(f"Traceback:\n{traceback.format_exc()}")
+            print(f"Full Traceback:\n{traceback.format_exc()}")
+            print("="*50)
             raise e
 
     def __str__(self):
