@@ -85,10 +85,10 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
         messages.success(request, 'Congratulations! Your account is activated.')
-        return redirect('login')
+        return redirect('accounts:login')
     else:
         messages.error(request, 'Invalid activation link')
-        return redirect('register')
+        return redirect('accounts:register')
 
 @ensure_csrf_cookie
 def login(request):
